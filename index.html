@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LOOK PHONE NFC — V1</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#111827;--muted:#6b7280;--accent:#111827;--ok:#0f9d58;--line:#e5e7eb}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:#111827;color:#fff;padding:22px 18px;position:sticky;top:0;z-index:2}
+header h1{margin:0;font-size:22px}header p{margin:5px 0 0;color:#cbd5e1;font-size:13px}
+main{max-width:1050px;margin:auto;padding:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 4px 16px #00000008}
+.stat{font-size:28px;font-weight:800;margin-top:7px}.label{color:var(--muted);font-size:13px}
+h2{margin:28px 0 12px;font-size:18px}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+input,select,button,textarea{font:inherit;border-radius:10px;border:1px solid var(--line);padding:11px}
+input,select,textarea{background:#fff;width:100%}
+button{cursor:pointer;background:var(--accent);color:#fff;border:0;font-weight:700}.secondary{background:#eef0f3;color:#111827}.danger{background:#b42318}
+.form{display:grid;gap:10px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:650px){.formgrid{grid-template-columns:1fr}}
+.nfc-list{display:grid;gap:10px}.nfc-item{border:1px solid var(--line);border-radius:12px;padding:13px;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#eefbf3;color:#087443;font-size:12px;font-weight:700}
+small{color:var(--muted)}a{color:#2563eb;word-break:break-all}
+hr{border:0;border-top:1px solid var(--line);margin:20px 0}
+.notice{padding:12px;border-radius:12px;background:#fff8e6;border:1px solid #f4d58b;color:#765b16;font-size:13px}
+</style>
+</head>
+<body>
+<header><h1>LOOK PHONE NFC</h1><p>Plataforma V1 — perfiles NFC + WhatsApp + fidelización</p></header>
+<main>
+<section class="grid">
+<div class="card"><div class="label">Perfiles NFC</div><div class="stat" id="statProfiles">0</div></div>
+<div class="card"><div class="label">Clientes registrados</div><div class="stat" id="statClients">0</div></div>
+<div class="card"><div class="label">Visitas</div><div class="stat" id="statVisits">0</div></div>
+<div class="card"><div class="label">Puntos acumulados</div><div class="stat" id="statPoints">0</div></div>
+</section>
+
+<h2>1. Crear perfil NFC</h2>
+<div class="card">
+<div class="form">
+<div class="formgrid">
+<div><label>Nombre del comercio</label><input id="business" placeholder="Ej.: Bar El Encuentro"></div>
+<div><label>Nombre del perfil</label><input id="profileName" placeholder="Ej.: Fidelización"></div>
+</div>
+<div class="formgrid">
+<div><label>WhatsApp (con código de país)</label><input id="phone" placeholder="5493430000000"></div>
+<div><label>Mensaje de WhatsApp</label><input id="waMsg" value="Hola, quiero consultar las promociones."></div>
+</div>
+<div class="formgrid">
+<div><label>Instagram (opcional)</label><input id="instagram" placeholder="https://instagram.com/tucomercio"></div>
+<div><label>Premio al llegar a puntos</label><input id="reward" value="10 puntos = 10% de descuento"></div>
+</div>
+<button onclick="createProfile()">Crear perfil NFC</button>
+</div>
+</div>
+
+<h2>2. Perfiles creados</h2>
+<div class="card"><div id="profiles" class="nfc-list"></div></div>
+
+<h2>3. Simular experiencia del cliente</h2>
+<div class="card">
+<div class="form">
+<select id="clientProfile"></select>
+<div class="formgrid">
+<div><label>Nombre del cliente</label><input id="clientName" placeholder="Juan"></div>
+<div><label>Teléfono (opcional)</label><input id="clientPhone" placeholder="549..."></div>
+</div>
+<button onclick="registerVisit()">📲 Simular toque NFC + sumar 1 visita</button>
+<div id="clientResult"></div>
+</div>
+</div>
+
+<hr>
+<div class="notice">
+<strong>Cómo funciona la V1:</strong> el NFC puede guardar una URL del perfil. Al tocarlo, el cliente entra a esa página y desde allí puede abrir WhatsApp, Instagram y su tarjeta de fidelización. Esta demo guarda los datos localmente en este navegador.
+</div>
+</main>
+
+<script>
+const KEY="lookphone_nfc_v1";
+let db=JSON.parse(localStorage.getItem(KEY)||'{"profiles":[],"clients":[]}');
+
+function save(){localStorage.setItem(KEY,JSON.stringify(db));render()}
+function id(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function waUrl(phone,msg){return phone?"https://wa.me/"+phone.replace(/\D/g,"")+"?text="+encodeURIComponent(msg):""}
+function publicUrl(p){return location.href.split("?")[0]+"?nfc="+encodeURIComponent(p.id)}
+
+function createProfile(){
+ const business=document.getElementById("business").value.trim();
+ const name=document.getElementById("profileName").value.trim();
+ const phone=document.getElementById("phone").value.trim();
+ if(!business||!name){alert("Completá comercio y nombre del perfil.");return}
+ db.profiles.push({id:id(),business,name,phone,waMsg:document.getElementById("waMsg").value,instagram:document.getElementById("instagram").value,reward:document.getElementById("reward").value,visits:0});
+ save();
+ ["business","profileName","phone","instagram"].forEach(x=>document.getElementById(x).value="");
+}
+function render(){
+ document.getElementById("statProfiles").textContent=db.profiles.length;
+ document.getElementById("statClients").textContent=db.clients.length;
+ document.getElementById("statVisits").textContent=db.clients.reduce((s,c)=>s+c.visits,0);
+ document.getElementById("statPoints").textContent=db.clients.reduce((s,c)=>s+c.points,0);
+ const box=document.getElementById("profiles");
+ box.innerHTML=db.profiles.length?db.profiles.map(p=>{
+   const url=publicUrl(p);
+   return `<div class="nfc-item"><div><strong>${esc(p.business)}</strong> — ${esc(p.name)} <span class="badge">ACTIVO</span><br><small>${url}</small></div>
+   <div class="row"><button class="secondary" onclick="copyUrl('${url}')">Copiar URL</button><button onclick="openProfile('${p.id}')">Ver</button></div></div>`
+ }).join(""):"Todavía no hay perfiles.";
+ const sel=document.getElementById("clientProfile");
+ sel.innerHTML=db.profiles.map(p=>`<option value="${p.id}">${esc(p.business)} — ${esc(p.name)}</option>`).join("");
+}
+function registerVisit(){
+ const pid=document.getElementById("clientProfile").value, name=document.getElementById("clientName").value.trim()||"Cliente";
+ if(!pid){alert("Creá primero un perfil.");return}
+ let c=db.clients.find(x=>x.pid===pid&&x.name.toLowerCase()===name.toLowerCase());
+ if(!c){c={id:id(),pid,name,phone:document.getElementById("clientPhone").value.trim(),visits:0,points:0};db.clients.push(c)}
+ c.visits++;c.points++;
+ const p=db.profiles.find(x=>x.id===pid);p.visits++;
+ save();
+ const goal=10, left=Math.max(0,goal-c.points);
+ document.getElementById("clientResult").innerHTML=`<div class="notice">✅ <strong>${esc(c.name)}</strong> registró una visita. Tiene <strong>${c.points} puntos</strong>. ${left?`Le faltan ${left} para el premio.`:"🎁 ¡Llegó al premio!"}</div>`;
+}
+function openProfile(pid){window.open(publicUrl(db.profiles.find(p=>p.id===pid)),"_blank")}
+function copyUrl(url){navigator.clipboard?.writeText(url);alert("URL copiada. Esa URL es la que luego se graba en el chip NFC.")}
+function esc(s){return String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function customerView(){
+ const q=new URLSearchParams(location.search).get("nfc"); if(!q)return;
+ const p=db.profiles.find(x=>x.id===q); if(!p)return;
+ document.body.innerHTML=`<main style="max-width:520px;margin:30px auto;padding:18px">
+ <div class="card"><h1>${esc(p.business)}</h1><p>Bienvenido 👋</p>
+ <div class="grid">
+ <a href="${waUrl(p.phone,p.waMsg)}" target="_blank"><button style="width:100%">💬 WhatsApp</button></a>
+ ${p.instagram?`<a href="${esc(p.instagram)}" target="_blank"><button style="width:100%" class="secondary">📸 Instagram</button></a>`:""}
+ </div><hr><h2>🎁 Fidelización</h2><p>Acumulá visitas y obtené tu premio.</p>
+ <div class="notice">${esc(p.reward)}</div><p><small>Este perfil puede conectarse posteriormente a una base de datos online para identificar clientes y administrar puntos.</small></p>
+ </div></main>`;
+}
+render(); customerView();
+</script>
+</body>
+</html>
