@@ -161,21 +161,27 @@ function quickVisitCandidates(){
   else list.sort((a,b)=>visitInfo(b).timestamp-visitInfo(a).timestamp||a.name.localeCompare(b.name,'es'));
   return list.slice(0,5);
 }
+const QUICK_VISIT_COOLDOWN_MS=15000;
+function quickVisitCooldownKey(id){return 'lookphone_quick_visit_cooldown_'+id;}
+function quickVisitRemaining(id){const until=Number(localStorage.getItem(quickVisitCooldownKey(id))||0),remaining=until-Date.now();if(remaining<=0){if(until)localStorage.removeItem(quickVisitCooldownKey(id));return 0;}return remaining;}
 function renderQuickVisit(){
   const box=$('quickVisitResults');if(!box)return;
   const query=normalizedSearch($('quickVisitSearch')?.value),list=quickVisitCandidates();
   if(!list.length){box.innerHTML='<div class="quick-visit-empty">'+(query?'No encontramos clientes con esa búsqueda.':'Todavía no hay clientes.')+'</div>';return;}
-  box.innerHTML=list.map(c=>{const p=profiles.find(p=>p.id===c.profile_id);return `<div class="quick-visit-row"><div class="quick-visit-info"><strong>${esc(c.name)}</strong><small>${esc(c.phone)} · ${c.points}/${p?.goal||'—'} pts${profiles.length>1&&p?' · '+esc(p.business):''}</small></div><button type="button" class="green" data-quick-visit="${c.id}" ${p?.active?'':'disabled'}>+1 visita</button></div>`;}).join('');
+  box.innerHTML=list.map(c=>{const p=profiles.find(p=>p.id===c.profile_id),cooling=quickVisitRemaining(c.id)>0;return `<div class="quick-visit-row"><div class="quick-visit-info"><strong>${esc(c.name)}</strong><small>${esc(c.phone)} · ${c.points}/${p?.goal||'—'} pts${profiles.length>1&&p?' · '+esc(p.business):''}</small></div><button type="button" class="green" data-quick-visit="${c.id}" ${p?.active&&!cooling?'':'disabled'}>${cooling?'Registrada ✓':'+1 visita'}</button></div>`;}).join('');
 }
 async function quickVisitAction(e){
   const b=e.target.closest('button[data-quick-visit]');if(!b||b.disabled)return;
   const c=clients.find(c=>c.id===b.dataset.quickVisit),p=profiles.find(p=>p.id===c?.profile_id);if(!c||!p||!p.active)return;
+  if(quickVisitRemaining(c.id)>0){renderQuickVisit();return notify('La visita de '+c.name+' ya fue registrada hace unos segundos.');}
   b.disabled=true;const original=b.textContent;b.textContent='Sumando…';
   const key='lookphone_pending_'+c.id+'_visit';let event=localStorage.getItem(key);
   try{
     if(!isUUID(event)){event=uuid();localStorage.setItem(key,event);}
     await rpc('nfc_record_event',{p_client:c.id,p_kind:'visit',p_event:event},true);
-    localStorage.removeItem(key);await loadAdmin();notify('✓ Visita de '+c.name+' confirmada. Se sumó 1 punto.');
+    localStorage.removeItem(key);localStorage.setItem(quickVisitCooldownKey(c.id),String(Date.now()+QUICK_VISIT_COOLDOWN_MS));
+    await loadAdmin();notify('✓ Visita de '+c.name+' confirmada. Se sumó 1 punto.');
+    setTimeout(()=>renderQuickVisit(),QUICK_VISIT_COOLDOWN_MS+150);
   }catch(err){if(err.status&&err.status<500)localStorage.removeItem(key);notify(friendly(err),true);b.disabled=false;b.textContent=original;}
 }
 function renderClients(){
