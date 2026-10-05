@@ -1294,6 +1294,63 @@ body.customer-mode main{padding-bottom:calc(92px + env(safe-area-inset-bottom))}
   top:35.85%!important;
   height:7.65%!important;
 }
+
+/* LOOK Phone customer profile — same visual system as public loyalty card */
+.lp-user-profile{
+  margin:10px 0 84px!important;
+  padding:0!important;
+  overflow:hidden!important;
+  border:1px solid #e3eaf3!important;
+  border-radius:22px!important;
+  background:#fff!important;
+  box-shadow:0 12px 34px #0b17300d!important;
+  gap:0!important;
+  font-family:"Montserrat",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
+}
+.lp-user-profile[hidden]{display:none!important}
+.lp-user-hero{
+  position:relative;min-height:150px;overflow:hidden;padding:20px 21px 18px;
+  background:linear-gradient(135deg,#fff 0%,#f8fbff 58%,#eaf5ff 100%);
+  border-bottom:1px solid #e9eef5;
+}
+.lp-user-brand{display:flex;align-items:center;gap:10px;position:relative;z-index:2}
+.lp-user-mark{font-size:34px;line-height:.9;font-weight:900;letter-spacing:-.16em;color:#0b1830}
+.lp-user-mark i{font-style:normal;color:#1686ff}
+.lp-user-brand-copy b{display:block;font-size:18px;line-height:1;font-weight:800;letter-spacing:-.03em;color:#0d1a30}
+.lp-user-brand-copy b i{font-style:normal;color:#1686ff}
+.lp-user-brand-copy small{display:block;margin-top:5px;font-size:7px!important;letter-spacing:.24em;color:#42506a!important;font-weight:500}
+.lp-user-title{position:relative;z-index:2;margin:18px 0 0!important;font-size:25px!important;line-height:1!important;font-weight:800!important;letter-spacing:-.045em!important;color:#0c1930!important}
+.lp-user-subtitle{position:relative;z-index:2;margin:7px 0 0!important;max-width:68%;font-size:12px!important;line-height:1.45!important;color:#5d6b81!important}
+.lp-user-badge{position:relative;z-index:2;display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:6px 10px;border-radius:999px;background:#edf6ff;border:1px solid #d4e9ff;color:#126cc7;font-size:9px;font-weight:700;letter-spacing:.13em}
+.lp-user-badge span{color:#e9b52b;font-size:14px}
+.lp-user-tech{position:absolute;right:-8px;bottom:-12px;width:145px;height:145px;opacity:.98}
+.lp-user-body{display:grid;gap:14px;padding:17px 17px 18px}
+.lp-user-section-title{display:flex;align-items:center;gap:9px;margin:0!important;font-size:15px!important;font-weight:700!important;color:#152139!important}
+.lp-user-section-title span{width:30px;height:30px;border-radius:10px;background:#eaf4ff;color:#1686ff;display:grid;place-items:center;font-size:15px}
+.lp-user-profile label{margin-bottom:6px!important;font-size:11px!important;font-weight:650!important;color:#344158!important;letter-spacing:.01em}
+.lp-user-profile .muted{margin:0 0 7px!important;font-size:11px!important;font-weight:600!important;color:#6b778c!important}
+.lp-user-profile textarea,.lp-user-profile input,.lp-user-profile select{
+  min-height:45px!important;padding:10px 12px!important;border-radius:12px!important;border:1px solid #dce5f0!important;
+  background:#f9fbfd!important;color:#152139!important;font-family:"Montserrat",sans-serif!important;font-size:12px!important;box-shadow:none!important;
+}
+.lp-user-profile textarea{min-height:84px!important;resize:vertical}
+.lp-user-profile textarea:focus,.lp-user-profile input:focus,.lp-user-profile select:focus{
+  outline:none!important;border-color:#1686ff!important;background:#fff!important;box-shadow:0 0 0 3px #1686ff16!important;
+}
+.lp-user-profile .cols{gap:9px!important}
+.lp-user-privacy{padding:11px 12px;border-radius:12px;background:#f2f7fd;color:#617088!important;font-size:10.5px!important;line-height:1.45!important}
+.lp-user-actions{display:grid!important;grid-template-columns:1.35fr .8fr!important;gap:8px!important;margin-top:1px}
+.lp-user-actions button{min-height:44px!important;border-radius:12px!important;padding:9px 12px!important;font-family:"Montserrat",sans-serif!important;font-size:12px!important;font-weight:700!important}
+.lp-user-save{background:#1686ff!important;color:#fff!important;box-shadow:0 7px 18px #1686ff22!important}
+.lp-user-cancel{background:#eef4fb!important;color:#31506f!important;border:1px solid #dbe7f3!important}
+.lp-user-foot{display:flex;align-items:center;justify-content:center;gap:6px;padding-top:1px;font-size:9px;color:#8490a3}
+.lp-user-foot b{color:#1686ff;font-weight:800}
+@media(max-width:380px){
+  .lp-user-hero{min-height:142px;padding:18px}
+  .lp-user-title{font-size:23px!important}
+  .lp-user-subtitle{font-size:11.5px!important}
+  .lp-user-tech{width:132px;height:132px}
+}
 </style>
 </head>
 <body>
@@ -1422,7 +1479,22 @@ function customerPublicHtml(p,card){
       ${lookForm}
       <div id="customerExtras"></div>
       <div id="cardActions" class="links customer-actions" ${card?'':'hidden'}><button id="refreshCard" class="secondary">↻ Actualizar mis puntos</button><button id="editMyDetails" class="secondary">👤 Mis datos</button><button id="copyCard" class="secondary">🔖 Guardar mi tarjeta</button><small class="customer-premium-note">Tu tarjeta es personal. Guardá este enlace para recuperarla en otro dispositivo.</small></div>
-      <form id="myDetailsForm" class="form" style="margin-top:20px" hidden><h2>Mis datos opcionales</h2>${detailFields('myDetails')}<small>Estos datos los ve el comercio. Para borrarlos, dejá los campos vacíos y guardá.</small><div class="row"><button>Guardar mis datos</button><button type="button" id="cancelMyDetails" class="secondary">Cancelar</button></div></form>
+      <form id="myDetailsForm" class="form lp-user-profile" hidden>
+        <div class="lp-user-hero">
+          <div class="lp-user-brand"><div class="lp-user-mark">L<i>P</i></div><div class="lp-user-brand-copy"><b>LOOK <i>PHONE</i></b><small>TECNOLOGÍA QUE TE ACOMPAÑA</small></div></div>
+          <h2 class="lp-user-title">Mi perfil</h2>
+          <p class="lp-user-subtitle">Tus datos para recibir una atención más personalizada y beneficios especiales.</p>
+          <div class="lp-user-badge"><span>♛</span> CLIENTE ESPECIAL</div>
+          <svg class="lp-user-tech" viewBox="0 0 160 160" aria-hidden="true"><defs><linearGradient id="lpup" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#0b2747"/><stop offset="1" stop-color="#1686ff"/></linearGradient></defs><path d="M5 145C48 111 99 71 157 20" fill="none" stroke="#3ebaff" stroke-width="4" opacity=".5"/><g transform="translate(72 14) rotate(8 31 62)"><rect x="6" y="4" width="62" height="124" rx="14" fill="url(#lpup)" stroke="#7398bc" stroke-width="2.5"/><rect x="13" y="12" width="28" height="32" rx="8" fill="#101b29" stroke="#80bde9" stroke-width="2"/><circle cx="24" cy="23" r="7" fill="#05111e" stroke="#1686ff" stroke-width="3"/><circle cx="35" cy="34" r="7" fill="#05111e" stroke="#1686ff" stroke-width="3"/></g><g transform="translate(28 73) rotate(-9 25 38)"><rect x="2" y="2" width="50" height="76" rx="12" fill="none" stroke="#9adfff" stroke-width="3"/><circle cx="27" cy="46" r="16" fill="none" stroke="#9adfff" stroke-width="4"/></g></svg>
+        </div>
+        <div class="lp-user-body">
+          <h3 class="lp-user-section-title"><span>👤</span> Datos personales</h3>
+          ${detailFields('myDetails')}
+          <small class="lp-user-privacy">🔒 Estos datos los ve únicamente Look Phone para gestionar tu experiencia. Podés modificarlos o borrarlos cuando quieras.</small>
+          <div class="lp-user-actions"><button class="lp-user-save">Guardar cambios</button><button type="button" id="cancelMyDetails" class="lp-user-cancel">Cancelar</button></div>
+          <div class="lp-user-foot"><b>LOOK</b> · Tu perfil acompaña tu tarjeta de beneficios</div>
+        </div>
+      </form>
     </div>`;
  }
  return `<div class="card customer-hero ${p.business==='Ponte Coqueta'?'merchant-branded':''}">${merchantBrandHtml(p)}<span class="badge">${esc(p.name)}</span><h1 style="margin-top:16px">Tu tarjeta de beneficios</h1><p class="muted">Sumá puntos, desbloqueá beneficios y llevá tu tarjeta siempre con vos.</p><div class="links">${p.phone?`<a class="button green" href="https://wa.me/${p.phone}?text=${encodeURIComponent(p.wa_message)}" target="_blank" rel="noopener noreferrer">💬 Hablar por WhatsApp</a>`:''}${p.instagram?`<a class="button secondary" href="${esc(instagramUrl(p.instagram))}" target="_blank" rel="noopener noreferrer">📸 Ver Instagram</a>`:''}</div></div><div class="card customer-loyalty"><h2 style="margin-top:0">Tu progreso</h2><div class="reward-banner"><span class="reward-icon">🏆</span><div><small>Tu premio</small><br><strong>${esc(p.reward)}</strong><br><small>al llegar a ${p.goal} puntos</small></div></div><div id="cardState"></div>${form}${customerActions}</div><p class="muted" style="text-align:center;font-size:12px">Conectado con LOOK</p>`;
