@@ -169,6 +169,51 @@ body.customer-mode .public{max-width:560px;margin:0 auto}
  body.customer-mode main{padding-top:max(12px,env(safe-area-inset-top));padding-bottom:max(24px,env(safe-area-inset-bottom))}
  .lookphone-public .lp-brandbar{padding-top:8px}
 }
+
+/* compact Look Phone card: match approved mockup proportions on iPhone */
+@media(max-width:560px){
+ body.customer-mode main{padding:4px 8px max(18px,env(safe-area-inset-bottom))}
+ body.customer-mode .public{max-width:430px}
+ .lookphone-public .lp-shell{gap:8px}
+ .lookphone-public .lp-brandbar{min-height:54px;padding:2px 10px 5px}
+ .lookphone-public .lp-monogram{font-size:28px}
+ .lookphone-public .lp-wordmark strong{font-size:19px}
+ .lookphone-public .lp-wordmark small{font-size:6.3px;letter-spacing:.24em;margin-top:2px}
+ .lookphone-public .customer-hero{border-radius:20px;margin-bottom:8px}
+ .lookphone-public .lp-benefit-banner{min-height:205px;padding:20px 45% 18px 20px}
+ .lookphone-public .lp-eyebrow{font-size:9px;letter-spacing:.24em}
+ .lookphone-public .lp-benefit-banner h1{font-size:23px;margin:12px 0 8px}
+ .lookphone-public .lp-benefit-banner p{font-size:10px;letter-spacing:.16em;line-height:1.45}
+ .lookphone-public .lp-special{left:20px;bottom:18px;font-size:8px;letter-spacing:.17em}
+ .lookphone-public .lp-special b{font-size:15px}
+ .lookphone-public .lp-tech-art{width:49%;height:96%}
+ .lookphone-public .lp-contact-row{padding:8px;gap:8px}
+ .lookphone-public .lp-contact-row .button{min-height:50px;border-radius:14px;font-size:12px;padding:8px 9px}
+ .lookphone-public .lp-btn-icon{width:24px;height:24px}
+ .lookphone-public .customer-loyalty{padding:12px;border-radius:20px;margin-bottom:8px}
+ .lookphone-public .reward-banner{grid-template-columns:40px minmax(0,1fr) 31%;gap:8px;min-height:82px;padding:9px 7px 9px 10px;border-radius:16px}
+ .lookphone-public .reward-icon{width:40px;height:40px;font-size:20px}
+ .lookphone-public .reward-banner small:first-child{font-size:8px;letter-spacing:.14em}
+ .lookphone-public .reward-banner strong{font-size:17px;line-height:1.05}
+ .lookphone-public .reward-banner small:last-child{font-size:10.5px}
+ .lookphone-public .lp-reward-art{height:68px}
+ .lookphone-public .lp-progress-label{margin:11px 0 3px 4px;font-size:9px;letter-spacing:.22em}
+ .lookphone-public .customer-progress-head{padding:0 4px}
+ .lookphone-public .points{font-size:44px}
+ .lookphone-public .lp-progress-side{gap:4px}
+ .lookphone-public .lp-progress-chip{font-size:10px;padding:5px 8px}
+ .lookphone-public .progress-percent{font-size:21px}
+ .lookphone-public .customer-progress{height:10px;margin:8px 4px 6px}
+ .lookphone-public .point-stamps{gap:7px;margin:10px 4px 5px}
+ .lookphone-public .point-stamp{min-height:41px;font-size:14px}
+ .lookphone-public .point-stamp.done{font-size:18px}
+ .lookphone-public .customer-message{font-size:17px;margin:6px 4px 2px;padding-top:8px}
+ .lookphone-public .customer-submessage{font-size:11.5px;margin:0 4px}
+ .lookphone-public .customer-tip{font-size:10.5px;margin:10px 4px 0;padding-top:9px}
+ .lp-bottom-nav{margin:0 -12px -12px;padding:7px 7px 2px}
+ .lp-bottom-nav button{min-height:44px;font-size:9px}
+ .lp-bottom-nav button span{font-size:17px}
+}
 </style>
 </head>
 <body>
