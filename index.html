@@ -624,6 +624,270 @@ body.customer-mode main{padding-bottom:calc(92px + env(safe-area-inset-bottom))}
   letter-spacing:.08em!important;
   font-weight:700!important;
 }
+
+/* LOOK coherence pass: fully mask baked dynamic values + compact lower content */
+.lp-dyn-count{
+  left:4.6%!important;
+  top:59.15%!important;
+  width:25.0%!important;
+  height:8.15%!important;
+  overflow:visible!important;
+  align-items:center!important;
+  padding:1.15cqw 0 0 1.1cqw!important;
+  background:#fff!important;
+}
+.lp-dyn-count b{
+  font-size:7.7cqw!important;
+  line-height:1!important;
+  font-weight:700!important;
+  letter-spacing:-.055em!important;
+}
+.lp-dyn-count span{
+  font-size:3.45cqw!important;
+  line-height:1!important;
+  margin:1.8cqw 0 0 .15cqw!important;
+}
+.lp-dyn-chip{
+  top:58.05%!important;
+  right:4.5%!important;
+  height:3.55%!important;
+  min-width:29%!important;
+  font-size:2.35cqw!important;
+  font-weight:400!important;
+}
+.lp-dyn-pct{
+  top:62.25%!important;
+  right:4.7%!important;
+  width:18.5%!important;
+  height:5.0%!important;
+  background:#fff!important;
+  font-size:5.5cqw!important;
+  font-weight:700!important;
+}
+.lp-dyn-bar-bg{
+  left:4.8%!important;
+  top:66.75%!important;
+  width:90.4%!important;
+  height:1.22%!important;
+  background:#e9eef5!important;
+  box-shadow:0 0 0 1.05cqw #fff!important;
+}
+.lp-dyn-bar-fill{
+  background:#1686ff!important;
+  background-image:none!important;
+}
+
+/* Oversized white mask removes every baked-in stamp/number underneath */
+.lp-dyn-stamps{
+  left:4.25%!important;
+  top:68.45%!important;
+  width:91.5%!important;
+  height:11.75%!important;
+  padding:1.0cqw .8cqw!important;
+  gap:2.5%!important;
+  background:#fff!important;
+  overflow:visible!important;
+  align-items:center!important;
+}
+.lp-dyn-stamp{
+  width:13.4cqw!important;
+  height:12.4cqw!important;
+  aspect-ratio:auto!important;
+  justify-self:center!important;
+  line-height:1!important;
+  overflow:visible!important;
+  font-size:3.55cqw!important;
+  font-weight:600!important;
+  color:#657189!important;
+  background:#f0f4f9!important;
+  filter:none!important;
+}
+.lp-dyn-stamp:after{
+  inset:8%!important;
+  border:.38cqw solid #cbd5e1!important;
+}
+.lp-dyn-stamp.done{
+  background:#1686ff!important;
+  color:#fff!important;
+  font-size:4.35cqw!important;
+  filter:drop-shadow(0 .7cqw 1cqw #1686ff30)!important;
+}
+.lp-dyn-stamp.done:after{border-color:#91d3ff!important}
+
+/* Keep lower live text on same scale/weight as approved visual */
+.lp-dyn-message{
+  left:14.3%!important;
+  top:81.55%!important;
+  width:80.4%!important;
+  height:5.55%!important;
+}
+.lp-dyn-message strong{
+  font-size:3.35cqw!important;
+  font-weight:650!important;
+  letter-spacing:-.018em!important;
+}
+.lp-dyn-message small{
+  font-size:2.28cqw!important;
+  font-weight:400!important;
+  margin-top:.45cqw!important;
+}
+.lp-dyn-visits{
+  left:12.5%!important;
+  top:88.45%!important;
+  width:82.5%!important;
+  height:3.7%!important;
+  font-size:2.05cqw!important;
+}
+.lp-dyn-visits b{
+  font-size:2.3cqw!important;
+  font-weight:600!important;
+}
+
+/* Remove dead space left by baked bottom navigation */
+.lp-master-wrap{margin-bottom:-12.8cqw!important}
+.lp-master-extra{
+  max-width:440px!important;
+  margin:0 auto!important;
+  padding:5px 8px 76px!important;
+}
+.lp-master-extra .customer-growth{
+  margin-top:5px!important;
+  gap:7px!important;
+}
+.lp-master-extra .customer-growth section{
+  padding:12px 13px!important;
+  border-radius:15px!important;
+  border:1px solid #e1e9f3!important;
+  box-shadow:none!important;
+}
+.lp-master-extra .customer-growth h3{
+  margin:0 0 7px!important;
+  font-size:15px!important;
+  line-height:1.15!important;
+  font-weight:650!important;
+  letter-spacing:-.015em!important;
+}
+.lp-master-extra .customer-growth p{
+  margin:0 0 7px!important;
+  font-size:12.25px!important;
+  line-height:1.42!important;
+  color:#56647a!important;
+}
+
+/* LOOK blue system — no pale green in lower area */
+.lp-master-extra .referral-code,
+.lp-master-extra .coupon-code{
+  background:#eaf4ff!important;
+  color:#126cc7!important;
+  border:1px solid #d7eaff!important;
+}
+.lp-referral-actions{
+  grid-template-columns:auto minmax(0,1fr)!important;
+  gap:7px!important;
+  margin-top:5px!important;
+}
+.lp-master-extra .referral-code{
+  padding:7px 9px!important;
+  font-size:11.5px!important;
+  border-radius:10px!important;
+}
+.lp-master-extra #shareReferral{
+  min-height:34px!important;
+  padding:6px 10px!important;
+  border-radius:10px!important;
+  background:#1686ff!important;
+  color:#fff!important;
+  font-size:11.5px!important;
+  font-weight:600!important;
+}
+.lp-referral-count{
+  margin-top:6px!important;
+  font-size:10.5px!important;
+  line-height:1.3!important;
+  color:#718096!important;
+}
+.lp-master-extra .public-tier-list,
+.lp-master-extra .public-coupon-list{gap:5px!important}
+.lp-master-extra .public-tier-list>div,
+.lp-master-extra .public-coupon-list>div{
+  padding:9px 10px!important;
+  border-radius:10px!important;
+  background:#f2f7fd!important;
+}
+.lp-master-extra .public-tier-list strong,
+.lp-master-extra .public-coupon-list strong{
+  font-size:12.25px!important;
+  font-weight:650!important;
+}
+.lp-master-extra .public-tier-list span,
+.lp-master-extra .public-coupon-list p{
+  font-size:11.4px!important;
+  line-height:1.35!important;
+  color:#617088!important;
+}
+.lp-master-extra .public-coupon-list p{margin:4px 0!important}
+.lp-master-extra .coupon-code{
+  margin:3px 0 1px!important;
+  padding:6px 8px!important;
+  font-size:10.8px!important;
+  border-radius:8px!important;
+}
+
+/* Compact "Más" actions so they look like the same app, not a second page */
+.lp-master-extra .customer-actions{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:6px!important;
+  margin-top:7px!important;
+}
+.lp-master-extra .customer-actions button{
+  min-height:42px!important;
+  padding:6px 5px!important;
+  border-radius:11px!important;
+  justify-content:center!important;
+  text-align:center!important;
+  background:#edf5ff!important;
+  color:#126cc7!important;
+  border:1px solid #d9eaff!important;
+  font-size:10.5px!important;
+  line-height:1.15!important;
+  font-weight:600!important;
+}
+.lp-master-extra .customer-actions #refreshCard{
+  background:#1686ff!important;
+  color:#fff!important;
+  border-color:#1686ff!important;
+}
+.lp-master-extra .customer-premium-note{
+  grid-column:1/-1!important;
+  text-align:center!important;
+  margin-top:1px!important;
+  padding:3px 5px!important;
+  font-size:9.5px!important;
+  line-height:1.35!important;
+  color:#748096!important;
+}
+.lp-master-extra .form{
+  gap:10px!important;
+  margin-top:8px!important;
+}
+.lp-master-extra label{font-size:11.5px!important;margin-bottom:4px!important}
+.lp-master-extra input,
+.lp-master-extra select,
+.lp-master-extra textarea{
+  min-height:40px!important;
+  padding:8px 10px!important;
+  border-radius:10px!important;
+  font-size:12px!important;
+  border-color:#dce5f0!important;
+}
+.lp-fixed-nav{
+  padding-top:3px!important;
+}
+.lp-fixed-nav button{
+  min-height:50px!important;
+  font-size:9px!important;
+}
 </style>
 </head>
 <body>
@@ -1029,7 +1293,7 @@ function setupLookControls(p,card){
  document.addEventListener('click',e=>{if(!sheet||sheet.hidden)return;if(e.target.closest('#lpNotifySheet')||e.target.closest('#lpNotifyBtn'))return;sheet.hidden=true;});
 }
 async function loadCustomer(id){if(!isUUID(id))return unavailable();const rows=await request('/rest/v1/nfc_profiles?id=eq.'+id+'&active=eq.true&select=id,business,name,phone,wa_message,instagram,reward,goal');if(!rows.length)return unavailable();customerProfile=rows[0];const p=customerProfile,token=cardToken(p);const card=await rpc('nfc_card',{p_profile:p.id,p_token:token});customerCardState=card;customerExtrasState=null;$('customer').className='public'+(isLookPhone(p)?' lp-master-public':'');$('customer').innerHTML=customerPublicHtml(p,card);view('customer');if('scrollRestoration' in history)history.scrollRestoration='manual';requestAnimationFrame(()=>window.scrollTo(0,0));renderCard(card);if($('lpCreateCard'))$('lpCreateCard').onclick=()=>{$('customerForm').hidden=false;$('customerForm').scrollIntoView({behavior:'smooth',block:'start'});};if(card){customerExtrasState=await rpc('nfc_customer_extras',{p_profile:p.id,p_token:token});renderCustomerExtras(customerExtrasState);}if(isLookPhone(p))setupLookControls(p,card);bindBusy('customerForm','submit',async()=>{const phone=digits($('customerPhone').value);if(phone.length<8||phone.length>20)throw new Error('Revisá el teléfono.');const result=await rpc('nfc_register_card_v3',{p_profile:p.id,p_token:token,p_name:$('customerName').value.trim(),p_phone:phone,...detailValues('customer'),p_referral:new URLSearchParams(location.search).get('ref')||''});if(!result)throw new Error('No se pudo crear la tarjeta.');$('customerForm').hidden=true;$('cardActions').hidden=false;customerCardState=result;renderCard(result);if($('lpCreateCard'))$('lpCreateCard').remove();customerExtrasState=await rpc('nfc_customer_extras',{p_profile:p.id,p_token:token});renderCustomerExtras(customerExtrasState);refreshLookNotifications();notify('¡Tu tarjeta está lista!');});bindBusy('refreshCard','click',async()=>{customerCardState=await rpc('nfc_card',{p_profile:p.id,p_token:token});renderCard(customerCardState);customerExtrasState=await rpc('nfc_customer_extras',{p_profile:p.id,p_token:token});renderCustomerExtras(customerExtrasState);refreshLookNotifications();});$('copyCard').onclick=()=>copy(cardUrl(p,token));bindBusy('editMyDetails','click',async()=>{const details=await rpc('nfc_customer_details',{p_profile:p.id,p_token:token});if(!details)throw new Error('Tarjeta no encontrada.');fillDetails('myDetails',details);$('myDetailsForm').hidden=false;});$('cancelMyDetails').onclick=()=>$('myDetailsForm').hidden=true;bindBusy('myDetailsForm','submit',async()=>{await rpc('nfc_update_details',{p_profile:p.id,p_token:token,...detailValues('myDetails')});$('myDetailsForm').hidden=true;notify('Datos guardados.');});}
-function renderCustomerExtras(x){const box=$('customerExtras');if(!box||!x)return;const tiers=Array.isArray(x.tiers)?x.tiers:[],qs=Array.isArray(x.coupons)?x.coupons:[],p=customerProfile,token=cardToken(p),invite=new URL(publicUrl(p));invite.searchParams.set('ref',x.referral_code||'');box.innerHTML=`<div class="customer-growth"><section><h3>🤝 Invitá y ganá</h3><p>Compartí tu invitación. Cuando tu amigo haga su primera visita, sumás <strong>${Number(x.referral_bonus_points||0)} punto${Number(x.referral_bonus_points||0)===1?'':'s'}</strong>.</p><div class="lp-referral-actions"><div class="referral-code">${esc(x.referral_code||'')}</div><button type="button" id="shareReferral" class="secondary">Compartir invitación</button></div><small class="lp-referral-count">${Number(x.rewarded_referrals||0)} referido${Number(x.rewarded_referrals||0)===1?'':'s'} premiado${Number(x.rewarded_referrals||0)===1?'':'s'}</small></section>${tiers.length?`<section><h3>🏆 Más premios</h3><div class="public-tier-list">${tiers.map(t=>`<div><strong>${t.points_required} pts</strong><span>${esc(t.reward)}</span></div>`).join('')}</div></section>`:''}${qs.length?`<section><h3>🎟️ Beneficios exclusivos</h3><div class="public-coupon-list">${qs.map(q=>`<div><strong>${esc(q.title)}</strong><p>${esc(q.description||'')}</p><span class="coupon-code">${esc(q.code)}</span>${q.expires_at?'<small>Válido hasta '+esc(q.expires_at)+'</small>':''}</div>`).join('')}</div></section>`:''}</div>`;const share=$('shareReferral');if(share)share.onclick=async()=>{const business=customerProfile?.business||'este comercio',text='¡Sumate a los beneficios de '+business+'! '+invite.href;if(navigator.share){try{return await navigator.share({title:business,text,url:invite.href});}catch{}}copy(text);};}
+function renderCustomerExtras(x){const box=$('customerExtras');if(!box||!x)return;const tiers=Array.isArray(x.tiers)?x.tiers:[],qs=Array.isArray(x.coupons)?x.coupons:[],p=customerProfile,token=cardToken(p),invite=new URL(publicUrl(p));invite.searchParams.set('ref',x.referral_code||'');box.innerHTML=`<div class="customer-growth"><section><h3>🤝 Invitá y ganá</h3><p>Compartí tu invitación. Cuando tu amigo haga su primera visita, sumás <strong>${Number(x.referral_bonus_points||0)} punto${Number(x.referral_bonus_points||0)===1?'':'s'}</strong>.</p><div class="lp-referral-actions"><div class="referral-code">${esc(x.referral_code||'')}</div><button type="button" id="shareReferral" class="secondary">Compartir invitación</button></div><small class="lp-referral-count">${Number(x.rewarded_referrals||0)>0?(Number(x.rewarded_referrals||0)+' referido'+(Number(x.rewarded_referrals||0)===1?'':'s')+' premiado'+(Number(x.rewarded_referrals||0)===1?'':'s')):'Todavía no tenés referidos premiados'}</small></section>${tiers.length?`<section><h3>🏆 Más premios</h3><div class="public-tier-list">${tiers.map(t=>`<div><strong>${t.points_required} pts</strong><span>${esc(t.reward)}</span></div>`).join('')}</div></section>`:''}${qs.length?`<section><h3>🎟️ Beneficios exclusivos</h3><div class="public-coupon-list">${qs.map(q=>`<div><strong>${esc(q.title)}</strong><p>${esc(q.description||'')}</p><span class="coupon-code">${esc(q.code)}</span>${q.expires_at?'<small>Válido hasta '+esc(q.expires_at)+'</small>':''}</div>`).join('')}</div></section>`:''}</div>`;const share=$('shareReferral');if(share)share.onclick=async()=>{const business=customerProfile?.business||'este comercio',text='¡Sumate a los beneficios de '+business+'! '+invite.href;if(navigator.share){try{return await navigator.share({title:business,text,url:invite.href});}catch{}}copy(text);};}
 function renderCard(c){
  customerCardState=c;
  const look=isLookPhone(customerProfile);
