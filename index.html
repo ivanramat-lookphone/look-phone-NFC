@@ -341,6 +341,33 @@ body.customer-mode .lp-master-public{padding:0!important}
 @media(display-mode:standalone){
  body.customer-mode main{padding-top:max(4px,env(safe-area-inset-top))!important}
 }
+
+/* LOOK public interactive controls */
+body.customer-mode{padding-bottom:calc(72px + env(safe-area-inset-bottom))}
+body.customer-mode main{padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+.lp-master-nav-cover{position:absolute;z-index:7;left:0;top:93.25%;width:100%;height:6.9%;background:#fff;border-top:1px solid #eef1f5}
+.lp-live-head-mask{position:absolute;z-index:7;right:1.8%;top:2.1%;width:30.5%;height:10.2%;background:#fff;border-radius:18px}
+.lp-live-head{position:absolute;z-index:9;right:3.6%;top:3.15%;display:flex;gap:2.1cqw}
+.lp-live-head button{position:relative;width:10.2cqw;height:10.2cqw;min-height:0;padding:0;border-radius:50%;background:#fff;color:#152039;border:1px solid #edf1f6;box-shadow:0 1.2cqw 3.4cqw #172b4d12;display:grid;place-items:center}
+.lp-live-head svg{width:5.1cqw;height:5.1cqw;display:block}
+.lp-notify-dot{position:absolute;width:2.45cqw;height:2.45cqw;border-radius:50%;background:#1686ff;right:.65cqw;top:.4cqw;border:.45cqw solid #fff}
+.lp-notify-dot[hidden]{display:none!important}
+.lp-notify-sheet{position:fixed;z-index:140;top:calc(76px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);width:min(400px,calc(100vw - 22px));max-height:min(62vh,520px);overflow:auto;background:#fff;border:1px solid #e6ebf2;border-radius:20px;box-shadow:0 24px 65px #0b17302e;padding:16px}
+.lp-notify-sheet[hidden]{display:none!important}
+.lp-notify-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.lp-notify-head strong{font-size:18px}.lp-notify-head button{width:34px;height:34px;min-height:0;padding:0;border-radius:50%;background:#f1f4f8;color:#152039;font-size:19px}
+.lp-notify-list{display:grid;gap:9px}
+.lp-notify-item{display:grid;grid-template-columns:38px 1fr;gap:10px;align-items:start;padding:12px;border-radius:14px;background:#f7f9fc;border:1px solid #edf1f5}
+.lp-notify-item>span{width:38px;height:38px;border-radius:50%;background:#e9f3ff;display:grid;place-items:center;font-size:19px}
+.lp-notify-item strong{display:block;font-size:14px;margin-bottom:3px}.lp-notify-item small{display:block;font-size:12px;line-height:1.4;color:#65728a}
+.lp-notify-empty{text-align:center;color:#65728a;padding:18px 8px;font-size:13px;line-height:1.5}
+.lp-fixed-nav{position:fixed;z-index:120;left:50%;bottom:0;transform:translateX(-50%);width:min(440px,100vw);display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-top:1px solid #e4e9f0;box-shadow:0 -8px 28px #0b173014;padding:5px 8px max(5px,env(safe-area-inset-bottom))}
+.lp-fixed-nav button{position:relative;min-height:54px;padding:5px 2px 3px;border:0;border-radius:0;background:transparent;color:#647189;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:10px;font-weight:650}
+.lp-fixed-nav button svg{width:22px;height:22px;display:block}
+.lp-fixed-nav button.active{color:#1686ff}
+.lp-fixed-nav button.active:before{content:"";position:absolute;top:-6px;width:52px;height:4px;border-radius:999px;background:#1686ff}
+.lp-master-wrap{margin-bottom:-7.5cqw}
+@media(min-width:561px){.lp-fixed-nav{border-radius:18px 18px 0 0}}
 </style>
 </head>
 <body>
@@ -401,7 +428,7 @@ const uuid=()=>crypto.randomUUID();
 const isUUID=s=>/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(s||'');
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const digits=s=>s.replace(/\D/g,'');
-let session=null,profiles=[],clients=[],events=[],contactEvents=[],rewardTiers=[],coupons=[],couponRedemptions=[],editing=null,signup=false,customerProfile=null,activeCampaign='miss',campaignIndex=0,contactMode='ready';
+let session=null,profiles=[],clients=[],events=[],contactEvents=[],rewardTiers=[],coupons=[],couponRedemptions=[],editing=null,signup=false,customerProfile=null,customerCardState=null,customerExtrasState=null,activeCampaign='miss',campaignIndex=0,contactMode='ready';
 try{session=JSON.parse(localStorage.getItem(SESSION_KEY)||'null');}catch{}
 function saveSession(s){session=s;if(s)localStorage.setItem(SESSION_KEY,JSON.stringify(s));else localStorage.removeItem(SESSION_KEY);}
 function notify(message,error=false){$('toast').textContent=message;$('toast').className='notice toast'+(error?' error':'');$('toast').hidden=false;clearTimeout(notify.timer);notify.timer=setTimeout(()=>$('toast').hidden=true,6500);}
@@ -432,12 +459,29 @@ function customerPublicHtml(p,card){
       <img src="assets/lookphone-card-master.webp?v=1" alt="Tarjeta de beneficios Look Phone">
       ${p.phone?`<a class="lp-master-hit wa" aria-label="Hablar por WhatsApp" href="https://wa.me/${p.phone}?text=${encodeURIComponent(p.wa_message)}" target="_blank" rel="noopener noreferrer"></a>`:''}
       ${p.instagram?`<a class="lp-master-hit ig" aria-label="Ver Instagram" href="${esc(instagramUrl(p.instagram))}" target="_blank" rel="noopener noreferrer"></a>`:''}
-      <button type="button" class="lp-master-hit home" data-lp-nav="top" aria-label="Inicio"></button>
-      <button type="button" class="lp-master-hit products" data-lp-nav="products" aria-label="Productos"></button>
-      <button type="button" class="lp-master-hit card" data-lp-nav="card" aria-label="Mi Tarjeta"></button>
-      <button type="button" class="lp-master-hit more" data-lp-nav="more" aria-label="Más"></button>
+      <div class="lp-live-head-mask" aria-hidden="true"></div>
+      <div class="lp-live-head">
+        <button type="button" id="lpNotifyBtn" aria-label="Notificaciones">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 21h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <span id="lpNotifyDot" class="lp-notify-dot" hidden></span>
+        </button>
+        <button type="button" id="lpProfileBtn" aria-label="Mis datos">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5.5 20c.5-4.1 2.7-6.2 6.5-6.2s6 2.1 6.5 6.2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <div class="lp-master-nav-cover" aria-hidden="true"></div>
       <div id="cardState"></div>
     </div>
+    <div id="lpNotifySheet" class="lp-notify-sheet" hidden>
+      <div class="lp-notify-head"><strong>Novedades</strong><button type="button" id="lpNotifyClose" aria-label="Cerrar">×</button></div>
+      <div id="lpNotifyList" class="lp-notify-list"></div>
+    </div>
+    <nav class="lp-fixed-nav" aria-label="Navegación">
+      <button type="button" data-live-nav="top" class="active"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2L12 4l8.5 7.2V21h-6v-6h-5v6h-6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>Inicio</span></button>
+      <button type="button" data-live-nav="products"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 18h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Productos</span></button>
+      <button type="button" data-live-nav="card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10v4a5 5 0 01-10 0zM9 13h6v3H9zM7 20h10M12 16v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 6H4v2a4 4 0 004 4M17 6h3v2a4 4 0 01-4 4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span>Mi Tarjeta</span></button>
+      <button type="button" data-live-nav="more"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.7" fill="currentColor"/><circle cx="12" cy="12" r="1.7" fill="currentColor"/><circle cx="19" cy="12" r="1.7" fill="currentColor"/></svg><span>Más</span></button>
+    </nav>
     <div class="lp-master-extra">
       ${!card?'<button type="button" id="lpCreateCard" class="lp-master-create">Crear mi tarjeta</button>':''}
       ${lookForm}
@@ -682,9 +726,56 @@ async function clientCategoryChange(e){const select=e.target.closest('[data-clie
 async function clientAction(e){const b=e.target.closest('button[data-action]');if(!b||b.disabled)return;const c=clients.find(c=>c.id===b.dataset.id);const p=profiles.find(p=>p.id===c?.profile_id);if(!c||!p)return;const action=b.dataset.action;if(action==='birthday-coupon'){b.disabled=true;try{await createBirthdayCoupon(c);}catch(err){b.disabled=false;notify(friendly(err),true);}return;}if(action==='whatsapp-campaign'){const message=campaignText(c),url=whatsappUrl(c,'custom',p,message);if(url){window.open(url,'_blank','noopener,noreferrer');recordContact(c,activeCampaign,message);}return;}if(action==='whatsapp-direct'){const type=b.dataset.waType||((visitInfo(c).days||0)>=30?'miss':'near'),message=whatsappMessage(c,type,p),url=whatsappUrl(c,'custom',p,message);if(url){window.open(url,'_blank','noopener,noreferrer');recordContact(c,type,message);}return;}if(action==='whatsapp-birthday'){const message=whatsappMessage(c,'birthday',p),url=whatsappUrl(c,'custom',p,message);if(url){window.open(url,'_blank','noopener,noreferrer');recordContact(c,'birthday',message);}return;}if(action==='whatsapp-prepared'){const select=b.parentElement.querySelector('[data-wa-select]'),type=select?.value||'miss',custom=type==='custom'?prompt('Escribí la promoción para '+c.name+':','Hola '+c.name+' 👋 '):'';if(type==='custom'&&!custom)return;const message=type==='custom'?custom:whatsappMessage(c,type,p),url=whatsappUrl(c,'custom',p,message);if(url){window.open(url,'_blank','noopener,noreferrer');recordContact(c,type,message);}return;}if(action==='details'){editingClient=c;$('editClientTitle').textContent='Datos de '+c.name;fillDetails('editClient',c);$('editClientNotes').value=c.notes||'';$('editClientForm').hidden=false;$('editClientForm').scrollIntoView({behavior:'smooth'});return;}if(action==='card')return copy(cardUrl(p,c.card_token));if(action==='history'){b.disabled=true;try{await showClientHistory(c);}catch(err){closeClientHistory();notify(friendly(err),true);}finally{b.disabled=false;}return;}if(action==='redeem'&&!confirm(`¿Entregaste el premio a ${c.name}? Se descontarán ${p.goal} puntos.`))return;b.disabled=true;try{const kind=action==='visit'?'visit':'redeem';const key='lookphone_pending_'+c.id+'_'+kind;let event=localStorage.getItem(key);if(!isUUID(event)){event=uuid();localStorage.setItem(key,event);}const result=await rpc('nfc_record_event',{p_client:c.id,p_kind:kind,p_event:event},true);localStorage.removeItem(key);Object.assign(c,result);renderClients();await loadAdmin();notify(action==='visit'?'Visita confirmada. Se sumó 1 punto.':'Premio canjeado.');}catch(err){if(err.status&&err.status<500)localStorage.removeItem('lookphone_pending_'+c.id+'_'+(action==='visit'?'visit':'redeem'));notify(friendly(err),true);}finally{b.disabled=false;}}
 function tokenKey(p){return 'lookphone_card_'+p.id;}
 function cardToken(p){const fragment=new URLSearchParams(location.hash.slice(1)).get('card');if(isUUID(fragment)){localStorage.setItem(tokenKey(p),fragment);history.replaceState(null,'',location.pathname+location.search);return fragment;}let token=localStorage.getItem(tokenKey(p));if(!isUUID(token)){token=uuid();localStorage.setItem(tokenKey(p),token);}return token;}
-async function loadCustomer(id){if(!isUUID(id))return unavailable();const rows=await request('/rest/v1/nfc_profiles?id=eq.'+id+'&active=eq.true&select=id,business,name,phone,wa_message,instagram,reward,goal');if(!rows.length)return unavailable();customerProfile=rows[0];const p=customerProfile,token=cardToken(p);const card=await rpc('nfc_card',{p_profile:p.id,p_token:token});$('customer').className='public'+(isLookPhone(p)?' lp-master-public':'');$('customer').innerHTML=customerPublicHtml(p,card);view('customer');if('scrollRestoration' in history)history.scrollRestoration='manual';requestAnimationFrame(()=>window.scrollTo(0,0));renderCard(card);if($('lpCreateCard'))$('lpCreateCard').onclick=()=>{$('customerForm').hidden=false;$('customerForm').scrollIntoView({behavior:'smooth',block:'start'});};if(card)renderCustomerExtras(await rpc('nfc_customer_extras',{p_profile:p.id,p_token:token}));bindBusy('customerForm','submit',async()=>{const phone=digits($('customerPhone').value);if(phone.length<8||phone.length>20)throw new Error('Revisá el teléfono.');const result=await rpc('nfc_register_card_v3',{p_profile:p.id,p_token:token,p_name:$('customerName').value.trim(),p_phone:phone,...detailValues('customer'),p_referral:new URLSearchParams(location.search).get('ref')||''});if(!result)throw new Error('No se pudo crear la tarjeta.');$('customerForm').hidden=true;$('cardActions').hidden=false;renderCard(result);if($('lpCreateCard'))$('lpCreateCard').remove();renderCustomerExtras(await rpc('nfc_customer_extras',{p_profile:p.id,p_token:token}));notify('¡Tu tarjeta está lista!');});bindBusy('refreshCard','click',async()=>{renderCard(await rpc('nfc_card',{p_profile:p.id,p_token:token}));renderCustomerExtras(await rpc('nfc_customer_extras',{p_profile:p.id,p_token:token}));});$('copyCard').onclick=()=>copy(cardUrl(p,token));bindBusy('editMyDetails','click',async()=>{const details=await rpc('nfc_customer_details',{p_profile:p.id,p_token:token});if(!details)throw new Error('Tarjeta no encontrada.');fillDetails('myDetails',details);$('myDetailsForm').hidden=false;});$('cancelMyDetails').onclick=()=>$('myDetailsForm').hidden=true;bindBusy('myDetailsForm','submit',async()=>{await rpc('nfc_update_details',{p_profile:p.id,p_token:token,...detailValues('myDetails')});$('myDetailsForm').hidden=true;notify('Datos guardados.');});if(isLookPhone(p)){document.querySelector('.lp-master-wrap')?.addEventListener('click',e=>{const b=e.target.closest('[data-lp-nav]');if(!b)return;const key=b.dataset.lpNav;if(key==='top')window.scrollTo({top:0,behavior:'smooth'});else if(key==='card')$('cardState')?.scrollIntoView({behavior:'smooth',block:'center'});else if(key==='products')p.instagram&&window.open(instagramUrl(p.instagram),'_blank','noopener');else if(key==='more')document.querySelector('.lp-master-extra')?.scrollIntoView({behavior:'smooth',block:'start'});});}}
+
+function lookNoticeItems(){
+ const c=customerCardState,x=customerExtrasState,items=[];
+ if(c){
+   const goal=Math.max(1,Number(c.goal||customerProfile?.goal||5)),points=Math.max(0,Number(c.points||0)),reward=c.reward||customerProfile?.reward||'tu premio';
+   if(points>=goal)items.push({id:'reward:'+goal+':'+points,icon:'🎁',title:'¡Premio disponible!',body:'Ya podés pedir '+reward+'.'});
+ }
+ const qs=Array.isArray(x?.coupons)?x.coupons:[];
+ qs.forEach(q=>items.push({id:'coupon:'+(q.id||q.code||q.title),icon:'🎟️',title:q.title||'Beneficio disponible',body:(q.description||('Código '+(q.code||''))).trim()}));
+ return items;
+}
+function lookNoticeKey(){return customerProfile?'look_notice_seen_'+customerProfile.id+'_'+cardToken(customerProfile):'look_notice_seen';}
+function lookNoticeSignature(items){return items.map(x=>x.id).sort().join('|');}
+function refreshLookNotifications(){
+ if(!isLookPhone(customerProfile))return;
+ const items=lookNoticeItems(),dot=$('lpNotifyDot'),list=$('lpNotifyList');
+ if(!dot||!list)return;
+ const sig=lookNoticeSignature(items),seen=localStorage.getItem(lookNoticeKey())||'';
+ dot.hidden=!items.length||seen===sig;
+ list.innerHTML=items.length?items.map(n=>'<div class="lp-notify-item"><span>'+n.icon+'</span><div><strong>'+esc(n.title)+'</strong><small>'+esc(n.body)+'</small></div></div>').join(''):'<div class="lp-notify-empty">No tenés novedades por ahora.<br>Cuando aparezca un beneficio nuevo, te avisamos acá.</div>';
+}
+function setLookNavActive(key){
+ document.querySelectorAll('.lp-fixed-nav [data-live-nav]').forEach(b=>{const active=b.dataset.liveNav===key;b.classList.toggle('active',active);b.setAttribute('aria-current',active?'page':'false');});
+}
+function scrollLookTo(fraction){
+ const wrap=document.querySelector('.lp-master-wrap');if(!wrap)return;
+ const y=wrap.getBoundingClientRect().top+window.scrollY+wrap.offsetHeight*fraction-70;
+ window.scrollTo({top:Math.max(0,y),behavior:'smooth'});
+}
+function setupLookControls(p,card){
+ const bell=$('lpNotifyBtn'),sheet=$('lpNotifySheet'),close=$('lpNotifyClose'),profile=$('lpProfileBtn');
+ refreshLookNotifications();
+ if(bell)bell.onclick=()=>{sheet.hidden=!sheet.hidden;if(!sheet.hidden){const items=lookNoticeItems(),sig=lookNoticeSignature(items);if(sig)localStorage.setItem(lookNoticeKey(),sig);refreshLookNotifications();}};
+ if(close)close.onclick=()=>sheet.hidden=true;
+ if(profile)profile.onclick=()=>{if(card){$('editMyDetails')?.click();setTimeout(()=>$('myDetailsForm')?.scrollIntoView({behavior:'smooth',block:'start'}),250);}else{$('customerForm').hidden=false;$('customerForm').scrollIntoView({behavior:'smooth',block:'start'});}};
+ document.querySelector('.lp-fixed-nav')?.addEventListener('click',e=>{
+   const b=e.target.closest('[data-live-nav]');if(!b)return;const key=b.dataset.liveNav;setLookNavActive(key);
+   if(key==='top')window.scrollTo({top:0,behavior:'smooth'});
+   else if(key==='card')scrollLookTo(.58);
+   else if(key==='products'){if(p.instagram)window.open(instagramUrl(p.instagram),'_blank','noopener');else notify('Todavía no hay catálogo vinculado.');}
+   else if(key==='more')document.querySelector('.lp-master-extra')?.scrollIntoView({behavior:'smooth',block:'start'});
+ });
+ let ticking=false;
+ window.addEventListener('scroll',()=>{if(ticking)return;ticking=true;requestAnimationFrame(()=>{ticking=false;const wrap=document.querySelector('.lp-master-wrap'),extra=document.querySelector('.lp-master-extra');if(!wrap)return;const y=window.scrollY,top=wrap.offsetTop,h=wrap.offsetHeight,extraTop=extra?.offsetTop??Infinity;if(y>=extraTop-180)setLookNavActive('more');else if(y>=top+h*.45)setLookNavActive('card');else setLookNavActive('top');});},{passive:true});
+ document.addEventListener('click',e=>{if(!sheet||sheet.hidden)return;if(e.target.closest('#lpNotifySheet')||e.target.closest('#lpNotifyBtn'))return;sheet.hidden=true;});
+}
+async function loadCustomer(id){if(!isUUID(id))return unavailable();const rows=await request('/rest/v1/nfc_profiles?id=eq.'+id+'&active=eq.true&select=id,business,name,phone,wa_message,instagram,reward,goal');if(!rows.length)return unavailable();customerProfile=rows[0];const p=customerProfile,token=cardToken(p);const card=await rpc('nfc_card',{p_profile:p.id,p_token:token});customerCardState=card;customerExtrasState=null;$('customer').className='public'+(isLookPhone(p)?' lp-master-public':'');$('customer').innerHTML=customerPublicHtml(p,card);view('customer');if('scrollRestoration' in history)history.scrollRestoration='manual';requestAnimationFrame(()=>window.scrollTo(0,0));renderCard(card);if($('lpCreateCard'))$('lpCreateCard').onclick=()=>{$('customerForm').hidden=false;$('customerForm').scrollIntoView({behavior:'smooth',block:'start'});};if(card){customerExtrasState=await rpc('nfc_customer_extras',{p_profile:p.id,p_token:token});renderCustomerExtras(customerExtrasState);}if(isLookPhone(p))setupLookControls(p,card);bindBusy('customerForm','submit',async()=>{const phone=digits($('customerPhone').value);if(phone.length<8||phone.length>20)throw new Error('Revisá el teléfono.');const result=await rpc('nfc_register_card_v3',{p_profile:p.id,p_token:token,p_name:$('customerName').value.trim(),p_phone:phone,...detailValues('customer'),p_referral:new URLSearchParams(location.search).get('ref')||''});if(!result)throw new Error('No se pudo crear la tarjeta.');$('customerForm').hidden=true;$('cardActions').hidden=false;customerCardState=result;renderCard(result);if($('lpCreateCard'))$('lpCreateCard').remove();customerExtrasState=await rpc('nfc_customer_extras',{p_profile:p.id,p_token:token});renderCustomerExtras(customerExtrasState);refreshLookNotifications();notify('¡Tu tarjeta está lista!');});bindBusy('refreshCard','click',async()=>{customerCardState=await rpc('nfc_card',{p_profile:p.id,p_token:token});renderCard(customerCardState);customerExtrasState=await rpc('nfc_customer_extras',{p_profile:p.id,p_token:token});renderCustomerExtras(customerExtrasState);refreshLookNotifications();});$('copyCard').onclick=()=>copy(cardUrl(p,token));bindBusy('editMyDetails','click',async()=>{const details=await rpc('nfc_customer_details',{p_profile:p.id,p_token:token});if(!details)throw new Error('Tarjeta no encontrada.');fillDetails('myDetails',details);$('myDetailsForm').hidden=false;});$('cancelMyDetails').onclick=()=>$('myDetailsForm').hidden=true;bindBusy('myDetailsForm','submit',async()=>{await rpc('nfc_update_details',{p_profile:p.id,p_token:token,...detailValues('myDetails')});$('myDetailsForm').hidden=true;notify('Datos guardados.');});}
 function renderCustomerExtras(x){const box=$('customerExtras');if(!box||!x)return;const tiers=Array.isArray(x.tiers)?x.tiers:[],qs=Array.isArray(x.coupons)?x.coupons:[],p=customerProfile,token=cardToken(p),invite=new URL(publicUrl(p));invite.searchParams.set('ref',x.referral_code||'');box.innerHTML=`<div class="customer-growth"><section><h3>🤝 Invitá y ganá</h3><p>Compartí tu invitación. Cuando tu amigo haga su primera visita, sumás <strong>${Number(x.referral_bonus_points||0)} punto${Number(x.referral_bonus_points||0)===1?'':'s'}</strong>.</p><div class="referral-code">${esc(x.referral_code||'')}</div><button type="button" id="shareReferral" class="secondary">Compartir invitación</button><small>${Number(x.rewarded_referrals||0)} referido${Number(x.rewarded_referrals||0)===1?'':'s'} premiado${Number(x.rewarded_referrals||0)===1?'':'s'}</small></section>${tiers.length?`<section><h3>🏆 Más premios</h3><div class="public-tier-list">${tiers.map(t=>`<div><strong>${t.points_required} pts</strong><span>${esc(t.reward)}</span></div>`).join('')}</div></section>`:''}${qs.length?`<section><h3>🎟️ Beneficios exclusivos</h3><div class="public-coupon-list">${qs.map(q=>`<div><strong>${esc(q.title)}</strong><p>${esc(q.description||'')}</p><span class="coupon-code">${esc(q.code)}</span>${q.expires_at?'<small>Válido hasta '+esc(q.expires_at)+'</small>':''}</div>`).join('')}</div></section>`:''}</div>`;const share=$('shareReferral');if(share)share.onclick=async()=>{const business=customerProfile?.business||'este comercio',text='¡Sumate a los beneficios de '+business+'! '+invite.href;if(navigator.share){try{return await navigator.share({title:business,text,url:invite.href});}catch{}}copy(text);};}
 function renderCard(c){
+ customerCardState=c;
  const look=isLookPhone(customerProfile);
  if(look){
    const goal=Math.max(1,Number(c?.goal||customerProfile?.goal||5));
