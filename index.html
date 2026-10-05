@@ -760,7 +760,7 @@ function setupLookControls(p,card){
  refreshLookNotifications();
  if(bell)bell.onclick=()=>{sheet.hidden=!sheet.hidden;if(!sheet.hidden){const items=lookNoticeItems(),sig=lookNoticeSignature(items);if(sig)localStorage.setItem(lookNoticeKey(),sig);refreshLookNotifications();}};
  if(close)close.onclick=()=>sheet.hidden=true;
- if(profile)profile.onclick=()=>{if(card){$('editMyDetails')?.click();setTimeout(()=>$('myDetailsForm')?.scrollIntoView({behavior:'smooth',block:'start'}),250);}else{$('customerForm').hidden=false;$('customerForm').scrollIntoView({behavior:'smooth',block:'start'});}};
+ if(profile)profile.onclick=()=>{if(customerCardState){$('editMyDetails')?.click();setTimeout(()=>$('myDetailsForm')?.scrollIntoView({behavior:'smooth',block:'start'}),250);}else{$('customerForm').hidden=false;$('customerForm').scrollIntoView({behavior:'smooth',block:'start'});}};
  document.querySelector('.lp-fixed-nav')?.addEventListener('click',e=>{
    const b=e.target.closest('[data-live-nav]');if(!b)return;const key=b.dataset.liveNav;setLookNavActive(key);
    if(key==='top')window.scrollTo({top:0,behavior:'smooth'});
