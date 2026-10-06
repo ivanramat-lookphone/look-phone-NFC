@@ -1512,16 +1512,16 @@ function customerPublicHtml(p,card){
           <p class="lp-user-account-kicker">MI CUENTA</p>
           <div class="lp-user-account-row">
             <div><h2 class="lp-user-account-title">LOOK <span>PHONE</span></h2><div class="lp-user-special"><b>♛</b> CLIENTE ESPECIAL</div></div>
-            <div class="lp-user-points"><strong>\${Number(card?.points||0)}</strong><small>MIS PUNTOS</small></div>
+            <div class="lp-user-points"><strong>${Number(card?.points||0)}</strong><small>MIS PUNTOS</small></div>
           </div>
         </section>
         <div class="lp-user-contact-row">
-          \${p.phone?`<a class="lp-user-contact wa" href="https://wa.me/\${p.phone}?text=\${encodeURIComponent(p.wa_message)}" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="white" stroke-width="2.4"/><path d="M10.3 9.4c.7-.7 1.7-.5 2.1.3l1.5 3c.3.6.2 1.2-.3 1.7l-1 1c1.2 2.4 3.1 4.3 5.5 5.5l1-1c.5-.5 1.1-.6 1.7-.3l3 1.5c.8.4 1 1.4.3 2.1l-1.2 1.2c-1.2 1.2-3 1.6-4.6 1-6.2-2.2-10.9-6.9-13.1-13.1-.6-1.6-.2-3.4 1-4.6z" fill="white"/></svg><span>WhatsApp<small>Hablar con Look Phone</small></span></a>`:''}
-          \${p.instagram?`<a class="lp-user-contact ig" href="\${esc(instagramUrl(p.instagram))}" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="5" width="22" height="22" rx="6" fill="none" stroke="white" stroke-width="2.5"/><circle cx="16" cy="16" r="5" fill="none" stroke="white" stroke-width="2.5"/><circle cx="23" cy="9.5" r="1.5" fill="white"/></svg><span>Instagram<small>Ver nuestro perfil</small></span></a>`:''}
+          ${p.phone?`<a class="lp-user-contact wa" href="https://wa.me/${p.phone}?text=${encodeURIComponent(p.wa_message)}" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="white" stroke-width="2.4"/><path d="M10.3 9.4c.7-.7 1.7-.5 2.1.3l1.5 3c.3.6.2 1.2-.3 1.7l-1 1c1.2 2.4 3.1 4.3 5.5 5.5l1-1c.5-.5 1.1-.6 1.7-.3l3 1.5c.8.4 1 1.4.3 2.1l-1.2 1.2c-1.2 1.2-3 1.6-4.6 1-6.2-2.2-10.9-6.9-13.1-13.1-.6-1.6-.2-3.4 1-4.6z" fill="white"/></svg><span>WhatsApp<small>Hablar con Look Phone</small></span></a>`:''}
+          ${p.instagram?`<a class="lp-user-contact ig" href="${esc(instagramUrl(p.instagram))}" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="5" width="22" height="22" rx="6" fill="none" stroke="white" stroke-width="2.5"/><circle cx="16" cy="16" r="5" fill="none" stroke="white" stroke-width="2.5"/><circle cx="23" cy="9.5" r="1.5" fill="white"/></svg><span>Instagram<small>Ver nuestro perfil</small></span></a>`:''}
         </div>
         <div class="lp-user-body">
           <h3 class="lp-user-section-title"><span>👤</span> Mis datos</h3>
-          \${detailFields('myDetails')}
+          ${detailFields('myDetails')}
           <small class="lp-user-privacy">🔒 Tus datos se usan únicamente para gestionar tu experiencia y beneficios en Look Phone.</small>
           <div class="lp-user-actions"><button class="lp-user-save">Guardar cambios</button><button type="button" id="cancelMyDetails" class="lp-user-cancel">Cancelar</button></div>
           <div class="lp-user-foot"><b>LOOK PHONE</b> · Tecnología que te acompaña</div>
