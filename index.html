@@ -2346,7 +2346,7 @@ body.owner-pontecoqueta header::before{
   content:"";
   display:block;
   width:100%;
-  height:clamp(112px,31.5vw,420px);
+  height:clamp(100px,24vw,310px);
   flex:0 0 auto;
 }
 body.owner-pontecoqueta .owner-brand{position:absolute!important;left:-10000px!important;top:auto!important;width:1px!important;height:1px!important;overflow:hidden!important}
@@ -2359,7 +2359,7 @@ body.owner-pontecoqueta .owner-header-actions{
   gap:10px;
   width:min(100%,1060px);
   margin:0 auto;
-  padding:9px 20px 11px;
+  padding:7px 20px 8px;
   background:#fffaf5;
 }
 body.owner-pontecoqueta .business-switch{display:flex;align-items:center;gap:8px;margin:0}
@@ -2377,12 +2377,12 @@ body.owner-pontecoqueta .business-switch select{
     min-height:0;
     background-position:center top!important;
   }
-  body.owner-pontecoqueta header::before{height:clamp(112px,31.5vw,140px)}
+  body.owner-pontecoqueta header::before{height:clamp(92px,25vw,100px)}
   body.owner-pontecoqueta .owner-header-actions{
     width:100%;
     justify-content:space-between;
     gap:6px;
-    padding:8px max(12px,env(safe-area-inset-right)) 9px max(12px,env(safe-area-inset-left));
+    padding:6px max(12px,env(safe-area-inset-right)) 7px max(12px,env(safe-area-inset-left));
   }
   body.owner-pontecoqueta header .email{display:block;max-width:38vw;font-size:12px}
   body.owner-pontecoqueta .business-switch select{min-width:0;max-width:132px;padding:7px 26px 7px 9px;font-size:12px}
@@ -2414,6 +2414,16 @@ body.owner-pontecoqueta .business-switch select{
   body.owner-pontecoqueta #admin .loyalty-detail-grid>div{padding:10px}
   body.owner-pontecoqueta #admin h3{margin:18px 0 9px}
   body.owner-pontecoqueta #admin .progress{margin:10px 0}
+}
+/* En escritorio, deja visible el contenido principal antes del primer scroll. */
+@media(min-width:651px){
+  body.owner-pontecoqueta main{padding-top:14px}
+  body.owner-pontecoqueta #admin .admin-heading{padding:13px 17px;margin-bottom:12px}
+  body.owner-pontecoqueta #admin .admin-heading h1{font-size:29px;line-height:1.12}
+  body.owner-pontecoqueta #admin .admin-heading p{font-size:15px;margin-top:4px}
+  body.owner-pontecoqueta #admin .admin-nav{margin-bottom:15px;padding:5px}
+  body.owner-pontecoqueta #admin .section-heading{margin-bottom:12px}
+  body.owner-pontecoqueta #admin .section-heading h2{font-size:27px}
 }
 </style>
 </head>
