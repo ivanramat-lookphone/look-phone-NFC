@@ -2299,8 +2299,27 @@ body.owner-pontecoqueta #admin a.button.green{
   background:linear-gradient(135deg,#c18b50,#a86b31)!important;
   border:1px solid #a86b31!important;
 }
-body.owner-pontecoqueta #admin button:not(.secondary):not(.nav-item):not(.linkbtn),
-body.owner-pontecoqueta #admin a.button:not(.secondary){color:#fff!important}
+body.owner-pontecoqueta #admin .filter-chip:not(.active),
+body.owner-pontecoqueta #admin .quick-grid button,
+body.owner-pontecoqueta #admin .campaign-grid button:not(.active){
+  color:#633719!important;
+  background:#fffaf5!important;
+  border-color:#e5cfba!important;
+  opacity:1!important;
+}
+body.owner-pontecoqueta #admin .quick-grid button strong,
+body.owner-pontecoqueta #admin .campaign-grid button:not(.active) strong{color:#633719!important}
+body.owner-pontecoqueta #admin .look-start-btn{
+  color:#70411f!important;
+  background:#fff8ef!important;
+}
+body.owner-pontecoqueta #admin #rewardPreview.notice{
+  color:#71472a!important;
+  background:#f8eee4!important;
+  border-color:#e5cfba!important;
+}
+body.owner-pontecoqueta #admin button.whatsapp:disabled,
+body.owner-pontecoqueta #admin button.green:disabled{opacity:.82!important}
 @media(max-width:650px){
   body.owner-pontecoqueta .admin-nav button.nav-item.active{background:#f4e6d8!important}
   body.owner-pontecoqueta .admin-nav button.nav-item.active:before{display:none!important}
