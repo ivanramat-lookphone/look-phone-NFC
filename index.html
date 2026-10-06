@@ -2475,6 +2475,8 @@ function merchantTheme(profile){
 }
 function applyMerchantTheme(profile){
   const theme=merchantTheme(profile),root=document.documentElement;
+  const browserTheme=document.querySelector('meta[name="theme-color"]');
+  if(browserTheme)browserTheme.content=theme.key==='pontecoqueta'?'#fffaf5':theme.key==='lookphone'?'#ffffff':'#101827';
   document.body.classList.add('owner-themed');
   document.body.classList.toggle('owner-lookphone',theme.key==='lookphone');
   document.body.classList.toggle('owner-pontecoqueta',theme.key==='pontecoqueta');
@@ -2489,6 +2491,7 @@ function applyMerchantTheme(profile){
 }
 function clearMerchantTheme(){
   document.body.classList.remove('owner-themed','owner-lookphone','owner-pontecoqueta');
+  const browserTheme=document.querySelector('meta[name="theme-color"]');if(browserTheme)browserTheme.content='#101827';
   ['--merchant-primary','--merchant-ink','--merchant-soft'].forEach(v=>document.documentElement.style.removeProperty(v));
   if($('ownerBrandMark'))$('ownerBrandMark').textContent='L';
   if($('ownerBrandName'))$('ownerBrandName').textContent='LOOK';
