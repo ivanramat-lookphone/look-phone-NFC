@@ -12,7 +12,7 @@ alter table nfc_private.merchant_subscriptions
   add column if not exists billing_status text not null default 'not_configured',
   add column if not exists mp_preapproval_id text,
   add column if not exists checkout_url text,
-  add column if not exists amount_ars integer not null default 33000,
+  add column if not exists amount_ars integer not null default 30000,
   add column if not exists last_paid_at timestamptz;
 
 alter table nfc_private.merchant_subscriptions
@@ -31,7 +31,7 @@ begin
   if v_user is null then raise exception 'Authentication required'; end if;
   select jsonb_build_object(
     'billing_status',coalesce(s.billing_status,'not_configured'),
-    'amount_ars',coalesce(s.amount_ars,33000),
+    'amount_ars',coalesce(s.amount_ars,30000),
     'period_ends_at',s.period_ends_at,
     'checkout_url',case when s.billing_status='pending' then s.checkout_url else null end,
     'provider',s.billing_provider
@@ -50,10 +50,10 @@ begin
   if coalesce(length(p_preapproval_id),0)<1 or coalesce(length(p_preapproval_id),0)>200 then raise exception 'Invalid subscription id'; end if;
   if p_checkout_url !~ '^https://www\.mercadopago\.com(\.ar)?/' then raise exception 'Invalid checkout URL'; end if;
   insert into nfc_private.merchant_subscriptions(owner_id,status,plan,billing_provider,billing_status,mp_preapproval_id,checkout_url,amount_ars,updated_at)
-  values(p_owner,'active','Mensual · $33.000 ARS','mercadopago','pending',p_preapproval_id,p_checkout_url,33000,now())
+  values(p_owner,'active','Mensual · $30.000 ARS','mercadopago','pending',p_preapproval_id,p_checkout_url,30000,now())
   on conflict(owner_id) do update set
     billing_provider='mercadopago',billing_status='pending',mp_preapproval_id=excluded.mp_preapproval_id,
-    checkout_url=excluded.checkout_url,amount_ars=33000,plan='Mensual · $33.000 ARS',updated_at=now();
+    checkout_url=excluded.checkout_url,amount_ars=30000,plan='Mensual · $30.000 ARS',updated_at=now();
 end;
 $$;
 
@@ -161,7 +161,7 @@ begin
   ) order by q.created_at desc),'[]'::jsonb) into v_accounts
   from (select u.id owner_id,u.email,p.business,u.created_at,coalesce(s.status,'active') status,
     coalesce(s.plan,'Sin asignar') plan,s.period_ends_at,coalesce(s.billing_status,'not_configured') billing_status,
-    coalesce(s.amount_ars,33000) amount_ars,s.last_paid_at
+    coalesce(s.amount_ars,30000) amount_ars,s.last_paid_at
     from auth.users u left join public.nfc_profiles p on p.owner_id=u.id
     left join nfc_private.merchant_subscriptions s on s.owner_id=u.id) q;
   return v_accounts;
