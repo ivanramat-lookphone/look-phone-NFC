@@ -2137,6 +2137,13 @@ body.customer-mode .pc-public{padding:0!important}
 .pc-native-extra .public-tier-list>div,.pc-native-extra .public-coupon-list>div{min-width:0;overflow-wrap:anywhere}
 @media(max-width:360px){.pc-native-hero{padding:20px 14px 14px}.pc-native-title p{font-size:9px!important;letter-spacing:.14em}.pc-native-progress,.pc-native-extra{padding-left:10px;padding-right:10px}.pc-native-progress #cardState{padding:16px 11px 5px}.pcn-percent{font-size:25px}.pcn-count strong{font-size:42px}.pcn-message strong{font-size:20px}}
 
+/* Use Ponte Coqueta's real lettering and jewelry from the supplied brand photo. */
+.pc-native-top{min-height:98px}
+.pc-native-logo{position:relative;z-index:2;width:68%;height:98px;max-height:none;object-fit:contain;object-position:left top}
+.pc-native-jewel{right:-5px;top:-7px;width:39%;height:136px;overflow:hidden;opacity:.94}
+.pc-native-jewel-photo{display:block;width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:0 20px 0 14px;mask-image:linear-gradient(90deg,transparent 0%,#000 17%),linear-gradient(0deg,transparent 0%,#000 14%,#000 100%);mask-composite:intersect}
+@media(max-width:360px){.pc-native-top{min-height:90px}.pc-native-logo{height:90px}.pc-native-jewel{height:124px}}
+
 </style>
 </head>
 <body>
@@ -2299,9 +2306,9 @@ function customerPublicHtml(p,card){
    return `<div class="pc-native">
      <section class="pc-native-hero">
        <div class="pc-native-top">
-         <img class="pc-native-logo" src="assets/ponte-coqueta-logo.svg?v=2" alt="Ponte Coqueta">
+         <img class="pc-native-logo" src="assets/ponte-coqueta-logo.svg?v=3" alt="Ponte Coqueta">
          <div class="pc-native-jewel" aria-hidden="true">
-           <span class="pc-native-chain"></span><span class="pc-native-gem">✦</span>
+           <img class="pc-native-jewel-photo" src="assets/ponte-coqueta-jewelry.svg" alt="">
          </div>
        </div>
        <div class="pc-native-title">
@@ -2340,7 +2347,7 @@ function customerPublicHtml(p,card){
        </div>
        <form id="myDetailsForm" class="form pc-user-profile" hidden>
          <div class="pc-profile-head">
-           <img src="assets/ponte-coqueta-logo.svg?v=2" alt="Ponte Coqueta">
+           <img src="assets/ponte-coqueta-logo.svg?v=3" alt="Ponte Coqueta">
            <small>ALMACÉN DE JOYAS</small>
            <h2>Mi perfil</h2>
            <p>Tus datos para recibir una atención más personalizada y beneficios especiales.</p>
