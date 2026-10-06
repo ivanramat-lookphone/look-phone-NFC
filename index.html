@@ -2147,6 +2147,59 @@ body.customer-mode .pc-public{padding:0!important}
 .pc-native-logo{-webkit-mask-image:radial-gradient(ellipse at center,#000 66%,transparent 100%);mask-image:radial-gradient(ellipse at center,#000 66%,transparent 100%)}
 .pc-native-jewel-photo{-webkit-mask-image:radial-gradient(ellipse at 62% 45%,#000 54%,transparent 104%);mask-image:radial-gradient(ellipse at 62% 45%,#000 54%,transparent 104%)}
 
+/* Ponte Coqueta: live loyalty data laid over the approved full card artwork. */
+#customer.pc-public{width:min(100%,440px);max-width:440px;margin:0 auto;padding:0!important}
+.pc-art-card{position:relative;width:100%;aspect-ratio:1114/2075;overflow:hidden;isolation:isolate;background:#fbf2eb;container-type:inline-size;margin:0 auto}
+.pc-art-background{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:fill;user-select:none;pointer-events:none}
+.pc-art-live{position:absolute;inset:0}
+.pc-art-overlay{position:absolute;display:flex;pointer-events:none}
+.pc-art-reward{left:28.1%;top:30.0%;width:58.5%;height:9.1%;padding:0 .8cqw;justify-content:center;flex-direction:column;background:rgba(249,231,216,.98);color:#83502e}
+.pc-art-reward small{font:600 2.6cqw/1.2 Montserrat,Arial,sans-serif;letter-spacing:.24em;color:#906743}
+.pc-art-reward strong{margin-top:.55cqw;font:500 7.3cqw/1.08 Georgia,'Times New Roman',serif;letter-spacing:-.035em;white-space:nowrap;color:#85502c}
+.pc-art-reward span{margin-top:.5cqw;font:500 4.25cqw/1.15 Montserrat,Arial,sans-serif;letter-spacing:.15em;white-space:nowrap;color:#906743}
+.pc-art-count{left:6.5%;top:46.55%;width:49%;height:5.7%;align-items:baseline;gap:1.2cqw;padding:0 1cqw 0;background:#fff;color:#2b160f}
+.pc-art-count strong{font:700 12.3cqw/.88 Montserrat,Arial,sans-serif;letter-spacing:-.05em}
+.pc-art-count span{font:400 4.7cqw/1 Montserrat,Arial,sans-serif;color:#6e625d;white-space:nowrap}
+.pc-art-percent{right:5.8%;top:46.7%;width:15%;height:5.5%;justify-content:center;align-items:center;background:#fff;color:#9c6630;font:600 7cqw/1 Montserrat,Arial,sans-serif}
+.pc-art-meter{left:6.7%;top:52.85%;width:86.3%;height:1.7%;border-radius:99px;background:#f2e8df;overflow:hidden}
+.pc-art-meter i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#a66a34,#c78f54)}
+.pc-art-stamps{left:5.6%;top:57.15%;width:88.8%;height:7.65%;display:grid;grid-template-columns:repeat(10,minmax(0,1fr));align-items:start;justify-items:center;gap:0;background:rgba(255,255,255,.97);padding:.25cqw 0}
+.pc-art-stamp{display:grid;justify-items:center;align-content:start;gap:.6cqw;min-width:0;color:#847a73}
+.pc-art-stamp b{width:8.1cqw;max-width:36px;aspect-ratio:1;border:1px solid #ded5cd;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 28%,#fffefa,#f0eae5 80%);color:#b5aaa0}
+.pc-art-stamp b .pc-icon{width:67%;height:67%;stroke-width:1.45}
+.pc-art-stamp small{font:400 3.55cqw/1 Montserrat,Arial,sans-serif;color:#827872}
+.pc-art-stamp.done b{border:1px solid #986029;color:#fff8e9;background:radial-gradient(circle at 32% 24%,#e1bc86 0%,#b67b40 53%,#85501f 100%);box-shadow:inset 0 1px 2px #fff9, inset 0 -2px 3px #68350b66,0 1px 3px #80552b44}
+.pc-art-stamp.done b .pc-icon{stroke:#fff9e9}
+.pc-art-message-copy{left:17.0%;top:68.0%;width:63.5%;height:8.6%;padding:.35cqw .4cqw;background:rgba(248,230,219,.98);display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.pc-art-message-copy strong{font:500 7cqw/1.05 Georgia,'Times New Roman',serif;letter-spacing:-.03em;color:#55321f;white-space:nowrap}
+.pc-art-message-copy small{display:block;margin-top:1cqw;font:400 4.05cqw/1.3 Montserrat,Arial,sans-serif;color:#665b55}
+.pc-art-visits{left:17.3%;top:80.15%;width:65.5%;height:5.15%;padding:.3cqw .55cqw;flex-direction:column;justify-content:center;background:rgba(255,255,255,.98);overflow:hidden}
+.pc-art-visits strong{font:600 4.05cqw/1.18 Montserrat,Arial,sans-serif;color:#211915;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pc-art-visits small{margin-top:.7cqw;font:400 3.45cqw/1.2 Montserrat,Arial,sans-serif;color:#817873;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pc-art-hit{position:absolute;left:4.2%;width:91.6%;z-index:4;min-height:0!important;height:5.35%;padding:0!important;border:0!important;border-radius:5cqw!important;background:transparent!important;color:transparent!important;display:block!important}
+.pc-art-hit-wa{top:87.25%}.pc-art-hit-ig{top:93.2%}
+.pc-art-extra{max-width:440px;margin:14px auto 0;padding:0 12px 22px}
+.pc-art-extra #customerForm{margin:0 0 12px!important;padding:16px 14px;border:1px solid #ead7c5;border-radius:16px;background:#fffaf5}
+.pc-art-extra #customerForm p{margin:0;line-height:1.45}
+.pc-art-extra #customerForm input,.pc-art-extra #customerForm select,.pc-art-extra #customerForm textarea{font-size:16px;min-height:44px}
+.pc-art-extra #customerForm button{background:#ad7134;color:white}
+.pc-art-extra #customerExtras:empty{display:none}
+.pc-art-extra #customerExtras .customer-growth section{border-color:#ead9c8;background:#fffaf5}
+.pc-art-extra #cardActions{margin-top:12px}
+.pc-art-extra #cardActions button{border-radius:12px}
+.pc-art-extra #myDetailsForm{margin-top:12px;padding:0!important;background:#fffaf5}
+.pc-art-extra [hidden],#customer.pc-public [hidden]{display:none!important}
+@media(max-width:360px){
+ #customer.pc-public{max-width:none}
+ .pc-art-extra{padding-left:10px;padding-right:10px}
+ .pc-art-reward{width:59%;height:9.4%}
+ .pc-art-reward strong{font-size:7cqw}
+ .pc-art-count strong{font-size:12cqw}
+ .pc-art-stamp b{width:7.8cqw}
+ .pc-art-message-copy strong{font-size:6.7cqw}
+ .pc-art-hit{height:5.5%}
+}
+
 </style>
 </head>
 <body>
@@ -2306,64 +2359,35 @@ function customerPublicHtml(p,card){
     </div>`;
  }
  if(isPonteCoqueta(p)){
-   return `<div class="pc-native">
-     <section class="pc-native-hero">
-       <div class="pc-native-top">
-         <img class="pc-native-logo" src="assets/ponte-coqueta-logo.svg?v=3" alt="Ponte Coqueta">
-         <div class="pc-native-jewel" aria-hidden="true">
-           <img class="pc-native-jewel-photo" src="assets/ponte-coqueta-jewelry.svg" alt="">
-         </div>
-       </div>
-       <div class="pc-native-title">
-         <h1>Tarjeta de beneficios</h1>
-         <p>TU FIDELIDAD BRILLA CON NOSOTRAS</p>
-         <div class="pc-native-divider"><span></span><b>♡</b><span></span></div>
-       </div>
-       <div class="pc-native-reward">
-         <div class="pc-native-gift" aria-hidden="true">${pcIcon('gift')}</div>
-         <div class="pc-native-reward-copy">
-           <small>TU PREMIO</small>
-           <strong>${esc(p.reward)}</strong>
-           <span>AL LLEGAR A ${p.goal} PUNTOS</span>
-         </div>
-         <div class="pc-native-spark" aria-hidden="true">✦<br>✧</div>
-       </div>
-     </section>
-
-     <section class="pc-native-progress">
-       <div id="cardState"></div>
-     </section>
-
-     <div class="pc-native-contact">
-       ${p.phone?`<a class="pc-native-wa" href="https://wa.me/${p.phone}?text=${encodeURIComponent(p.wa_message)}" target="_blank" rel="noopener noreferrer"><span class="pc-native-social-icon">${pcIcon('whatsapp')}</span><strong>Hablar por WhatsApp</strong><b>›</b></a>`:''}
-       ${p.instagram?`<a class="pc-native-ig" href="${esc(instagramUrl(p.instagram))}" target="_blank" rel="noopener noreferrer"><span class="pc-native-social-icon">${pcIcon('instagram')}</span><strong>Ver Instagram</strong><b>›</b></a>`:''}
+   const hits=`
+     ${p.phone?`<a class="pc-art-hit pc-art-hit-wa" aria-label="Hablar por WhatsApp" href="https://wa.me/${p.phone}?text=${encodeURIComponent(p.wa_message)}" target="_blank" rel="noopener noreferrer"></a>`:''}
+     ${p.instagram?`<a class="pc-art-hit pc-art-hit-ig" aria-label="Ver Instagram" href="${esc(instagramUrl(p.instagram))}" target="_blank" rel="noopener noreferrer"></a>`:''}`;
+   return `<div class="pc-art-card">
+     <img class="pc-art-background" src="assets/ponte-coqueta-card-base.svg?v=1" alt="Tarjeta de beneficios de Ponte Coqueta">
+     <div id="cardState" class="pc-art-live" aria-live="polite"></div>
+     ${hits}
+   </div>
+   <div class="pc-art-extra">
+     ${form}
+     <div id="customerExtras"></div>
+     <div id="cardActions" class="links customer-actions" ${card?'':'hidden'}>
+       <button id="refreshCard" class="secondary">↻ Actualizar mis puntos</button>
+       <button id="editMyDetails" class="secondary">👤 Mis datos</button>
+       <button id="copyCard" class="secondary">🔖 Guardar mi tarjeta</button>
+       <small class="customer-premium-note">Tu tarjeta es personal. Guardá este enlace para recuperarla en otro dispositivo.</small>
      </div>
-
-     <div class="pc-native-extra">
-       ${form}
-       <div id="customerExtras"></div>
-       <div id="cardActions" class="links customer-actions" ${card?'':'hidden'}>
-         <button id="refreshCard" class="secondary">↻ Actualizar mis puntos</button>
-         <button id="editMyDetails" class="secondary">👤 Mis datos</button>
-         <button id="copyCard" class="secondary">🔖 Guardar mi tarjeta</button>
-         <small class="customer-premium-note">Tu tarjeta es personal. Guardá este enlace para recuperarla en otro dispositivo.</small>
+     <form id="myDetailsForm" class="form pc-user-profile" hidden>
+       <div class="pc-profile-head">
+         <img src="assets/ponte-coqueta-logo.svg?v=3" alt="Ponte Coqueta">
+         <small>ALMACÉN DE JOYAS</small><h2>Mi perfil</h2>
+         <p>Tus datos para recibir una atención más personalizada y beneficios especiales.</p>
        </div>
-       <form id="myDetailsForm" class="form pc-user-profile" hidden>
-         <div class="pc-profile-head">
-           <img src="assets/ponte-coqueta-logo.svg?v=3" alt="Ponte Coqueta">
-           <small>ALMACÉN DE JOYAS</small>
-           <h2>Mi perfil</h2>
-           <p>Tus datos para recibir una atención más personalizada y beneficios especiales.</p>
-         </div>
-         <div class="pc-profile-body">
-           <h3>♡ Datos personales</h3>
-           ${detailFields('myDetails')}
-           <small class="pc-privacy">🔒 Estos datos los ve únicamente Ponte Coqueta para gestionar tu experiencia. Podés modificarlos o borrarlos cuando quieras.</small>
-           <div class="pc-profile-actions"><button>Guardar cambios</button><button type="button" id="cancelMyDetails" class="secondary">Cancelar</button></div>
-         </div>
-       </form>
-     </div>
-     <p class="pc-powered">Conectado con <b>LOOK</b></p>
+       <div class="pc-profile-body">
+         <h3>♡ Datos personales</h3>${detailFields('myDetails')}
+         <small class="pc-privacy">🔒 Estos datos los ve únicamente Ponte Coqueta para gestionar tu experiencia. Podés modificarlos o borrarlos cuando quieras.</small>
+         <div class="pc-profile-actions"><button>Guardar cambios</button><button type="button" id="cancelMyDetails" class="secondary">Cancelar</button></div>
+       </div>
+     </form>
    </div>`;
  }
  return `<div class="card customer-hero ${p.business==='Ponte Coqueta'?'merchant-branded':''}">${merchantBrandHtml(p)}<span class="badge">${esc(p.name)}</span><h1 style="margin-top:16px">Tu tarjeta de beneficios</h1><p class="muted">Sumá puntos, desbloqueá beneficios y llevá tu tarjeta siempre con vos.</p><div class="links">${p.phone?`<a class="button green" href="https://wa.me/${p.phone}?text=${encodeURIComponent(p.wa_message)}" target="_blank" rel="noopener noreferrer">💬 Hablar por WhatsApp</a>`:''}${p.instagram?`<a class="button secondary" href="${esc(instagramUrl(p.instagram))}" target="_blank" rel="noopener noreferrer">📸 Ver Instagram</a>`:''}</div></div><div class="card customer-loyalty"><h2 style="margin-top:0">Tu progreso</h2><div class="reward-banner"><span class="reward-icon">🏆</span><div><small>Tu premio</small><br><strong>${esc(p.reward)}</strong><br><small>al llegar a ${p.goal} puntos</small></div></div><div id="cardState"></div>${form}${customerActions}</div><p class="muted" style="text-align:center;font-size:12px">Conectado con LOOK</p>`;
@@ -2724,25 +2748,26 @@ function renderCard(c){
    const percent=Math.min(100,Math.round(points/goal*100));
    const missing=Math.max(0,goal-points);
    let message='',sub='';
-   if(!c){message='Tu fidelidad empieza acá';sub='Creá tu tarjeta y empezá a sumar puntos.';}
-   else if(points>=goal){message='¡Tu premio está listo!';sub='Mostrá esta tarjeta para pedir '+reward+'.';}
-   else if(percent>=50){message='¡Vas muy bien!';sub='Ya completaste el '+percent+'% del camino a tu premio.';}
-   else if(points>0){message='¡Seguí brillando!';sub='Te faltan '+missing+' puntos para conseguir '+reward+'.';}
+   if(points>=goal){message='¡Tu premio está listo!';sub='Mostrá esta tarjeta para pedir '+reward+'.';}
+   else if(points>=Math.min(3,goal)){message='¡Vas muy bien!';sub='Ya completaste el '+percent+'% del camino a tu premio.';}
+   else if(points>0){message='¡Seguí sumando!';sub='Te faltan '+missing+' puntos para conseguir '+reward+'.';}
    else{message='Tu fidelidad empieza acá';sub='Sumá puntos con cada compra y acercate a tu premio.';}
    const slots=Math.min(goal,10);
-   const stamps=Array.from({length:slots},(_,i)=>{const checkpoint=Math.ceil((i+1)*goal/slots);return '<span class="pcn-stamp '+(points>=checkpoint?'done':'')+'"><b>'+pcIcon('diamond')+'</b><small>'+checkpoint+'</small></span>';}).join('');
+   const stamps=Array.from({length:slots},(_,i)=>{
+     const checkpoint=Math.ceil((i+1)*goal/slots);
+     return '<span class="pc-art-stamp '+(points>=checkpoint?'done':'')+'"><b>'+pcIcon('diamond')+'</b><small>'+checkpoint+'</small></span>';
+   }).join('');
    $('cardState').innerHTML=`
-     <div class="pcn-progress-head">
-       <div><small>TU PROGRESO</small><div class="pcn-count"><strong>${points}</strong><span>/ ${goal} puntos</span></div></div>
-       <b class="pcn-percent">${percent}%</b>
-     </div>
-     <div class="pcn-bar" role="progressbar" aria-valuemin="0" aria-valuemax="${goal}" aria-valuenow="${Math.min(points,goal)}"><i style="width:${percent}%"></i></div>
-     <div class="pcn-stamps">${stamps}</div>
-     <div class="pcn-message"><span>✦</span><div><strong>${esc(message)}</strong><p>${esc(sub)}</p></div><i>♡</i></div>
-     <div class="pcn-visits"><span>${pcIcon('bag')}</span><div><strong>${visits} compra${visits===1?'':'s'} confirmada${visits===1?'':'s'}</strong><small>Actualizá para ver tus últimos puntos.</small></div><b>›</b></div>`;
+     <div class="pc-art-overlay pc-art-reward"><small>TU PREMIO</small><strong>${esc(reward)}</strong><span>AL LLEGAR A ${goal} PUNTOS</span></div>
+     <div class="pc-art-overlay pc-art-count"><strong>${points}</strong><span>/ ${goal} puntos</span></div>
+     <strong class="pc-art-overlay pc-art-percent">${percent}%</strong>
+     <div class="pc-art-overlay pc-art-meter" role="progressbar" aria-label="Progreso de puntos" aria-valuemin="0" aria-valuemax="${goal}" aria-valuenow="${Math.min(points,goal)}"><i style="width:${percent}%"></i></div>
+     <div class="pc-art-overlay pc-art-stamps">${stamps}</div>
+     <div class="pc-art-overlay pc-art-message-copy"><strong>${esc(message)}</strong><small>${esc(sub)}</small></div>
+     <div class="pc-art-overlay pc-art-visits"><strong>${visits} compra${visits===1?'':'s'} confirmada${visits===1?'':'s'}</strong><small>Actualizá para ver tus últimos puntos.</small></div>`;
    return;
  }
- if(!c){$('cardState').innerHTML='';return;}
+ if(!c){$('cardState').innerHTML='';return;} if(!c){$('cardState').innerHTML='';return;}
  const reward=c.reward||customerProfile.reward,goal=Math.max(1,Number(c.goal||customerProfile.goal)),points=Math.max(0,Number(c.points||0)),visits=Math.max(0,Number(c.visits||0)),percent=Math.min(100,Math.round(points/goal*100)),missing=Math.max(0,goal-points),eligible=points>=goal;
  let message='',sub='';
  if(eligible){message='¡Tu premio está listo!';sub='Mostrá esta tarjeta en el comercio para pedir '+reward+'.';}
@@ -2780,3 +2805,4 @@ boot();
 </script>
 <!-- deploy-refresh: 2026-10-05-2304 -->
 </body></html>
+
