@@ -1351,33 +1351,6 @@ body.customer-mode main{padding-bottom:calc(92px + env(safe-area-inset-bottom))}
   .lp-user-subtitle{font-size:14.2px!important}
   .lp-user-tech{width:132px;height:132px}
 }
-
-/* Mi cuenta — exact visual language of the LOOK Phone loyalty card */
-.lp-user-profile{max-width:440px!important;margin:10px auto 88px!important;border:0!important;border-radius:24px!important;background:#f7f9fc!important;box-shadow:none!important;overflow:hidden!important}
-.lp-user-headbar{height:84px;background:#fff url('assets/lookphone-card-master.webp') no-repeat left top;background-size:440px auto;border-bottom:1px solid #edf1f6;position:relative}
-.lp-user-headbar:after{content:"";position:absolute;inset:auto 0 0 0;height:1px;background:#eef2f7}
-.lp-user-account-card{margin:12px 12px 0;padding:18px;border:1px solid #e5ebf3;border-radius:20px;background:linear-gradient(135deg,#fff 0%,#fbfdff 58%,#eef7ff 100%);box-shadow:0 10px 28px #17335a0c}
-.lp-user-account-kicker{font-size:11.7px!important;letter-spacing:.24em;font-weight:700;color:#56657d;margin:0 0 8px}
-.lp-user-account-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.lp-user-account-title{margin:0!important;font-size:27px!important;line-height:1.05!important;font-weight:850!important;letter-spacing:-.04em!important;color:#0b1730!important}
-.lp-user-account-title span{color:#1687ff}
-.lp-user-special{display:inline-flex;align-items:center;gap:7px;margin-top:11px;padding:7px 11px;border-radius:999px;background:#fff9e8;border:1px solid #f6df98;color:#26344c;font-size:11.7px!important;font-weight:750;letter-spacing:.13em}
-.lp-user-special b{font-size:17px;color:#efbd35;line-height:1}
-.lp-user-points{flex:0 0 auto;min-width:88px;padding:10px 12px;border-radius:16px;background:#fff;border:1px solid #e5ebf3;text-align:center;box-shadow:0 5px 16px #17335a0a}
-.lp-user-points strong{display:block;font-size:28px;line-height:1;color:#1687ff}.lp-user-points small{font-size:10.5px!important;color:#718096!important;font-weight:650}
-.lp-user-contact-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px}
-.lp-user-contact{min-height:72px!important;border-radius:16px!important;padding:12px 13px!important;color:#fff!important;text-decoration:none!important;display:flex!important;align-items:center!important;gap:10px!important;font-weight:750!important;box-shadow:0 8px 20px #17335a12}
-.lp-user-contact svg{width:34px;height:34px;flex:0 0 34px;display:block}
-.lp-user-contact span{display:block;font-size:14.5px;line-height:1.18}.lp-user-contact small{display:block;margin-top:3px;color:#fff!important;font-size:10.5px!important;font-weight:500;opacity:.92}
-.lp-user-contact.wa{background:linear-gradient(135deg,#35dc75,#08a94d)!important}.lp-user-contact.ig{background:linear-gradient(135deg,#6f37d8 0%,#d92c9d 48%,#ff5a62 100%)!important}
-.lp-user-body{margin:0 12px 12px;padding:17px!important;border:1px solid #e5ebf3;border-radius:20px;background:#fff;box-shadow:0 10px 28px #17335a0b;gap:13px!important}
-.lp-user-section-title{font-size:18px!important;color:#101827!important}.lp-user-section-title span{background:#edf6ff!important;color:#1687ff!important}
-.lp-user-profile label{font-size:13.8px!important;color:#334158!important}.lp-user-profile .muted{font-size:13.8px!important;color:#66758b!important}
-.lp-user-profile textarea,.lp-user-profile input,.lp-user-profile select{background:#f8fafc!important;border-color:#dce5ef!important;font-size:14.8px!important}
-.lp-user-privacy{background:#f3f8fe!important;color:#617088!important}.lp-user-actions{grid-template-columns:1.4fr .8fr!important}
-.lp-user-save{background:#1687ff!important;box-shadow:0 7px 18px #1687ff2b!important}.lp-user-cancel{background:#eef4fb!important}
-.lp-user-foot{padding:4px 0 1px!important;color:#7a8799!important}.lp-user-foot b{color:#1687ff!important}
-@media(max-width:380px){.lp-user-headbar{height:76px;background-size:400px auto}.lp-user-contact-row{gap:8px}.lp-user-contact{padding:10px!important}.lp-user-contact span{font-size:13.5px}.lp-user-account-title{font-size:24px!important}.lp-user-points{min-width:78px}}
 </style>
 </head>
 <body>
@@ -1507,24 +1480,19 @@ function customerPublicHtml(p,card){
       <div id="customerExtras"></div>
       <div id="cardActions" class="links customer-actions" ${card?'':'hidden'}><button id="refreshCard" class="secondary">↻ Actualizar mis puntos</button><button id="editMyDetails" class="secondary">👤 Mis datos</button><button id="copyCard" class="secondary">🔖 Guardar mi tarjeta</button><small class="customer-premium-note">Tu tarjeta es personal. Guardá este enlace para recuperarla en otro dispositivo.</small></div>
       <form id="myDetailsForm" class="form lp-user-profile" hidden>
-        <div class="lp-user-headbar" aria-label="Look Phone"></div>
-        <section class="lp-user-account-card">
-          <p class="lp-user-account-kicker">MI CUENTA</p>
-          <div class="lp-user-account-row">
-            <div><h2 class="lp-user-account-title">LOOK <span>PHONE</span></h2><div class="lp-user-special"><b>♛</b> CLIENTE ESPECIAL</div></div>
-            <div class="lp-user-points"><strong>${Number(card?.points||0)}</strong><small>MIS PUNTOS</small></div>
-          </div>
-        </section>
-        <div class="lp-user-contact-row">
-          ${p.phone?`<a class="lp-user-contact wa" href="https://wa.me/${p.phone}?text=${encodeURIComponent(p.wa_message)}" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="white" stroke-width="2.4"/><path d="M10.3 9.4c.7-.7 1.7-.5 2.1.3l1.5 3c.3.6.2 1.2-.3 1.7l-1 1c1.2 2.4 3.1 4.3 5.5 5.5l1-1c.5-.5 1.1-.6 1.7-.3l3 1.5c.8.4 1 1.4.3 2.1l-1.2 1.2c-1.2 1.2-3 1.6-4.6 1-6.2-2.2-10.9-6.9-13.1-13.1-.6-1.6-.2-3.4 1-4.6z" fill="white"/></svg><span>WhatsApp<small>Hablar con Look Phone</small></span></a>`:''}
-          ${p.instagram?`<a class="lp-user-contact ig" href="${esc(instagramUrl(p.instagram))}" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="5" width="22" height="22" rx="6" fill="none" stroke="white" stroke-width="2.5"/><circle cx="16" cy="16" r="5" fill="none" stroke="white" stroke-width="2.5"/><circle cx="23" cy="9.5" r="1.5" fill="white"/></svg><span>Instagram<small>Ver nuestro perfil</small></span></a>`:''}
+        <div class="lp-user-hero">
+          <div class="lp-user-brand"><div class="lp-user-mark">L<i>P</i></div><div class="lp-user-brand-copy"><b>LOOK <i>PHONE</i></b><small>TECNOLOGÍA QUE TE ACOMPAÑA</small></div></div>
+          <h2 class="lp-user-title">Mi perfil</h2>
+          <p class="lp-user-subtitle">Tus datos para recibir una atención más personalizada y beneficios especiales.</p>
+          <div class="lp-user-badge"><span>♛</span> CLIENTE ESPECIAL</div>
+          <svg class="lp-user-tech" viewBox="0 0 160 160" aria-hidden="true"><defs><linearGradient id="lpup" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#0b2747"/><stop offset="1" stop-color="#1686ff"/></linearGradient></defs><path d="M5 145C48 111 99 71 157 20" fill="none" stroke="#3ebaff" stroke-width="4" opacity=".5"/><g transform="translate(72 14) rotate(8 31 62)"><rect x="6" y="4" width="62" height="124" rx="14" fill="url(#lpup)" stroke="#7398bc" stroke-width="2.5"/><rect x="13" y="12" width="28" height="32" rx="8" fill="#101b29" stroke="#80bde9" stroke-width="2"/><circle cx="24" cy="23" r="7" fill="#05111e" stroke="#1686ff" stroke-width="3"/><circle cx="35" cy="34" r="7" fill="#05111e" stroke="#1686ff" stroke-width="3"/></g><g transform="translate(28 73) rotate(-9 25 38)"><rect x="2" y="2" width="50" height="76" rx="12" fill="none" stroke="#9adfff" stroke-width="3"/><circle cx="27" cy="46" r="16" fill="none" stroke="#9adfff" stroke-width="4"/></g></svg>
         </div>
         <div class="lp-user-body">
-          <h3 class="lp-user-section-title"><span>👤</span> Mis datos</h3>
+          <h3 class="lp-user-section-title"><span>👤</span> Datos personales</h3>
           ${detailFields('myDetails')}
-          <small class="lp-user-privacy">🔒 Tus datos se usan únicamente para gestionar tu experiencia y beneficios en Look Phone.</small>
+          <small class="lp-user-privacy">🔒 Estos datos los ve únicamente Look Phone para gestionar tu experiencia. Podés modificarlos o borrarlos cuando quieras.</small>
           <div class="lp-user-actions"><button class="lp-user-save">Guardar cambios</button><button type="button" id="cancelMyDetails" class="lp-user-cancel">Cancelar</button></div>
-          <div class="lp-user-foot"><b>LOOK PHONE</b> · Tecnología que te acompaña</div>
+          <div class="lp-user-foot"><b>LOOK</b> · Tu perfil acompaña tu tarjeta de beneficios</div>
         </div>
       </form>
     </div>`;
