@@ -1,16 +1,24 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
-const cors = {
-  "Access-Control-Allow-Origin": "https://ivanramat-lookphone.github.io",
+const allowedAppOrigins = new Set([
+  "https://ivanramat-lookphone.github.io",
+  "https://lookphone-ar.github.io",
+]);
+const corsHeaders = (origin: string | null) => ({
+  ...(origin && allowedAppOrigins.has(origin) ? { "Access-Control-Allow-Origin": origin } : {}),
   "Access-Control-Allow-Headers": "authorization, apikey, content-type",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Vary": "Origin",
-};
-const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), {
-  status, headers: { ...cors, "Content-Type": "application/json" },
 });
 
 Deno.serve(async (req: Request) => {
+  const origin = req.headers.get("Origin");
+  const trustedOrigin = origin && allowedAppOrigins.has(origin) ? origin : null;
+  const cors = corsHeaders(trustedOrigin);
+  const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), {
+    status, headers: { ...cors, "Content-Type": "application/json" },
+  });
+  if (origin && !trustedOrigin) return json({ error: "Origin not allowed." }, 403);
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
   if (req.method !== "POST") return json({ error: "Method not allowed" }, 405);
   const url = Deno.env.get("SUPABASE_URL");
@@ -43,7 +51,7 @@ Deno.serve(async (req: Request) => {
     return json({ init_point: billing.checkout_url, billing_status: "pending" });
   }
 
-  const appUrl = "https://ivanramat-lookphone.github.io/look-phone-NFC/";
+  const appUrl = `${trustedOrigin || "https://ivanramat-lookphone.github.io"}/look-phone-NFC/`;
   const createResponse = await fetch("https://api.mercadopago.com/preapproval", {
     method: "POST",
     headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json", "X-Idempotency-Key": crypto.randomUUID() },
