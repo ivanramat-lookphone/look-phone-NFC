@@ -2308,34 +2308,19 @@ body.owner-pontecoqueta #admin a.button:not(.secondary){color:#fff!important}
 /* Branded private header: same Ponte Coqueta logo and jewelry scene as the public card */
 body.owner-pontecoqueta header{
   position:relative;
-  height:clamp(110px,31vw,340px);
+  height:clamp(112px,31.5vw,420px);
   min-height:0;
   padding:0 max(16px,calc((100vw - 1060px)/2))!important;
   overflow:hidden;
   background-color:#fffaf5!important;
-  background-image:
-    linear-gradient(90deg,#fffaf5 0%,#fffaf5 58%,#fffaf5d9 69%,#fffaf580 79%,#fffaf500 86%),
-    url("assets/ponte-coqueta-card-hires.svg?v=private-header");
-  background-position:center,center top;
-  background-size:100% 100%,100% auto;
-  background-repeat:no-repeat;
+  background-image:url("assets/ponte-coqueta-card-hires.svg?v=private-header")!important;
+  background-position:center top!important;
+  background-size:100% auto!important;
+  background-repeat:no-repeat!important;
   border-bottom:1px solid #ead9c8;
   box-shadow:0 8px 26px #74451b0d;
 }
-body.owner-pontecoqueta .owner-brand{display:flex;flex:0 1 auto;min-width:0;position:relative;z-index:1}
-body.owner-pontecoqueta .owner-brand-mark{
-  display:flex;
-  width:clamp(150px,min(560px,calc(100vw - 250px)),560px)!important;
-  height:auto!important;
-  aspect-ratio:350/150;
-  padding:0!important;
-  border:0!important;
-  border-radius:0!important;
-  background:transparent!important;
-  box-shadow:none!important;
-}
-body.owner-pontecoqueta .owner-brand-mark img{width:100%;height:100%;object-fit:contain;object-position:left center}
-body.owner-pontecoqueta .owner-brand>div:nth-child(2){display:none}
+body.owner-pontecoqueta .owner-brand{position:absolute!important;left:-10000px!important;top:auto!important;width:1px!important;height:1px!important;overflow:hidden!important}
 body.owner-pontecoqueta .owner-header-actions{position:relative;z-index:2;flex:0 0 auto}
 body.owner-pontecoqueta .business-switch select{
   min-height:40px;
@@ -2347,12 +2332,11 @@ body.owner-pontecoqueta .business-switch select{
 }
 @media(max-width:650px){
   body.owner-pontecoqueta header{
-    height:clamp(110px,31vw,140px);
+    height:clamp(112px,31.5vw,140px);
     min-height:0;
     padding:0 max(14px,env(safe-area-inset-right)) 0 max(14px,env(safe-area-inset-left))!important;
-    background-position:center,center top;
+    background-position:center top!important;
   }
-  body.owner-pontecoqueta .owner-brand-mark{width:48vw!important;max-width:190px!important;min-width:145px!important}
   body.owner-pontecoqueta .owner-header-actions{gap:5px}
   body.owner-pontecoqueta .business-switch select{min-width:0;max-width:132px;padding:7px 26px 7px 9px;font-size:12px}
 }
