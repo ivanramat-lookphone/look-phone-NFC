@@ -1351,6 +1351,60 @@ body.customer-mode main{padding-bottom:calc(92px + env(safe-area-inset-bottom))}
   .lp-user-subtitle{font-size:14.2px!important}
   .lp-user-tech{width:132px;height:132px}
 }
+
+/* 2026-10-06 responsive seam cleanup — keep approved design, remove master-image artifacts */
+.lp-master-wrap{
+  isolation:isolate!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+/* Hide 1–2px baked edge artifacts from the master artwork on every viewport. */
+.lp-master-wrap:after{
+  content:""!important;
+  position:absolute!important;
+  z-index:30!important;
+  inset:0!important;
+  pointer-events:none!important;
+  border:2px solid #fff!important;
+  box-sizing:border-box!important;
+}
+/* The lower live cards overlap the unused baked navigation area.
+   Give them their own opaque layer so the old master cannot show through. */
+.lp-master-extra{
+  position:relative!important;
+  z-index:40!important;
+  background:#fff!important;
+  margin-top:0!important;
+  transform:translateZ(0);
+  box-sizing:border-box!important;
+}
+.lp-master-extra .customer-growth{
+  position:relative!important;
+  z-index:2!important;
+  background:#fff!important;
+  margin-top:0!important;
+  padding-top:0!important;
+}
+/* Avoid a visible seam where the master and the live lower content meet. */
+.lp-master-extra:before{
+  content:""!important;
+  position:absolute!important;
+  left:0!important;
+  right:0!important;
+  top:-14px!important;
+  height:16px!important;
+  background:#fff!important;
+  pointer-events:none!important;
+}
+/* Normalize sizing so desktop and mobile render the same 440px design grid. */
+.lp-master-public,.lp-master-wrap,.lp-master-extra,.lp-fixed-nav{
+  box-sizing:border-box!important;
+}
+@media(max-width:560px){
+  .lp-master-public,.lp-master-extra{width:100%!important}
+  .lp-master-wrap:after{border-width:1.5px!important}
+}
 </style>
 </head>
 <body>
