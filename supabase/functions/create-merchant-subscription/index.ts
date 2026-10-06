@@ -31,6 +31,7 @@ Deno.serve(async (req: Request) => {
   });
   if (!current.ok) return json({ error: "No pudimos consultar el estado de facturación." }, 500);
   const billing = await current.json();
+  if (billing?.comped_access) return json({ already_active: true, comped_access: true });
   const argentinaToday = new Intl.DateTimeFormat("en-CA", {
     timeZone: "America/Argentina/Cordoba", year: "numeric", month: "2-digit", day: "2-digit",
   }).format(new Date());
