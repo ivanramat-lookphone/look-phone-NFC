@@ -31,6 +31,12 @@ Deno.serve(async (req: Request) => {
   });
   if (!current.ok) return json({ error: "No pudimos consultar el estado de facturación." }, 500);
   const billing = await current.json();
+  const argentinaToday = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Argentina/Cordoba", year: "numeric", month: "2-digit", day: "2-digit",
+  }).format(new Date());
+  if (billing?.merchant_status === "trial" && billing?.period_ends_at >= argentinaToday) {
+    return json({ error: `Tu prueba gratuita termina el ${billing.period_ends_at}. Podrás elegir cómo pagar a partir de esa fecha.` }, 409);
+  }
   if (billing?.billing_status === "authorized") return json({ already_active: true, billing_status: "authorized" });
   if (billing?.billing_status === "pending" && typeof billing?.checkout_url === "string") {
     return json({ init_point: billing.checkout_url, billing_status: "pending" });
