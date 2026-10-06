@@ -1803,6 +1803,94 @@ body.owner-pontecoqueta #admin .eyebrow{color:#b67a3a}
  body.owner-pontecoqueta #admin .admin-heading{padding:14px 15px}
 }
 
+
+/* FINAL Ponte Coqueta public card — approved master artwork + live data */
+.pc-public{max-width:440px!important;margin:0 auto!important;padding:0!important}
+.pc-master-wrap{
+  position:relative;width:100%;aspect-ratio:750/1445;background:#fff;overflow:hidden;
+  container-type:inline-size;margin:0 auto;isolation:isolate
+}
+.pc-master-wrap>img{
+  position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:fill;
+  pointer-events:none;user-select:none;z-index:0
+}
+.pc-master-wrap #cardState{position:absolute;inset:0;z-index:3;pointer-events:none}
+.pc-master-hit{position:absolute;z-index:8;background:transparent!important;border:0!important;padding:0!important;margin:0!important;min-height:0!important}
+.pc-master-wa{left:7.2%;top:87.25%;width:85.6%;height:5.45%}
+.pc-master-ig{left:7.2%;top:93.10%;width:85.6%;height:5.35%}
+.pc-master-count{
+  position:absolute;left:8.0%;top:49.25%;width:35.5%;height:6.0%;
+  display:flex;align-items:flex-end;gap:1.2cqw;padding:0 .6cqw .4cqw;background:#fff
+}
+.pc-master-count strong{
+  font-family:Georgia,"Times New Roman",serif;font-size:9.2cqw;line-height:.9;font-weight:700;
+  letter-spacing:-.055em;color:#33160d
+}
+.pc-master-count span{
+  font-family:Montserrat,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:4.0cqw;line-height:1;color:#716861;margin-bottom:1.1cqw;white-space:nowrap
+}
+.pc-master-percent{
+  position:absolute;right:8.4%;top:50.2%;width:15.2%;height:5.3%;display:flex;align-items:center;
+  justify-content:flex-end;background:#fff;font-family:Georgia,"Times New Roman",serif;
+  font-size:6.7cqw;font-weight:700;color:#a36b31
+}
+.pc-master-bar{
+  position:absolute;left:8.1%;top:55.0%;width:83.7%;height:1.34%;background:#efe5dc;
+  border-radius:999px;overflow:hidden;box-shadow:0 0 0 .65cqw #fff
+}
+.pc-master-bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#ad7134,#d0a064)}
+.pc-master-stamps{
+  position:absolute;left:7.7%;top:58.45%;width:84.8%;height:8.45%;background:#fff;
+  display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:.9cqw;align-items:start;padding:.25cqw .1cqw
+}
+.pc-master-stamp{display:grid;justify-items:center;gap:.8cqw;color:#b9aea5;font-family:Montserrat,sans-serif}
+.pc-master-stamp b{
+  width:7.05cqw;height:7.05cqw;border-radius:50%;display:grid;place-items:center;
+  border:.28cqw solid #d9cec4;background:linear-gradient(145deg,#faf6f1,#eee6df);
+  color:#c4bab2;font-size:3.45cqw;font-weight:500;box-shadow:0 .5cqw 1.1cqw #6d44220a
+}
+.pc-master-stamp small{font-size:2.25cqw;color:#8e837b;line-height:1}
+.pc-master-stamp.done b{
+  background:linear-gradient(145deg,#a96829,#cc9658);border-color:#b77734;color:#fff;
+  box-shadow:0 0 0 .45cqw #fff4e5,0 .6cqw 1.3cqw #9b622530
+}
+.pc-master-stamp.done b:after{content:"✦";position:absolute;margin:-5.6cqw 0 0 5.4cqw;color:#e7b96f;font-size:2.2cqw}
+.pc-master-message{
+  position:absolute;left:17.2%;top:69.0%;width:54.0%;height:7.45%;
+  display:flex;flex-direction:column;justify-content:center;background:#f8e8dc;padding:0 .8cqw
+}
+.pc-master-message strong{
+  font-family:Georgia,"Times New Roman",serif;font-size:5.05cqw;line-height:1.02;color:#542d1b;
+  font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+}
+.pc-master-message small{
+  margin-top:1.0cqw;font-family:Montserrat,sans-serif;font-size:3.0cqw;line-height:1.25;
+  color:#6c625d;max-width:100%
+}
+.pc-master-visits{
+  position:absolute;left:17.4%;top:80.8%;width:66.2%;height:4.75%;background:#fff;
+  display:flex;flex-direction:column;justify-content:center;padding-left:.4cqw
+}
+.pc-master-visits strong{
+  font-family:Montserrat,sans-serif;font-size:3.15cqw;line-height:1.1;color:#241a15;font-weight:650;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+}
+.pc-master-visits small{
+  margin-top:.55cqw;font-family:Montserrat,sans-serif;font-size:2.55cqw;color:#8b817b;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+}
+.pc-master-extra{max-width:440px;margin:12px auto 0;padding:0 12px 20px}
+.pc-master-extra .customer-growth section{border-color:#ead9c8!important;background:#fffaf5!important}
+.pc-master-extra .referral-code,.pc-master-extra .coupon-code{background:#f4e4d5!important;color:#89562b!important}
+.pc-master-extra .customer-actions #refreshCard{background:#ad7134!important;color:#fff!important}
+.pc-master-extra .secondary{background:#f8eee5!important;color:#6d4327!important;border-color:#e6d1bd!important}
+body.customer-mode .pc-public{padding:0!important}
+@media(max-width:650px){
+  .pc-master-wrap{width:100vw;max-width:440px}
+  .pc-master-extra{padding-left:12px;padding-right:12px}
+}
+
 </style>
 </head>
 <body>
@@ -1951,59 +2039,37 @@ function customerPublicHtml(p,card){
     </div>`;
  }
  if(isPonteCoqueta(p)){
-   let ponteForm=form;
-   return `<div class="pc-card-shell">
-     <section class="pc-card-hero">
-       <div class="pc-card-brand">
-         <img src="assets/ponte-coqueta-logo.svg" alt="Ponte Coqueta">
-       </div>
-       <div class="pc-jewel-scene" aria-hidden="true">
-         <span class="pc-chain"></span><span class="pc-pendant">✦</span><span class="pc-spark pc-s1">✦</span><span class="pc-spark pc-s2">✧</span>
-       </div>
-       <div class="pc-card-title">
-         <h1>Tarjeta de beneficios</h1>
-         <p>TU FIDELIDAD BRILLA CON NOSOTRAS</p>
-         <div class="pc-divider"><span></span><b>♡</b><span></span></div>
-       </div>
-       <div class="pc-reward-card">
-         <div class="pc-gift" aria-hidden="true">🎁</div>
-         <div><small>TU PREMIO</small><strong>${esc(p.reward)}</strong><span>AL LLEGAR A ${p.goal} PUNTOS</span></div>
-         <i aria-hidden="true">✦<br>✧</i>
-       </div>
-     </section>
-     <section class="pc-progress-card">
-       <div id="cardState"></div>
-     </section>
-     <div class="pc-contact-actions">
-       ${p.phone?`<a class="pc-wa" href="https://wa.me/${p.phone}?text=${encodeURIComponent(p.wa_message)}" target="_blank" rel="noopener noreferrer"><span>◉</span><strong>Hablar por WhatsApp</strong><b>›</b></a>`:''}
-       ${p.instagram?`<a class="pc-ig" href="${esc(instagramUrl(p.instagram))}" target="_blank" rel="noopener noreferrer"><span>◎</span><strong>Ver Instagram</strong><b>›</b></a>`:''}
-     </div>
-     <div class="pc-master-extra">
-       ${ponteForm}
-       <div id="customerExtras"></div>
-       <div id="cardActions" class="links customer-actions" ${card?'':'hidden'}>
-         <button id="refreshCard" class="secondary">↻ Actualizar mis puntos</button>
-         <button id="editMyDetails" class="secondary">👤 Mis datos</button>
-         <button id="copyCard" class="secondary">🔖 Guardar mi tarjeta</button>
-         <small class="customer-premium-note">Tu tarjeta es personal. Guardá este enlace para recuperarla en otro dispositivo.</small>
-       </div>
-       <form id="myDetailsForm" class="form pc-user-profile" hidden>
-         <div class="pc-profile-head">
-           <img src="assets/ponte-coqueta-logo.svg" alt="Ponte Coqueta">
-           <small>ALMACÉN DE JOYAS</small>
-           <h2>Mi perfil</h2>
-           <p>Tus datos para recibir una atención más personalizada y beneficios especiales.</p>
-         </div>
-         <div class="pc-profile-body">
-           <h3>♡ Datos personales</h3>
-           ${detailFields('myDetails')}
-           <small class="pc-privacy">🔒 Estos datos los ve únicamente Ponte Coqueta para gestionar tu experiencia. Podés modificarlos o borrarlos cuando quieras.</small>
-           <div class="pc-profile-actions"><button>Guardar cambios</button><button type="button" id="cancelMyDetails" class="secondary">Cancelar</button></div>
-         </div>
-       </form>
-     </div>
-     <p class="pc-powered">Conectado con <b>LOOK</b></p>
-   </div>`;
+   return `<div class="pc-master-wrap">
+      <img src="assets/ponte-coqueta-card-master.webp?v=3" alt="Tarjeta de beneficios Ponte Coqueta">
+      ${p.phone?`<a class="pc-master-hit pc-master-wa" aria-label="Hablar por WhatsApp" href="https://wa.me/${p.phone}?text=${encodeURIComponent(p.wa_message)}" target="_blank" rel="noopener noreferrer"></a>`:''}
+      ${p.instagram?`<a class="pc-master-hit pc-master-ig" aria-label="Ver Instagram" href="${esc(instagramUrl(p.instagram))}" target="_blank" rel="noopener noreferrer"></a>`:''}
+      <div id="cardState"></div>
+    </div>
+    <div class="pc-master-extra">
+      ${form}
+      <div id="customerExtras"></div>
+      <div id="cardActions" class="links customer-actions" ${card?'':'hidden'}>
+        <button id="refreshCard" class="secondary">↻ Actualizar mis puntos</button>
+        <button id="editMyDetails" class="secondary">👤 Mis datos</button>
+        <button id="copyCard" class="secondary">🔖 Guardar mi tarjeta</button>
+        <small class="customer-premium-note">Tu tarjeta es personal. Guardá este enlace para recuperarla en otro dispositivo.</small>
+      </div>
+      <form id="myDetailsForm" class="form pc-user-profile" hidden>
+        <div class="pc-profile-head">
+          <img src="assets/ponte-coqueta-logo.svg" alt="Ponte Coqueta">
+          <small>ALMACÉN DE JOYAS</small>
+          <h2>Mi perfil</h2>
+          <p>Tus datos para recibir una atención más personalizada y beneficios especiales.</p>
+        </div>
+        <div class="pc-profile-body">
+          <h3>♡ Datos personales</h3>
+          ${detailFields('myDetails')}
+          <small class="pc-privacy">🔒 Estos datos los ve únicamente Ponte Coqueta para gestionar tu experiencia. Podés modificarlos o borrarlos cuando quieras.</small>
+          <div class="pc-profile-actions"><button>Guardar cambios</button><button type="button" id="cancelMyDetails" class="secondary">Cancelar</button></div>
+        </div>
+      </form>
+    </div>
+    <p class="pc-powered">Conectado con <b>LOOK</b></p>`;
  }
  return `<div class="card customer-hero ${p.business==='Ponte Coqueta'?'merchant-branded':''}">${merchantBrandHtml(p)}<span class="badge">${esc(p.name)}</span><h1 style="margin-top:16px">Tu tarjeta de beneficios</h1><p class="muted">Sumá puntos, desbloqueá beneficios y llevá tu tarjeta siempre con vos.</p><div class="links">${p.phone?`<a class="button green" href="https://wa.me/${p.phone}?text=${encodeURIComponent(p.wa_message)}" target="_blank" rel="noopener noreferrer">💬 Hablar por WhatsApp</a>`:''}${p.instagram?`<a class="button secondary" href="${esc(instagramUrl(p.instagram))}" target="_blank" rel="noopener noreferrer">📸 Ver Instagram</a>`:''}</div></div><div class="card customer-loyalty"><h2 style="margin-top:0">Tu progreso</h2><div class="reward-banner"><span class="reward-icon">🏆</span><div><small>Tu premio</small><br><strong>${esc(p.reward)}</strong><br><small>al llegar a ${p.goal} puntos</small></div></div><div id="cardState"></div>${form}${customerActions}</div><p class="muted" style="text-align:center;font-size:12px">Conectado con LOOK</p>`;
 }
@@ -2369,13 +2435,14 @@ function renderCard(c){
    else if(points>0){message='¡Seguí brillando!';sub='Te faltan '+missing+' puntos para conseguir '+reward+'.';}
    else{message='Tu fidelidad empieza a brillar';sub='Sumá puntos con cada compra y acercate a tu premio.';}
    const slots=Math.min(goal,10);
-   const stamps=Array.from({length:slots},(_,i)=>'<span class="pc-stamp '+(i<points?'done':'')+'"><b>◇</b><small>'+(i+1)+'</small></span>').join('');
+   const stamps=Array.from({length:slots},(_,i)=>'<span class="pc-master-stamp '+(i<points?'done':'')+'"><b>◇</b><small>'+(i+1)+'</small></span>').join('');
    $('cardState').innerHTML=`
-     <div class="pc-progress-head"><div><small>TU PROGRESO</small><div><strong>${points}</strong><span>/ ${goal} puntos</span></div></div><b>${percent}%</b></div>
-     <div class="pc-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="${goal}" aria-valuenow="${Math.min(points,goal)}"><i style="width:${percent}%"></i></div>
-     <div class="pc-stamps">${stamps}</div>
-     <div class="pc-message"><span>✦</span><div><strong>${esc(message)}</strong><p>${esc(sub)}</p></div><i>♡</i></div>
-     <div class="pc-visits"><span>♧</span><div><strong>${visits} compra${visits===1?'':'s'} confirmada${visits===1?'':'s'}</strong><small>Actualizá para ver tus últimos puntos.</small></div><b>›</b></div>`;
+     <div class="pc-master-count"><strong>${points}</strong><span>/ ${goal} puntos</span></div>
+     <div class="pc-master-percent">${percent}%</div>
+     <div class="pc-master-bar"><i style="width:${percent}%"></i></div>
+     <div class="pc-master-stamps">${stamps}</div>
+     <div class="pc-master-message"><strong>${esc(message)}</strong><small>${esc(sub)}</small></div>
+     <div class="pc-master-visits"><strong>${visits} compra${visits===1?'':'s'} confirmada${visits===1?'':'s'}</strong><small>Actualizá para ver tus últimos puntos.</small></div>`;
    return;
  }
  if(!c){$('cardState').innerHTML='';return;}
