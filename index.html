@@ -1667,6 +1667,69 @@ body.owner-themed #admin .campaign-grid button:not(.active){
  body.owner-themed #admin .filter-chip{font-size:11px;padding-left:7px;padding-right:7px}
  body.owner-themed .nav-item small{font-size:8.8px!important}
 }
+
+/* Birthday list — consistent compact mobile rows */
+@media(max-width:650px){
+ body.owner-themed #admin .birthday-box{padding:11px 12px!important}
+ body.owner-themed #admin .birthday-box h3{margin:0 0 5px!important;font-size:17px!important}
+ body.owner-themed #admin .birthday-item{
+   display:grid!important;
+   grid-template-columns:1fr!important;
+   gap:7px!important;
+   width:100%!important;
+   padding:10px 0!important;
+   border-top:1px solid var(--merchant-line)!important;
+   align-items:stretch!important;
+ }
+ body.owner-themed #admin .birthday-item:first-of-type{border-top:0!important;padding-top:7px!important}
+ body.owner-themed #admin .birthday-item>span{
+   display:grid!important;
+   grid-template-columns:minmax(0,1fr) auto!important;
+   align-items:center!important;
+   gap:8px!important;
+   width:100%!important;
+   min-width:0!important;
+ }
+ body.owner-themed #admin .birthday-item>span strong{
+   min-width:0!important;
+   font-size:14.5px!important;
+   line-height:1.15!important;
+   white-space:nowrap!important;
+   overflow:hidden!important;
+   text-overflow:ellipsis!important;
+ }
+ body.owner-themed #admin .birthday-item>span br{display:none!important}
+ body.owner-themed #admin .birthday-item>span small{
+   font-size:11.5px!important;
+   color:#718096!important;
+   white-space:nowrap!important;
+ }
+ body.owner-themed #admin .birthday-item>.row{
+   display:grid!important;
+   grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+   gap:6px!important;
+   width:100%!important;
+   margin:0!important;
+ }
+ body.owner-themed #admin .birthday-item>.row button{
+   width:100%!important;
+   min-width:0!important;
+   min-height:36px!important;
+   padding:7px 8px!important;
+   border-radius:10px!important;
+   font-size:12px!important;
+   line-height:1.1!important;
+   white-space:nowrap!important;
+ }
+ body.owner-themed #admin .birthday-item>.row .secondary{
+   background:#eef4fb!important;
+   color:var(--merchant-ink)!important;
+ }
+ body.owner-themed #admin .birthday-item>.row .whatsapp{
+   background:#399064!important;
+   color:#fff!important;
+ }
+}
 </style>
 </head>
 <body>
