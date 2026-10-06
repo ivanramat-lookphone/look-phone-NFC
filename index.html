@@ -2190,7 +2190,7 @@ body.customer-mode .pc-public{padding:0!important}
 .pc-art-extra button{border:1px solid #dfc5a8;background:#f7eee6;color:#5b3925;box-shadow:0 2px 7px #68432512;transition:background .16s ease,border-color .16s ease,transform .16s ease}
 .pc-art-extra button:hover{background:#f1e1d1;border-color:#c8a47d}
 .pc-art-extra button:active{transform:translateY(1px)}
-.pc-art-extra #refreshCard,.pc-art-extra #customerForm button,.pc-art-extra #myDetailsForm button[type=submit],.pc-art-extra #myDetailsForm .pc-profile-actions button:first-child{border-color:#9a673b;background:linear-gradient(135deg,#c39767,#a87342);color:#fffaf4;box-shadow:0 5px 12px #8b5a3026}
+.pc-art-extra #refreshCard,.pc-art-extra #customerForm button,.pc-art-extra #customerForm button.green,.pc-art-extra #myDetailsForm button[type=submit],.pc-art-extra #myDetailsForm .pc-profile-actions button:first-child{border-color:#9a673b;background:linear-gradient(135deg,#c39767,#a87342)!important;color:#fffaf4!important;box-shadow:0 5px 12px #8b5a3026}
 .pc-art-extra #refreshCard:hover,.pc-art-extra #customerForm button:hover,.pc-art-extra #myDetailsForm button[type=submit]:hover,.pc-art-extra #myDetailsForm .pc-profile-actions button:first-child:hover{background:linear-gradient(135deg,#b98653,#925e35)}
 .pc-art-extra #shareReferral{background:#f3e3d5;color:#5b3925;border-color:#d5b28b}
 .pc-art-extra .referral-code,.pc-art-extra .coupon-code{background:#f7e9dc;color:#704b2d;border:1px solid #e4c9aa}
@@ -2370,7 +2370,7 @@ function customerPublicHtml(p,card){
      ${p.phone?`<a class="pc-art-hit pc-art-hit-wa" aria-label="Hablar por WhatsApp" href="https://wa.me/${p.phone}?text=${encodeURIComponent(p.wa_message)}" target="_blank" rel="noopener noreferrer"></a>`:''}
      ${p.instagram?`<a class="pc-art-hit pc-art-hit-ig" aria-label="Ver Instagram" href="${esc(instagramUrl(p.instagram))}" target="_blank" rel="noopener noreferrer"></a>`:''}`;
    return `<div class="pc-art-card">
-     <img class="pc-art-background" src="assets/ponte-coqueta-card-base.svg?v=1" alt="Tarjeta de beneficios de Ponte Coqueta">
+     <img class="pc-art-background" src="assets/ponte-coqueta-card-hires.svg?v=2" alt="Tarjeta de beneficios de Ponte Coqueta">
      <div id="cardState" class="pc-art-live" aria-live="polite"></div>
      ${hits}
    </div>
