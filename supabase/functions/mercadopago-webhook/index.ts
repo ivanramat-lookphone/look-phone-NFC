@@ -56,7 +56,7 @@ Deno.serve(async (req: Request) => {
       const ownerId = String(subscription?.external_reference || "");
       if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(ownerId)) return json({ error: "Invalid account reference" }, 400);
       const status = String(subscription?.status || "");
-      const safeStatus = ["authorized", "pending", "paused", "cancelled"].includes(status) ? status : "pending";
+      const safeStatus = status === "canceled" ? "cancelled" : ["authorized", "pending", "paused", "cancelled"].includes(status) ? status : "pending";
       await rpc("nfc_billing_apply_preapproval", {
         p_owner: ownerId,
         p_preapproval_id: String(subscription.id),
