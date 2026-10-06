@@ -52,7 +52,7 @@ Deno.serve(async (req: Request) => {
       payer_email: user.email,
       back_url: `${appUrl}?billing=return`,
       notification_url: `${url}/functions/v1/mercadopago-webhook`,
-      auto_recurring: { frequency: 1, frequency_type: "months", transaction_amount: 30000, currency_id: "ARS" },
+      auto_recurring: { frequency: 1, frequency_type: "months", transaction_amount: 33000, currency_id: "ARS" },
     }),
   });
   const created = await createResponse.json().catch(() => ({}));
