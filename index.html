@@ -2635,15 +2635,16 @@ body.auth-screen #auth .linkbtn{padding:6px 4px;font-size:12px;line-height:1.2}
 #customer .look-discover:hover{background:#e2eeff}
 body.look-info-mode{background:#f3f7fc;padding-bottom:0;color:#101827}
 body.look-info-mode>header{display:none!important}
-body.look-info-mode main{max-width:960px;padding:20px 20px max(32px,env(safe-area-inset-bottom))}
+body.look-info-mode main{width:100%;max-width:none;margin:0;padding:0 0 max(32px,env(safe-area-inset-bottom))}
 #lookInfo[hidden]{display:none!important}
 #lookInfo{font-size:16px;line-height:1.55}
 #lookInfo h1,#lookInfo h2,#lookInfo h3,#lookInfo p{overflow-wrap:anywhere}
-.look-info-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
-.look-info-brand{display:block;width:min(400px,66vw);overflow:hidden;border-radius:15px;background:#050505;text-decoration:none}
+.look-info-top{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:180px;margin:0 0 28px;padding:12px 20px;background:#050505}
+.look-info-brand{position:absolute;left:50%;top:50%;display:block;width:min(400px,66vw);overflow:hidden;border-radius:15px;background:#050505;text-decoration:none;transform:translate(-50%,-50%)}
 .look-info-brand img{display:block;width:100%;height:auto}
-#lookInfo .look-back{display:inline-flex;align-items:center;min-height:44px;color:#145fac;font-size:14px;font-weight:650;text-decoration:none}
-.look-info-hero{padding:28px;border:1px solid #d7e6f7;border-radius:20px;background:#fff;box-shadow:0 10px 30px #15375408}
+.look-info-return{display:flex;width:min(960px,calc(100% - 36px));height:44px;justify-content:flex-end;margin:-18px auto 16px}
+#lookInfo .look-back{display:inline-flex;align-items:center;min-height:38px;padding:0 12px;border-radius:10px;background:#edf4fc;color:#145fac;font-size:14px;font-weight:650;text-decoration:none}
+.look-info-hero{width:min(960px,calc(100% - 36px));margin:0 auto;padding:28px;border:1px solid #d7e6f7;border-radius:20px;background:#fff;box-shadow:0 10px 30px #15375408}
 .look-info-kicker{color:#145fac;font-size:13px;font-weight:750;letter-spacing:.08em}
 #lookInfo h1{margin:8px 0 12px;font-size:36px;line-height:1.15}
 .look-info-hero p{max-width:650px;margin:0;color:#42516a}
@@ -2652,29 +2653,32 @@ body.look-info-mode main{max-width:960px;padding:20px 20px max(32px,env(safe-are
 .look-how-number{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:#147ce5;color:white;font-size:15px;font-weight:750}
 #lookInfo .look-how h2{margin:10px 0 6px;font-size:18px;line-height:1.3}
 #lookInfo .look-how p{font-size:15px;line-height:1.5}
-.look-directory-heading{margin-top:30px}
+.look-directory-heading{width:min(960px,calc(100% - 36px));margin:30px auto 0}
 #lookInfo .look-directory-heading h2{margin:0 0 8px;font-size:26px;line-height:1.2}
 .look-directory-heading p{margin:0;color:#42516a}
-.look-directory-status{color:#52617a;font-size:14px;margin:14px 0}
-.look-merchant-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.look-merchant{display:flex;flex-direction:column;min-width:0;padding:20px;background:#fff;border:1px solid #dce5ef;border-radius:18px;border-top:4px solid var(--listing-accent,#147ce5)}
-.look-merchant-head{display:flex;align-items:center;justify-content:center;min-height:140px}
-.look-merchant-mark{display:flex;align-items:center;justify-content:center;width:100%;height:138px;border-radius:14px;background:transparent}
-.look-merchant-mark img{display:block;width:min(100%,320px);height:100%;object-fit:contain;border-radius:14px;padding:0}
+.look-directory-status{width:min(960px,calc(100% - 36px));color:#52617a;font-size:14px;margin:14px auto}
+.look-merchant-grid{display:grid;width:min(960px,calc(100% - 36px));grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:0 auto}
+.look-merchant{display:flex;flex-direction:column;min-width:0;overflow:hidden;padding:0 0 12px;background:#fff;border:1px solid #dce5ef;border-radius:18px}
+.look-merchant-head{display:flex;align-items:stretch;justify-content:center;width:100%;height:190px}
+.look-merchant-mark{display:flex;align-items:center;justify-content:center;width:100%;height:190px;background:#faf8f4}
+.look-merchant-mark img{display:block;width:100%;height:100%;object-fit:contain;border-radius:0;padding:0}
 .look-merchant-mark-look{background:#050505}
-.look-merchant-mark-look img{padding:5px}
-.look-merchant-mark-ponte img{width:min(100%,205px);padding:5px}
-.look-merchant-actions{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;width:100%;margin-top:4px}
-#lookInfo .look-merchant-actions>a{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:48px;padding:10px 12px;border:0;border-radius:11px;color:#fff;font-size:15px;font-weight:700;text-align:center;text-decoration:none;transition:filter .15s ease,transform .15s ease}
+.look-merchant-mark-look img{padding:0}
+.look-merchant-mark-ponte img{width:100%;padding:0}
+.look-merchant-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;width:100%;margin:10px 0 0;padding:0 10px}
+#lookInfo .look-merchant-actions>a{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;min-width:0;min-height:40px;padding:6px 5px;border:0;border-radius:9px;color:#fff;font-size:13px;font-weight:700;line-height:1.15;text-align:center;text-decoration:none;transition:filter .15s ease,transform .15s ease}
 #lookInfo .look-merchant-actions>a.look-merchant-open{background:#147ce5}
 #lookInfo .look-merchant-actions>a.look-merchant-whatsapp{background:#25D366}
 #lookInfo .look-merchant-actions>a.look-merchant-instagram{background:linear-gradient(45deg,#feda75 0%,#fa7e1e 25%,#d62976 52%,#962fbf 76%,#4f5bd5 100%)}
 #lookInfo .look-merchant-actions>a:hover{filter:brightness(.94);transform:translateY(-1px)}
-.look-merchant-actions>a svg{display:block;width:20px;height:20px;flex:0 0 20px}
-.look-info-note{margin:24px 0 0;color:#52617a;font-size:14px;text-align:center}
+.look-merchant-actions>a svg{display:block;width:17px;height:17px;flex:0 0 17px}
+.look-info-note{width:min(960px,calc(100% - 36px));margin:24px auto 0;color:#52617a;font-size:14px;text-align:center}
 #lookInfo a:focus-visible,#customer .look-discover:focus-visible{outline:3px solid #147ce5;outline-offset:3px}
 @media(max-width:650px){
- body.look-info-mode main{padding:max(12px,env(safe-area-inset-top)) 14px 28px}
+ body.look-info-mode main{padding:0 0 28px}
+ .look-info-top{height:146px;margin-bottom:20px;padding-top:max(12px,env(safe-area-inset-top))}
+ .look-info-brand{width:min(310px,78vw)}
+ #lookInfo .look-back{min-height:36px;padding:0 9px;font-size:12px}
  .look-info-hero{padding:22px 18px}
  #lookInfo h1{font-size:30px}
  .look-how,.look-merchant-grid{grid-template-columns:minmax(0,1fr)}
@@ -2683,7 +2687,6 @@ body.look-info-mode main{max-width:960px;padding:20px 20px max(32px,env(safe-are
  #lookInfo .look-how h2{margin:0 0 4px}
  #lookInfo .look-how p{grid-column:2}
  .look-directory-heading{margin-top:24px}
- .look-info-brand{width:min(320px,72vw)}
 }
 </style>
 </head>
@@ -2914,7 +2917,7 @@ function lookMerchantHtml(p){
  return `<article class="look-merchant">
   <div class="look-merchant-head"><div class="look-merchant-mark ${isLookPhone(p)?'look-merchant-mark-look':ponte?'look-merchant-mark-ponte':'look-merchant-mark-standard'}">${logo?`<img src="${esc(logo)}" alt="Logo de ${esc(p.business)}" loading="lazy">`:''}</div></div>
   <div class="look-merchant-actions">
-   <a class="look-merchant-open" href="${esc(publicUrl(p))}" aria-label="Ver tarjeta de beneficios de ${esc(p.business)}">Ver tarjeta de beneficios</a>
+   <a class="look-merchant-open" href="${esc(publicUrl(p))}" aria-label="Ver tarjeta de beneficios de ${esc(p.business)}">Ver tarjeta</a>
    ${phone?`<a class="look-merchant-whatsapp" href="https://wa.me/${phone}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp de ${esc(p.business)}">${whatsappIcon}<span>WhatsApp</span></a>`:''}
    ${instagram?`<a class="look-merchant-instagram" href="${esc(instagram)}" target="_blank" rel="noopener noreferrer" aria-label="Instagram de ${esc(p.business)}">${instagramIcon}<span>Instagram</span></a>`:''}
   </div>
@@ -2942,7 +2945,7 @@ async function loadLookInfo(){
  const from=new URLSearchParams(location.search).get('from');
  const back=isUUID(from)?publicUrl({id:from}):'';
  $('lookInfo').innerHTML=`
-  <div class="look-info-top"><a class="look-info-brand" href="${esc(lookInfoUrl())}" aria-label="LOOK"><img src="assets/look-brand-logo.webp" alt="Logo de LOOK"></a>${back?`<a class="look-back" href="${esc(back)}">Volver a mi tarjeta</a>`:''}</div>
+  <div class="look-info-top"><a class="look-info-brand" href="${esc(lookInfoUrl())}" aria-label="LOOK"><img src="assets/look-brand-logo.webp" alt="Logo de LOOK"></a></div>${back?`<div class="look-info-return"><a class="look-back" href="${esc(back)}">Volver a mi tarjeta</a></div>`:''}
   <section class="look-info-hero" aria-labelledby="lookInfoTitle">
    <span class="look-info-kicker">TUS COMPRAS TIENEN PREMIO</span>
    <h1 id="lookInfoTitle">Conocé LOOK</h1>
