@@ -2665,13 +2665,12 @@ body.look-info-mode main{max-width:960px;padding:20px 20px max(32px,env(safe-are
 .look-merchant-mark-look img{padding:5px}
 .look-merchant-mark-ponte img{width:min(100%,205px);padding:5px}
 .look-merchant-actions{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;width:100%;margin-top:4px}
-#lookInfo .look-merchant-open,#lookInfo .look-merchant-social a{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:48px;padding:10px 12px;border:0;border-radius:11px;color:#fff;font-size:15px;font-weight:700;text-align:center;text-decoration:none;transition:filter .15s ease,transform .15s ease}
-#lookInfo .look-merchant-open{background:#147ce5}
-#lookInfo .look-merchant-social a.look-merchant-whatsapp{background:#25D366}
-#lookInfo .look-merchant-social a.look-merchant-instagram{background:linear-gradient(45deg,#feda75 0%,#fa7e1e 25%,#d62976 52%,#962fbf 76%,#4f5bd5 100%)}
-#lookInfo .look-merchant-open:hover,#lookInfo .look-merchant-social a:hover{filter:brightness(.94);transform:translateY(-1px)}
-.look-merchant-social{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
-.look-merchant-social a svg,.look-merchant-open svg{width:20px;height:20px;flex:0 0 20px}
+#lookInfo .look-merchant-actions>a{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:48px;padding:10px 12px;border:0;border-radius:11px;color:#fff;font-size:15px;font-weight:700;text-align:center;text-decoration:none;transition:filter .15s ease,transform .15s ease}
+#lookInfo .look-merchant-actions>a.look-merchant-open{background:#147ce5}
+#lookInfo .look-merchant-actions>a.look-merchant-whatsapp{background:#25D366}
+#lookInfo .look-merchant-actions>a.look-merchant-instagram{background:linear-gradient(45deg,#feda75 0%,#fa7e1e 25%,#d62976 52%,#962fbf 76%,#4f5bd5 100%)}
+#lookInfo .look-merchant-actions>a:hover{filter:brightness(.94);transform:translateY(-1px)}
+.look-merchant-actions>a svg{display:block;width:20px;height:20px;flex:0 0 20px}
 .look-info-note{margin:24px 0 0;color:#52617a;font-size:14px;text-align:center}
 #lookInfo a:focus-visible,#customer .look-discover:focus-visible{outline:3px solid #147ce5;outline-offset:3px}
 @media(max-width:650px){
