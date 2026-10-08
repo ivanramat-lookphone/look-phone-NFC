@@ -2688,7 +2688,7 @@ body.look-info-mode main{width:100%;max-width:none;margin:0;padding:0 0 max(32px
  .look-info-hero{padding:22px 18px}
  #lookInfo h1{font-size:30px}
  .look-how{grid-template-columns:minmax(0,1fr)}
- .look-merchant-grid{width:calc(100% - 20px);grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .look-merchant-grid{width:calc(100% - 20px);grid-template-columns:minmax(0,1fr);gap:12px}
  .look-how article{display:grid;grid-template-columns:30px minmax(0,1fr);column-gap:12px;padding:14px}
  .look-how-number{grid-row:1/3}
  #lookInfo .look-how h2{margin:0 0 4px}
@@ -2698,12 +2698,12 @@ body.look-info-mode main{width:100%;max-width:none;margin:0;padding:0 0 max(32px
  .look-merchant-look{padding-bottom:0;border-radius:14px;background:#050505;border-color:#050505}
  .look-merchant-look .look-merchant-actions{margin:0;padding:6px;background:#050505;border-radius:0 0 13px 13px}
  .look-merchant-head,.look-merchant-mark{height:95px}
- .look-merchant-actions{grid-template-columns:minmax(0,1fr);gap:6px;margin-top:0;padding:7px;align-items:stretch;justify-items:stretch}
- #lookInfo .look-merchant-actions>a{width:100%;height:40px;min-height:40px;padding:0 9px;border-radius:11px;gap:7px;font-size:12px}
- .look-merchant-actions>a svg{width:19px;height:19px;flex-basis:19px}
+ .look-merchant-actions{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:0;padding:7px;align-items:stretch;justify-items:stretch}
+ #lookInfo .look-merchant-actions>a{width:100%;height:40px;min-height:40px;padding:0 4px;border-radius:11px;gap:5px;font-size:11px;white-space:nowrap}
+ .look-merchant-actions>a svg{width:18px;height:18px;flex-basis:18px}
  #lookInfo .look-merchant-open>svg{display:block}
  .look-merchant-actions>a span{display:inline}
- @media(max-width:350px){#lookInfo .look-merchant-actions{gap:5px;padding:6px}#lookInfo .look-merchant-actions>a{height:38px;min-height:38px;border-radius:10px;font-size:11px}.look-merchant-actions>a svg{width:18px;height:18px;flex-basis:18px}}
+ @media(max-width:350px){#lookInfo .look-merchant-actions{gap:4px;padding:6px}#lookInfo .look-merchant-actions>a{height:38px;min-height:38px;border-radius:10px;font-size:10px;gap:3px}.look-merchant-actions>a svg{width:17px;height:17px;flex-basis:17px}}
 }
 </style>
 </head>
