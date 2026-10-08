@@ -2698,12 +2698,12 @@ body.look-info-mode main{width:100%;max-width:none;margin:0;padding:0 0 max(32px
  .look-merchant-look{padding-bottom:0;border-radius:14px;background:#050505;border-color:#050505}
  .look-merchant-look .look-merchant-actions{margin:0;padding:6px;background:#050505;border-radius:0 0 13px 13px}
  .look-merchant-head,.look-merchant-mark{height:95px}
- .look-merchant-actions{gap:6px;margin-top:0;padding:6px 7px;align-items:stretch;justify-items:stretch}
- #lookInfo .look-merchant-actions>a{width:100%;height:40px;min-height:40px;padding:0;border-radius:11px}
- .look-merchant-actions>a svg{width:22px;height:22px;flex-basis:22px}
+ .look-merchant-actions{grid-template-columns:minmax(0,1fr);gap:6px;margin-top:0;padding:7px;align-items:stretch;justify-items:stretch}
+ #lookInfo .look-merchant-actions>a{width:100%;height:40px;min-height:40px;padding:0 9px;border-radius:11px;gap:7px;font-size:12px}
+ .look-merchant-actions>a svg{width:19px;height:19px;flex-basis:19px}
  #lookInfo .look-merchant-open>svg{display:block}
- .look-merchant-actions>a span{display:none}
- @media(max-width:350px){#lookInfo .look-merchant-actions{gap:5px;padding:6px}.look-merchant-actions>a{height:38px;min-height:38px;border-radius:10px}.look-merchant-actions>a svg{width:21px;height:21px;flex-basis:21px}}
+ .look-merchant-actions>a span{display:inline}
+ @media(max-width:350px){#lookInfo .look-merchant-actions{gap:5px;padding:6px}#lookInfo .look-merchant-actions>a{height:38px;min-height:38px;border-radius:10px;font-size:11px}.look-merchant-actions>a svg{width:18px;height:18px;flex-basis:18px}}
 }
 </style>
 </head>
