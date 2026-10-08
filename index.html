@@ -2579,6 +2579,42 @@ body.auth-screen #auth .linkbtn{padding:6px 4px;font-size:12px;line-height:1.2}
  body.auth-screen #authForm input{min-height:35px}
 }
 
+
+/* LOOK PHONE public profile: compact full-width stacked contact buttons */
+.lp-master-social-bg{
+  position:absolute;
+  z-index:7;
+  left:0.5%;
+  top:35.3%;
+  width:99%;
+  height:8.45%;
+  background:#fff;
+  pointer-events:none;
+}
+.lp-master-hit.wa,.lp-master-hit.ig{
+  left:2.5%!important;
+  width:95%!important;
+  height:3.78%!important;
+  padding:0 2.8cqw!important;
+  border-radius:2.4cqw!important;
+  box-shadow:0 .65cqw 1.9cqw #0b173018!important;
+}
+.lp-master-hit.wa{top:35.55%!important}
+.lp-master-hit.ig{top:39.82%!important}
+.lp-master-hit.wa .lp-live-action,.lp-master-hit.ig .lp-live-action{gap:1.8cqw!important}
+.lp-master-hit.wa .lp-live-action svg,.lp-master-hit.ig .lp-live-action svg{
+  width:4.9cqw!important;
+  height:4.9cqw!important;
+}
+.lp-master-hit.wa .lp-live-action strong,.lp-master-hit.ig .lp-live-action strong{
+  font-size:3.35cqw!important;
+  line-height:1.1!important;
+  white-space:nowrap!important;
+}
+.lp-master-hit.wa .lp-live-chevron,.lp-master-hit.ig .lp-live-chevron{
+  font-size:4.7cqw!important;
+}
+
 </style>
 </head>
 <body>
@@ -2701,8 +2737,9 @@ function customerPublicHtml(p,card){
       <div class="lp-crisp-mask lp-crisp-hero-mask" aria-hidden="true"></div>
       <div class="lp-crisp-hero" aria-hidden="true"><div class="lp-crisp-kicker">TARJETA DE BENEFICIOS</div><div class="lp-crisp-title">LOOK <i>PHONE</i></div><div class="lp-crisp-tag">TU MUNDO TECH,<br>MÁS CERCA</div></div>
       <div class="lp-crisp-special" aria-hidden="true"><span>♛</span> CLIENTE ESPECIAL</div>
-      ${p.phone?`<a class="lp-master-hit wa" aria-label="Hablar por WhatsApp" href="https://wa.me/${p.phone}?text=${encodeURIComponent(p.wa_message)}" target="_blank" rel="noopener noreferrer"><span class="lp-live-action"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M10.5 9.8c1.1-1 2.2-.7 2.8.6l1.2 2.6c.3.7.1 1.3-.5 1.8l-1 .8c1.1 2.3 2.8 4 5 5l.9-1c.5-.6 1.2-.8 1.9-.4l2.5 1.2c1.2.6 1.5 1.8.5 2.8-1.2 1.2-2.8 1.8-4.5 1.5-5.7-.9-10.3-5.5-11.2-11.2-.3-1.4.2-2.7 1.4-3.7z" fill="currentColor"/></svg><strong>Hablar por<br>WhatsApp</strong></span><span class="lp-live-chevron">›</span></a>`:''}
-      ${p.instagram?`<a class="lp-master-hit ig" aria-label="Ver Instagram" href="${esc(instagramUrl(p.instagram))}" target="_blank" rel="noopener noreferrer"><span class="lp-live-action"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="5" width="22" height="22" rx="6" fill="none" stroke="currentColor" stroke-width="2.3"/><circle cx="16" cy="16" r="5.1" fill="none" stroke="currentColor" stroke-width="2.3"/><circle cx="23" cy="9.5" r="1.6" fill="currentColor"/></svg><strong>Ver<br>Instagram</strong></span><span class="lp-live-chevron">›</span></a>`:''}
+      <div class="lp-master-social-bg" aria-hidden="true"></div>
+      ${p.phone?`<a class="lp-master-hit wa" aria-label="Hablar por WhatsApp" href="https://wa.me/${p.phone}?text=${encodeURIComponent(p.wa_message)}" target="_blank" rel="noopener noreferrer"><span class="lp-live-action"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M10.5 9.8c1.1-1 2.2-.7 2.8.6l1.2 2.6c.3.7.1 1.3-.5 1.8l-1 .8c1.1 2.3 2.8 4 5 5l.9-1c.5-.6 1.2-.8 1.9-.4l2.5 1.2c1.2.6 1.5 1.8.5 2.8-1.2 1.2-2.8 1.8-4.5 1.5-5.7-.9-10.3-5.5-11.2-11.2-.3-1.4.2-2.7 1.4-3.7z" fill="currentColor"/></svg><strong>Hablar por WhatsApp</strong></span><span class="lp-live-chevron">›</span></a>`:''}
+      ${p.instagram?`<a class="lp-master-hit ig" aria-label="Ver Instagram" href="${esc(instagramUrl(p.instagram))}" target="_blank" rel="noopener noreferrer"><span class="lp-live-action"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="5" width="22" height="22" rx="6" fill="none" stroke="currentColor" stroke-width="2.3"/><circle cx="16" cy="16" r="5.1" fill="none" stroke="currentColor" stroke-width="2.3"/><circle cx="23" cy="9.5" r="1.6" fill="currentColor"/></svg><strong>Ver Instagram</strong></span><span class="lp-live-chevron">›</span></a>`:''}
       <div class="lp-crisp-mask lp-crisp-reward-mask" aria-hidden="true"></div>
       <div class="lp-crisp-reward" aria-hidden="true"><div class="lp-crisp-gift">🎁</div><div class="lp-crisp-reward-copy"><small>TU PREMIO</small><strong>${esc(p.reward)}</strong><span>al llegar a ${p.goal} puntos</span></div></div>
       <div class="lp-crisp-mask lp-crisp-progress-label-mask" aria-hidden="true"></div>
