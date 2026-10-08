@@ -2426,7 +2426,7 @@ body.owner-pontecoqueta .business-switch select{
   body.owner-pontecoqueta #admin .section-heading h2{font-size:27px}
 }
 
-.platform-root{max-width:1000px;margin:0 auto}.platform-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:14px}.platform-summary .card{margin:0}.platform-summary strong{display:block;font-size:30px;margin-top:6px}.platform-accounts{display:grid;gap:12px}.platform-account{margin:0;display:grid;gap:14px}.platform-account-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.platform-account-head small{display:block;margin-top:5px;overflow-wrap:anywhere}.platform-fields{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:12px}.badge-paused{background:#f3e5dc;color:#734b35}.suspended-panel{max-width:580px;margin:35px auto}.platform-data-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin:28px 0 12px}.platform-data-heading h2{margin:0 0 5px}.platform-data-heading p{margin:0}.platform-client-controls{max-width:440px;margin:0 0 12px}.platform-client-table{overflow:auto}.platform-client-table table{min-width:760px}.platform-pagination{margin:12px 0 22px}.platform-export-actions{display:flex;flex-wrap:wrap;gap:8px}.platform-export-actions button{white-space:nowrap}@media(max-width:650px){.platform-summary{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.platform-summary .card{padding:12px 9px}.platform-summary small{font-size:12px}.platform-summary strong{font-size:24px}.platform-fields{grid-template-columns:1fr}.platform-account-head{flex-wrap:wrap}.platform-data-heading{display:block}.platform-export-actions{margin-top:12px}.platform-export-actions button{flex:1 1 190px}}
+.platform-root{max-width:1000px;margin:0 auto}.platform-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:14px}.platform-summary .card{margin:0}.platform-summary strong{display:block;font-size:30px;margin-top:6px}.platform-accounts{display:grid;gap:12px}.platform-account{margin:0;display:grid;gap:14px}.platform-account-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.platform-account-head small{display:block;margin-top:5px;overflow-wrap:anywhere}.platform-fields{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:12px}.badge-paused{background:#f3e5dc;color:#734b35}.suspended-panel{max-width:580px;margin:35px auto}.platform-data-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin:28px 0 12px}.platform-data-heading h2{margin:0 0 5px}.platform-data-heading p{margin:0}.platform-client-controls{max-width:440px;margin:0 0 12px}.platform-client-groups{display:grid;gap:12px}.platform-business-group{margin:0}.platform-business-head{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:14px;align-items:center}.platform-business-name{display:block;font-size:18px}.platform-business-head small{display:block;margin-top:4px;overflow-wrap:anywhere}.platform-business-count{white-space:nowrap;font-weight:700}.platform-business-details{margin-top:14px}.platform-business-table{overflow:auto}.platform-business-table table{min-width:700px}.platform-business-pagination{margin:12px 0 0}.platform-export-actions{display:flex;flex-wrap:wrap;gap:8px}.platform-export-actions button{white-space:nowrap}@media(max-width:650px){.platform-summary{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.platform-summary .card{padding:12px 9px}.platform-summary small{font-size:12px}.platform-summary strong{font-size:24px}.platform-fields{grid-template-columns:1fr}.platform-account-head{flex-wrap:wrap}.platform-data-heading{display:block}.platform-business-head{grid-template-columns:1fr auto}.platform-business-head button{grid-column:1/-1}.platform-business-count{justify-self:start}.platform-export-actions{margin-top:12px}.platform-export-actions button{flex:1 1 190px}}
 
 .billing-panel{margin:0 0 18px;border-color:#dcc7ad;background:linear-gradient(120deg,#fffaf4,#f7eadb)}.billing-panel h2{margin:0 0 6px;font-size:20px}.billing-panel p{margin:6px 0;color:var(--muted)}.billing-panel .row{margin-top:12px}.billing-panel button{max-width:320px}.billing-panel a{color:#754b31;font-weight:700}.billing-instructions{margin:12px 0 0;padding:14px 16px;border:1px solid #dcc7ad;border-radius:14px;background:#fffaf4;color:#4e3528}.billing-instructions h3{margin:0 0 8px;font-size:18px}.billing-instructions p{margin:6px 0;color:#6d5a4c}.billing-instructions dl{display:grid;grid-template-columns:auto 1fr;gap:5px 12px;margin:10px 0}.billing-instructions dt{color:#80634f}.billing-instructions dd{margin:0;font-weight:700;overflow-wrap:anywhere}.billing-instructions .billing-pay-link{display:inline-flex;margin-top:8px;padding:10px 14px;border-radius:10px;background:#a66b35;color:white;text-decoration:none}.billing-instructions .billing-instructions-note{font-size:13px}
 .gift-access-button{width:100%;margin:8px 0}.gift-access-button.is-gifted{border:1px solid #c9a57a}
@@ -2632,10 +2632,9 @@ body.auth-screen #auth .linkbtn{padding:6px 4px;font-size:12px;line-height:1.2}
   <div class="card"><label for="platformSearch">Buscar comercio o correo</label><input id="platformSearch" type="search" placeholder="Nombre del comercio o email"></div>
   <div id="platformAccounts" class="platform-accounts" aria-live="polite"></div>
   <div class="platform-data-heading"><div><h2>Base general de clientes</h2><p class="muted">Vista exclusiva de administración. Los comercios siguen viendo solo sus propios clientes.</p></div><div class="platform-export-actions"><button id="downloadPlatformClients" type="button">Descargar clientes CSV</button></div></div>
-  <div class="card platform-client-controls"><label for="platformClientSearch">Buscar cliente, teléfono, comercio o email</label><input id="platformClientSearch" type="search" placeholder="Escribí para filtrar toda la base"></div>
+  <div class="card platform-client-controls"><label for="platformClientSearch">Buscar comercio, cuenta o cliente</label><input id="platformClientSearch" type="search" placeholder="Nombre del comercio, cliente o teléfono"></div>
   <p id="platformClientSummary" class="muted" aria-live="polite"></p>
-  <div class="card platform-client-table"><table><thead><tr><th>Comercio</th><th>Cuenta</th><th>Cliente</th><th>WhatsApp</th><th>Puntos</th><th>Visitas</th><th>Segmento</th><th>Alta</th></tr></thead><tbody id="platformClientRows"></tbody></table></div>
-  <div class="row spread platform-pagination"><button id="platformClientsPrevious" type="button" class="secondary">Anterior</button><span id="platformClientsPage" class="muted"></span><button id="platformClientsNext" type="button" class="secondary">Siguiente</button></div>
+  <div id="platformClientGroups" class="platform-client-groups" aria-live="polite"></div>
   <div class="card muted">Plan mensual: $30.000 ARS por comercio. Los pagos y suscripciones autorizadas se sincronizan automáticamente desde Mercado Pago.</div>
   <button id="platformBack" type="button" class="secondary">Volver a mi comercio</button>
 </section>
@@ -2656,7 +2655,7 @@ const uuid=()=>crypto.randomUUID();
 const isUUID=s=>/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(s||'');
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const digits=s=>s.replace(/\D/g,'');
-let session=null,profiles=[],clients=[],events=[],contactEvents=[],rewardTiers=[],coupons=[],couponRedemptions=[],editing=null,signup=false,customerProfile=null,customerCardState=null,customerExtrasState=null,activeCampaign='miss',campaignIndex=0,contactMode='ready',isPlatformAdmin=false,platformAccounts=[],platformClients=[],platformClientTotal=0,platformClientOffset=0;
+let session=null,profiles=[],clients=[],events=[],contactEvents=[],rewardTiers=[],coupons=[],couponRedemptions=[],editing=null,signup=false,customerProfile=null,customerCardState=null,customerExtrasState=null,activeCampaign='miss',campaignIndex=0,contactMode='ready',isPlatformAdmin=false,platformAccounts=[],platformClientGroups=[],platformClientExpanded=new Set(),platformClientDetails=new Map();
 try{session=JSON.parse(localStorage.getItem(SESSION_KEY)||'null');}catch{}
 function saveSession(s){session=s;if(s)localStorage.setItem(SESSION_KEY,JSON.stringify(s));else localStorage.removeItem(SESSION_KEY);}
 function notify(message,error=false){$('toast').textContent=message;$('toast').className='notice toast'+(error?' error':'');$('toast').hidden=false;clearTimeout(notify.timer);notify.timer=setTimeout(()=>$('toast').hidden=true,6500);}
@@ -2832,36 +2831,70 @@ function lookBrandMarkSvg(){return '<svg class="look-brand-icon" viewBox="0 0 48
 function currentProfileId(){const saved=localStorage.getItem(ACTIVE_PROFILE_KEY);if(saved&&profiles.some(p=>p.id===saved))return saved;return (profiles.find(p=>p.business==='Look Phone')||profiles[0])?.id||'';}
 async function switchActiveProfile(id){if(!profiles.some(p=>p.id===id))return;localStorage.setItem(ACTIVE_PROFILE_KEY,id);if($('editClientForm'))$('editClientForm').hidden=true;editingClient=null;closeClientHistory();await loadAdmin();}
 async function loadPlatform(){
- const [accounts,directory]=await Promise.all([
+ const [accounts,groups]=await Promise.all([
   rpc('nfc_platform_accounts',{},true),
-  rpc('nfc_platform_client_directory',{p_search:'',p_limit:100,p_offset:0},true)
+  rpc('nfc_platform_client_groups',{p_search:''},true)
  ]);
  platformAccounts=Array.isArray(accounts)?accounts:[];
- platformClients=Array.isArray(directory?.rows)?directory.rows:[];
- platformClientTotal=Number(directory?.total||0);
- platformClientOffset=0;
+ platformClientGroups=Array.isArray(groups)?groups:[];
+ platformClientExpanded.clear();
+ platformClientDetails.clear();
  renderPlatformAccounts();
- renderPlatformClientDirectory();
+ renderPlatformClientGroups();
 }
-async function loadPlatformClientPage(offset=0){
- const directory=await rpc('nfc_platform_client_directory',{
-  p_search:$('platformClientSearch').value.trim(),
-  p_limit:100,
-  p_offset:Math.max(0,offset)
+async function loadPlatformClientGroups(){
+ const groups=await rpc('nfc_platform_client_groups',{
+  p_search:$('platformClientSearch').value.trim()
  },true);
- platformClients=Array.isArray(directory?.rows)?directory.rows:[];
- platformClientTotal=Number(directory?.total||0);
- platformClientOffset=Number(directory?.offset||0);
- renderPlatformClientDirectory();
+ platformClientGroups=Array.isArray(groups)?groups:[];
+ platformClientExpanded.clear();
+ platformClientDetails.clear();
+ renderPlatformClientGroups();
 }
-function renderPlatformClientDirectory(){
- const rows=$('platformClientRows');
- rows.innerHTML=platformClients.length?platformClients.map(c=>'<tr><td>'+esc(c.business||'Comercio sin nombre')+'</td><td>'+esc(c.merchant_email||'—')+'</td><td>'+esc(c.client_name||'—')+'</td><td>'+esc(c.client_phone||'—')+'</td><td>'+Number(c.points||0).toLocaleString('es-AR')+'</td><td>'+Number(c.visits||0).toLocaleString('es-AR')+'</td><td>'+esc(c.category||'sin categoría')+'</td><td>'+ (c.created_at?new Date(c.created_at).toLocaleDateString('es-AR'):'—')+'</td></tr>').join(''):'<tr><td colspan="8" class="empty">No hay clientes que coincidan con la búsqueda.</td></tr>';
- const from=platformClientTotal?platformClientOffset+1:0,to=Math.min(platformClientOffset+platformClients.length,platformClientTotal);
- $('platformClientSummary').textContent=platformClientTotal?('Mostrando '+from+'–'+to+' de '+platformClientTotal.toLocaleString('es-AR')+' clientes de todos los comercios.'):'No hay clientes registrados.';
- $('platformClientsPage').textContent=platformClientTotal?'Página '+(Math.floor(platformClientOffset/100)+1)+' de '+Math.max(1,Math.ceil(platformClientTotal/100)):'';
- $('platformClientsPrevious').disabled=platformClientOffset<=0;
- $('platformClientsNext').disabled=platformClientOffset+platformClients.length>=platformClientTotal;
+async function loadPlatformBusinessClientPage(profileId,offset=0){
+ const current=platformClientDetails.get(profileId)||{rows:[],total:0,offset:0,loaded:false};
+ current.loading=true;current.error='';platformClientDetails.set(profileId,current);renderPlatformClientGroups();
+ try{
+  const result=await rpc('nfc_platform_business_clients',{
+   p_profile:profileId,
+   p_search:$('platformClientSearch').value.trim(),
+   p_limit:100,
+   p_offset:Math.max(0,offset)
+  },true);
+  current.rows=Array.isArray(result?.rows)?result.rows:[];
+  current.total=Number(result?.total||0);
+  current.offset=Number(result?.offset||0);
+  current.loaded=true;
+ }catch(error){current.error=friendly(error)||'No se pudieron cargar los clientes.';throw error;}
+ finally{current.loading=false;platformClientDetails.set(profileId,current);renderPlatformClientGroups();}
+}
+function renderPlatformBusinessClientDetails(profileId,detail){
+ if(detail.loading)return '<p class="muted" role="status">Cargando clientes…</p>';
+ if(detail.error)return '<p class="error" role="alert">'+esc(detail.error)+'</p>';
+ if(!detail.loaded)return '<p class="muted">Tocá “Ver clientes” para cargar el detalle.</p>';
+ const rows=detail.rows.length?detail.rows.map(c=>'<tr><td>'+esc(c.client_name||'—')+'</td><td>'+esc(c.client_phone||'—')+'</td><td>'+Number(c.points||0).toLocaleString('es-AR')+'</td><td>'+Number(c.visits||0).toLocaleString('es-AR')+'</td><td>'+esc(c.category||'sin categoría')+'</td><td>'+(c.created_at?new Date(c.created_at).toLocaleDateString('es-AR'):'—')+'</td></tr>').join(''):'<tr><td colspan="6" class="empty">No hay clientes que coincidan con la búsqueda.</td></tr>';
+ const from=detail.total?detail.offset+1:0,to=Math.min(detail.offset+detail.rows.length,detail.total);
+ const pages=Math.max(1,Math.ceil(detail.total/100));
+ return '<div class="platform-business-table"><table><thead><tr><th>Cliente</th><th>WhatsApp</th><th>Puntos</th><th>Visitas</th><th>Segmento</th><th>Alta</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
+  '<div class="row spread platform-business-pagination"><button type="button" class="secondary" data-platform-business-page="'+esc(profileId)+'" data-offset="'+Math.max(0,detail.offset-100)+'" '+(detail.offset<=0?'disabled':'')+'>Anterior</button><span class="muted">Mostrando '+from+'–'+to+' de '+detail.total.toLocaleString('es-AR')+' · Página '+(Math.floor(detail.offset/100)+1)+' de '+pages+'</span><button type="button" class="secondary" data-platform-business-page="'+esc(profileId)+'" data-offset="'+(detail.offset+100)+'" '+(detail.offset+detail.rows.length>=detail.total?'disabled':'')+'>Siguiente</button></div>';
+}
+function renderPlatformClientGroups(){
+ const total=platformClientGroups.reduce((sum,g)=>sum+Number(g.client_count||0),0);
+ $('platformClientSummary').textContent=platformClientGroups.length?
+  platformClientGroups.length.toLocaleString('es-AR')+' comercios · '+total.toLocaleString('es-AR')+' clientes. Desplegá un comercio para ver los detalles.':
+  'No hay comercios o clientes que coincidan con la búsqueda.';
+ $('platformClientGroups').innerHTML=platformClientGroups.length?platformClientGroups.map(g=>{
+  const profileId=String(g.profile_id||''),expanded=platformClientExpanded.has(profileId);
+  const detail=platformClientDetails.get(profileId)||{rows:[],total:0,offset:0,loaded:false,loading:false,error:''};
+  return '<article class="card platform-business-group"><div class="platform-business-head"><div><strong class="platform-business-name">'+esc(g.business||'Comercio sin nombre')+'</strong><small>'+esc(g.merchant_email||'Sin correo de cuenta')+'</small></div><span class="platform-business-count">'+Number(g.client_count||0).toLocaleString('es-AR')+' clientes</span><button type="button" class="secondary" data-platform-toggle-profile="'+esc(profileId)+'" aria-expanded="'+String(expanded)+'" aria-controls="platform-business-clients-'+esc(profileId)+'">'+(expanded?'Ocultar detalle':'Ver clientes')+'</button></div><div class="platform-business-details" id="platform-business-clients-'+esc(profileId)+'" '+(expanded?'':'hidden')+'>'+renderPlatformBusinessClientDetails(profileId,detail)+'</div></article>';
+ }).join(''):'<div class="card empty">No hay resultados para mostrar.</div>';
+}
+function togglePlatformBusiness(profileId){
+ if(platformClientExpanded.has(profileId)){platformClientExpanded.delete(profileId);renderPlatformClientGroups();return;}
+ platformClientExpanded.add(profileId);
+ const detail=platformClientDetails.get(profileId);
+ renderPlatformClientGroups();
+ if(!detail?.loaded)loadPlatformBusinessClientPage(profileId,0).catch(error=>notify(friendly(error),true));
 }
 function csvValue(value){
  const text=String(value??'');
@@ -3346,9 +3379,8 @@ bindBusy('refresh','click',loadAdmin);bindBusy('retry','click',boot);
 bindBusy('importLegacy','click',async()=>{const old=JSON.parse(localStorage.getItem('lookphone_nfc_v1')||'{"profiles":[]}');for(const p of old.profiles){let instagram='';try{instagram=instagramUrl(p.instagram||'');}catch{}if(profiles.some(x=>x.business===p.business&&x.name===p.name))continue;await request('/rest/v1/nfc_profiles',{method:'POST',body:{business:String(p.business||'Comercio').slice(0,100),name:String(p.name||'Perfil NFC').slice(0,100),phone:digits(p.phone||'').slice(0,20),wa_message:String(p.waMsg||'').slice(0,500),instagram,reward:String(p.reward||'10% de descuento').slice(0,300),goal:10}},true);await loadAdmin();}localStorage.setItem('lookphone_nfc_v1_imported',JSON.stringify(old));localStorage.removeItem('lookphone_nfc_v1');$('legacy').hidden=true;notify('Perfiles importados. Copiá las nuevas URLs para tus NFC.');});
 $('platformLink').onclick=()=>{const u=new URL(location.href);u.searchParams.set('platform','1');history.pushState(null,'',u);loadPlatform().then(()=>view('platform')).catch(err=>notify(friendly(err),true));};$('platformBack').onclick=()=>{const u=new URL(location.href);u.searchParams.delete('platform');history.pushState(null,'',u);loadAdmin().catch(err=>notify(friendly(err),true));};$('platformSearch').oninput=renderPlatformAccounts;
 let platformClientSearchTimer;
-$('platformClientSearch').oninput=()=>{clearTimeout(platformClientSearchTimer);platformClientSearchTimer=setTimeout(()=>loadPlatformClientPage(0).catch(err=>notify(friendly(err),true)),220);};
-$('platformClientsPrevious').onclick=()=>loadPlatformClientPage(platformClientOffset-100).catch(err=>notify(friendly(err),true));
-$('platformClientsNext').onclick=()=>loadPlatformClientPage(platformClientOffset+100).catch(err=>notify(friendly(err),true));
+$('platformClientSearch').oninput=()=>{clearTimeout(platformClientSearchTimer);platformClientSearchTimer=setTimeout(()=>loadPlatformClientGroups().catch(err=>notify(friendly(err),true)),220);};
+$('platformClientGroups').onclick=e=>{const toggle=e.target.closest('[data-platform-toggle-profile]');if(toggle){togglePlatformBusiness(toggle.dataset.platformToggleProfile);return;}const page=e.target.closest('[data-platform-business-page]');if(page)loadPlatformBusinessClientPage(page.dataset.platformBusinessPage,Number(page.dataset.offset||0)).catch(err=>notify(friendly(err),true));};
 $('downloadPlatformAccounts').onclick=downloadPlatformAccountsCsv;
 $('downloadPlatformClients').onclick=e=>downloadPlatformClientsCsv(e.currentTarget).catch(err=>notify(friendly(err),true));$('platformAccounts').onsubmit=async e=>{const form=e.target.closest('[data-platform-owner]');if(!form)return;e.preventDefault();const button=form.querySelector('button[type="submit"]');button.disabled=true;try{await savePlatformAccount(form);}catch(err){notify(friendly(err),true);}finally{button.disabled=false;}};$('platformAccounts').onclick=e=>{const gift=e.target.closest('.gift-access-button');if(gift){toggleGiftAccess(gift);return;}const button=e.target.closest('.confirm-manual-payment');if(button)confirmManualPayment(button);};document.addEventListener('click',e=>{const button=e.target.closest('[data-billing-method]');if(!button)return;const method=button.dataset.billingMethod;if(method==='mercadopago')startMerchantSubscription(button);else requestManualPayment(button,method);});$('suspendedLogout').onclick=()=>$('logout').click();
 document.querySelector('.admin-nav').onclick=e=>{const button=e.target.closest('[data-tab]');if(button)setAdminTab(button.dataset.tab);};document.querySelector('.quick-grid').onclick=e=>{const button=e.target.closest('[data-go-tab]');if(button)setAdminTab(button.dataset.goTab,{focus:button.dataset.focus});};
@@ -3356,5 +3388,5 @@ $('clientDetailsFields').innerHTML=detailFields('client');$('editClientFields').
 boot();
 
 </script>
-<!-- deploy-refresh: 2026-10-08-platform-admin-client-directory -->
+<!-- deploy-refresh: 2026-10-08-platform-admin-client-groups -->
 </body></html>
