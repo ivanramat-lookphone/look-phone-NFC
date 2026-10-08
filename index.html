@@ -2510,6 +2510,30 @@ body.auth-screen .auth-brand-hero{display:flex;flex-direction:column;align-items
 body.auth-screen .owner-header-actions{display:none!important}
 body.auth-screen main{min-height:calc(100vh - 140px);padding-top:26px;padding-bottom:40px}
 @media(max-width:650px){body.auth-screen header{padding:8px 12px 9px}body.auth-screen .auth-brand-hero{width:min(78vw,260px)}body.auth-screen .auth-brand-hero p{margin-top:5px;font-size:11px}body.auth-screen main{min-height:calc(100vh - 140px);padding:18px 12px 28px}}
+
+/* Fit the public sign-in and sign-up form together with the centered logo */
+body.auth-screen .auth-brand-hero{width:150px}
+body.auth-screen .auth-brand-hero img{width:150px}
+body.auth-screen .auth-brand-hero p{margin-top:4px;font-size:11px}
+body.auth-screen header{padding:5px 10px 7px}
+body.auth-screen main{min-height:calc(100vh - 110px);min-height:calc(100dvh - 110px);padding:10px 10px 16px}
+@media(max-width:650px){
+ body.auth-screen #auth.auth{width:min(100%,440px);margin:5px auto;padding:18px 16px;border-radius:18px}
+ body.auth-screen #auth .auth-kicker{margin-bottom:5px;font-size:9px;line-height:1.2}
+ body.auth-screen #authTitle{font-size:25px;line-height:1.1;margin-bottom:5px}
+ body.auth-screen #auth>p.muted{font-size:13px;line-height:1.3;margin-bottom:10px}
+ body.auth-screen #authForm{gap:8px}
+ body.auth-screen #authForm label{font-size:12px;line-height:1.2}
+ body.auth-screen #authForm input{min-height:39px;padding-top:7px;padding-bottom:7px;font-size:14px}
+ body.auth-screen #authForm .auth-password-field input{padding-right:84px}
+ body.auth-screen #authForm .auth-password-toggle{right:5px;min-height:28px;padding:3px 5px;font-size:11px}
+ body.auth-screen #authSubmit{min-height:41px;margin-top:1px}
+ body.auth-screen #auth .row{margin-top:7px!important;gap:3px}
+ body.auth-screen #auth .linkbtn{padding:6px 4px;font-size:12px;line-height:1.2}
+ body.auth-screen #authMessage{margin:3px 0 0;font-size:12px}
+ body.auth-screen header{padding:5px 8px 7px}
+ body.auth-screen main{min-height:calc(100vh - 105px);min-height:calc(100dvh - 105px);padding:8px 10px 12px}
+}
 </style>
 </head>
 <body>
