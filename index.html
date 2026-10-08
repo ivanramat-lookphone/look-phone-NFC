@@ -2698,11 +2698,12 @@ body.look-info-mode main{width:100%;max-width:none;margin:0;padding:0 0 max(32px
  .look-merchant-look{padding-bottom:0;border-radius:14px;background:#050505;border-color:#050505}
  .look-merchant-look .look-merchant-actions{margin:0;padding:6px;background:#050505;border-radius:0 0 13px 13px}
  .look-merchant-head,.look-merchant-mark{height:95px}
- .look-merchant-actions{gap:2px;margin-top:6px;padding:0 3px}
- #lookInfo .look-merchant-actions>a{flex-direction:column;gap:2px;min-height:42px;padding:4px 1px;border-radius:7px;font-size:8px;line-height:1.05;white-space:normal;overflow-wrap:normal}
- .look-merchant-actions>a svg{width:36px;height:36px;flex-basis:36px}
+ .look-merchant-actions{gap:0;margin-top:0;padding:8px 6px;align-items:center;justify-items:center}
+ #lookInfo .look-merchant-actions>a{width:46px;height:46px;flex-direction:row;gap:0;min-height:46px;padding:0;border-radius:14px;font-size:8px;line-height:1.05;white-space:normal;overflow-wrap:normal}
+ .look-merchant-actions>a svg{width:26px;height:26px;flex-basis:26px}
   #lookInfo .look-merchant-open>svg{display:block}
  .look-merchant-actions>a span{display:none}
+  @media(max-width:350px){#lookInfo .look-merchant-actions>a{width:42px;height:42px;min-height:42px;border-radius:13px}.look-merchant-actions>a svg{width:24px;height:24px;flex-basis:24px}}
 }
 </style>
 </head>
