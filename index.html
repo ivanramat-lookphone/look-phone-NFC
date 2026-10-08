@@ -2639,13 +2639,13 @@ body.look-info-mode main{width:100%;max-width:none;margin:0;padding:0 0 max(32px
 #lookInfo[hidden]{display:none!important}
 #lookInfo{font-size:16px;line-height:1.55}
 #lookInfo h1,#lookInfo h2,#lookInfo h3,#lookInfo p{overflow-wrap:anywhere}
-.look-info-top{position:relative;display:flex;align-items:center;justify-content:center;width:100vw;height:180px;margin:0 0 28px calc(50% - 50vw);padding:12px 20px;box-sizing:border-box;background:#050505}
-.look-info-brand{position:relative;display:block;width:min(400px,66vw);height:100%;overflow:hidden;border-radius:15px;background:#050505;text-decoration:none}
-.look-info-brand img{display:block;width:100%;height:100%;object-fit:contain}
+.look-info-top{position:relative;display:flex;align-items:center;justify-content:center;width:100vw;height:236px;margin:0 0 28px calc(50% - 50vw);padding:12px 20px;box-sizing:border-box;background:#050505}
+.look-info-brand{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;width:min(400px,66vw);text-decoration:none}
+.look-info-brand img{display:block;width:100%;height:auto;object-fit:contain}
+.look-info-tagline{display:block;color:#fff;font-size:16px;font-weight:750;letter-spacing:.025em;line-height:1.25;text-align:center;white-space:nowrap}
 .look-info-return{display:flex;width:min(960px,calc(100% - 36px));height:44px;justify-content:flex-end;margin:-18px auto 16px}
 #lookInfo .look-back{display:inline-flex;align-items:center;min-height:38px;padding:0 12px;border-radius:10px;background:#edf4fc;color:#145fac;font-size:14px;font-weight:650;text-decoration:none}
 .look-info-hero{width:min(960px,calc(100% - 36px));margin:0 auto;padding:28px;border:1px solid #d7e6f7;border-radius:20px;background:#fff;box-shadow:0 10px 30px #15375408}
-.look-info-kicker{color:#145fac;font-size:13px;font-weight:750;letter-spacing:.08em}
 #lookInfo h1{margin:8px 0 12px;font-size:36px;line-height:1.15}
 .look-info-hero p{max-width:650px;margin:0;color:#42516a}
 .look-how{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
@@ -2676,8 +2676,9 @@ body.look-info-mode main{width:100%;max-width:none;margin:0;padding:0 0 max(32px
 #lookInfo a:focus-visible,#customer .look-discover:focus-visible{outline:3px solid #147ce5;outline-offset:3px}
 @media(max-width:650px){
  body.look-info-mode main{padding:0 0 28px}
- .look-info-top{height:146px;margin-bottom:20px;padding-top:max(12px,env(safe-area-inset-top))}
+ .look-info-top{height:190px;margin-bottom:20px;padding-top:max(12px,env(safe-area-inset-top))}
  .look-info-brand{width:min(310px,78vw)}
+ .look-info-tagline{font-size:clamp(13px,3.8vw,16px)}
  #lookInfo .look-back{min-height:36px;padding:0 9px;font-size:12px}
  .look-info-hero{padding:22px 18px}
  #lookInfo h1{font-size:30px}
@@ -2945,9 +2946,8 @@ async function loadLookInfo(){
  const from=new URLSearchParams(location.search).get('from');
  const back=isUUID(from)?publicUrl({id:from}):'';
  $('lookInfo').innerHTML=`
-  <div class="look-info-top"><a class="look-info-brand" href="${esc(lookInfoUrl())}" aria-label="LOOK"><img src="assets/look-brand-logo.webp" alt="Logo de LOOK"></a></div>${back?`<div class="look-info-return"><a class="look-back" href="${esc(back)}">Volver a mi tarjeta</a></div>`:''}
+  <div class="look-info-top"><a class="look-info-brand" href="${esc(lookInfoUrl())}" aria-label="LOOK"><img src="assets/look-brand-logo.webp" alt="Logo de LOOK"><span class="look-info-tagline">Tus compras tienen premio</span></a></div>${back?`<div class="look-info-return"><a class="look-back" href="${esc(back)}">Volver a mi tarjeta</a></div>`:''}
   <section class="look-info-hero" aria-labelledby="lookInfoTitle">
-   <span class="look-info-kicker">TUS COMPRAS TIENEN PREMIO</span>
    <h1 id="lookInfoTitle">Conocé LOOK</h1>
    <p>LOOK es una aplicación de tarjetas de beneficios que conecta a los comercios con sus clientes. Descubrí negocios adheridos, sumá puntos con tus compras y accedé a los premios que ofrece cada comercio.</p>
    <div class="look-how">
