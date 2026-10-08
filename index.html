@@ -836,24 +836,32 @@ body.customer-mode main{padding-bottom:calc(92px + env(safe-area-inset-bottom))}
 /* Compact "Más" actions so they look like the same app, not a second page */
 .lp-master-extra .customer-actions{
   display:grid!important;
-  grid-template-columns:repeat(3,minmax(0,1fr))!important;
-  gap:6px!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:10px!important;
   margin-top:7px!important;
 }
+/* Preserve the card's initial hidden state before the customer registers. */
+.lp-master-extra .customer-actions[hidden]{display:none!important}
 .lp-master-extra .customer-actions button{
-  min-height:42px!important;
-  padding:6px 5px!important;
+  display:flex!important;
+  align-items:center!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:52px!important;
+  padding:9px 8px!important;
   border-radius:11px!important;
   justify-content:center!important;
   text-align:center!important;
+  white-space:normal!important;
   background:#edf5ff!important;
   color:#126cc7!important;
   border:1px solid #d9eaff!important;
-  font-size:13px!important;
-  line-height:1.15!important;
+  font-size:13.5px!important;
+  line-height:1.25!important;
   font-weight:600!important;
 }
 .lp-master-extra .customer-actions #refreshCard{
+  grid-column:1/-1!important;
   background:#1686ff!important;
   color:#fff!important;
   border-color:#1686ff!important;
