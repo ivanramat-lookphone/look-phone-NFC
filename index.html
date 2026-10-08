@@ -2636,6 +2636,12 @@ body.auth-screen #auth .linkbtn{padding:6px 4px;font-size:12px;line-height:1.2}
 #customer .look-merchant-signup-link{background:#147ce5;color:#fff;border-color:#147ce5}
 #customer .look-merchant-signup-link:hover{background:#106ed0;color:#fff}
 .look-info-eyebrow{display:inline-block;margin-bottom:8px;color:#1767b5;font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.look-tools-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px}
+.look-tool-card{padding:16px;border:1px solid #e1eaf4;border-radius:14px;background:#f7f9fc}
+.look-tool-card strong{display:block;margin-bottom:6px;color:#172033;font-size:16px}
+.look-tool-card p{margin:0;color:#52617a;font-size:14px;line-height:1.5}
+.look-tool-icon{display:grid;place-items:center;width:34px;height:34px;margin-bottom:10px;border-radius:10px;background:#e7f1fc;color:#1767b5;font-size:18px}
+@media(max-width:700px){.look-tools-grid{grid-template-columns:1fr}}
 .look-join-actions{display:grid;gap:10px;max-width:440px;margin:22px auto 0}
 #lookInfo .look-join-button{width:100%;min-height:50px;border-radius:12px;background:#147ce5;color:#fff;font-weight:750;text-align:center;text-decoration:none}
 #lookInfo .look-join-button:hover{background:#106ed0}
@@ -2982,23 +2988,31 @@ async function loadMerchantInfo(){
  const from=new URLSearchParams(location.search).get('from');
  const back=isUUID(from)?publicUrl({id:from}):'';
  $('lookInfo').innerHTML=`
-  <div class="look-info-top"><a class="look-info-brand" href="${esc(lookInfoUrl())}" aria-label="LOOK"><img src="assets/look-brand-logo.webp" alt="Logo de LOOK"><span class="look-info-tagline">Tus compras tienen premio</span></a></div>${back?`<div class="look-info-return"><a class="look-back" href="${esc(back)}">Volver a mi tarjeta</a></div>`:''}
+  <div class="look-info-top"><a class="look-info-brand" href="${esc(lookInfoUrl())}" aria-label="LOOK"><img src="assets/look-brand-logo.webp" alt="Logo de LOOK"><span class="look-info-tagline">Hacé que tus clientes vuelvan</span></a></div>${back?`<div class="look-info-return"><a class="look-back" href="${esc(back)}">Volver a mi tarjeta</a></div>`:''}
   <section class="look-info-hero" aria-labelledby="merchantInfoTitle">
    <span class="look-info-eyebrow">Para dueños de comercios</span>
-   <h1 id="merchantInfoTitle">Hacé que tus clientes vuelvan</h1>
-   <p>Con LOOK, tu comercio puede ofrecer una tarjeta de beneficios digital para reconocer las compras de tus clientes, sumar visitas y entregar premios definidos por vos.</p>
+   <h1 id="merchantInfoTitle">Más que una tarjeta de puntos</h1>
+   <p>LOOK te ayuda a conocer mejor a tus clientes, acompañar su recorrido y volver a conectar con ellos. Reuní tarjetas, visitas, puntos, premios, contactos y compras en las herramientas de tu comercio.</p>
    <div class="look-how">
-    <article><span class="look-how-number" aria-hidden="true">1</span><h2>Creá tu perfil</h2><p>Registrá tu comercio, agregá tu logo y configurá tus medios de contacto.</p></article>
-    <article><span class="look-how-number" aria-hidden="true">2</span><h2>Definí tus beneficios</h2><p>Elegí cuántas visitas o puntos necesitás y qué premio querés ofrecer.</p></article>
-    <article><span class="look-how-number" aria-hidden="true">3</span><h2>Sumá clientes</h2><p>Compartí tu tarjeta con un enlace o QR; confirmá las visitas desde tu panel.</p></article>
+    <article><span class="look-how-number" aria-hidden="true">1</span><h2>Armá tu base de clientes</h2><p>Creá tarjetas con nombre y teléfono, buscá y organizá clientes por visitas, puntos, actividad y cumpleaños. Sumá datos opcionales con su permiso.</p></article>
+    <article><span class="look-how-number" aria-hidden="true">2</span><h2>Registrá visitas y compras</h2><p>Confirmá cada visita y, si cargás el importe, consultá cuánto gastó cada cliente, el ticket promedio y el historial de compras.</p></article>
+    <article><span class="look-how-number" aria-hidden="true">3</span><h2>Fidelizá y volvé a contactar</h2><p>Configurá premios y beneficios, encontrá a quién contactar y abrí WhatsApp con mensajes sugeridos para cada cliente.</p></article>
    </div>
-   <div class="look-join-actions"><a class="button look-join-button" href="${esc(merchantJoinUrl())}">Adherí tu comercio</a><small class="look-join-note">Creá una cuenta, confirmá tu correo y luego completá el perfil de tu comercio. Cada comercio administra sus propios clientes.</small></div>
+   <div class="look-join-actions"><a class="button look-join-button" href="${esc(merchantJoinUrl())}">Adherí tu comercio</a><small class="look-join-note">Creá una cuenta, confirmá tu correo y completá el perfil de tu comercio. Cada comercio administra sus propios clientes.</small></div>
   </section>
   <section class="look-info-hero" style="margin-top:18px" aria-labelledby="merchantToolsTitle">
-   <h2 id="merchantToolsTitle">Tu negocio, con su propia tarjeta</h2>
-   <p>Personalizá la tarjeta con la identidad de tu comercio, compartila para que tus clientes se sumen y llevá el seguimiento de puntos, visitas y premios desde LOOK.</p>
-  </section>
-  <p class="look-info-note">Un perfil de comercio por cuenta. Podés actualizar la información y los beneficios desde tu panel.</p>`;
+   <span class="look-info-eyebrow">Herramientas para tu día a día</span>
+   <h2 id="merchantToolsTitle">Todo el seguimiento de tu comercio, en un solo lugar</h2>
+   <div class="look-tools-grid">
+    <article class="look-tool-card"><span class="look-tool-icon" aria-hidden="true">◎</span><strong>Conocé a tus clientes</strong><p>Consultá sus datos, puntos, visitas, última actividad, premios y el historial de compras. Agregá notas privadas para recordar detalles importantes.</p></article>
+    <article class="look-tool-card"><span class="look-tool-icon" aria-hidden="true">$</span><strong>Seguí las compras</strong><p>Al registrar el importe de una compra, queda asociado al historial del cliente y podés ver su gasto acumulado, ticket promedio y compras registradas.</p></article>
+    <article class="look-tool-card"><span class="look-tool-icon" aria-hidden="true">↗</span><strong>Contactá por WhatsApp</strong><p>Prepará mensajes para dar la bienvenida, recuperar clientes inactivos, avisar sobre puntos o premios y saludar por cumpleaños. Revisás y enviás cada mensaje desde WhatsApp.</p></article>
+    <article class="look-tool-card"><span class="look-tool-icon" aria-hidden="true">⌕</span><strong>Encontrá oportunidades</strong><p>Filtrá clientes nuevos, frecuentes, VIP, inactivos, próximos a un premio o con cumpleaños. El panel destaca a quién conviene atender y contactar.</p></article>
+    <article class="look-tool-card"><span class="look-tool-icon" aria-hidden="true">◇</span><strong>Diseñá tus beneficios</strong><p>Definí metas de puntos, premios por niveles, beneficios por referidos y cupones para todos o para segmentos de clientes.</p></article>
+    <article class="look-tool-card"><span class="look-tool-icon" aria-hidden="true">▤</span><strong>Medí resultados</strong><p>Revisá ventas e importes registrados, ticket promedio, clientes recuperados y compras registradas dentro de los 14 días posteriores al contacto para evaluar cómo funciona tu fidelización.</p></article>
+   </div>
+   <p class="look-info-note">Los importes, el gasto acumulado y las métricas de ventas se calculan con las compras que el comercio registra en LOOK. Un perfil de comercio por cuenta.</p>
+  </section>`;
  document.title='Adherí tu comercio · LOOK';
  view('lookInfo');window.scrollTo(0,0);
 }
