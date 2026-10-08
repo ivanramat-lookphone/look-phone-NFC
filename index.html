@@ -3012,9 +3012,15 @@ async function loadMerchantInfo(){
     <article class="look-tool-card"><span class="look-tool-icon" aria-hidden="true">▤</span><strong>Medí resultados</strong><p>Revisá ventas e importes registrados, ticket promedio, clientes recuperados y compras registradas dentro de los 14 días posteriores al contacto para evaluar cómo funciona tu fidelización.</p></article>
    </div>
    <p class="look-info-note">Los importes, el gasto acumulado y las métricas de ventas se calculan con las compras que el comercio registra en LOOK. Un perfil de comercio por cuenta.</p>
+  </section>
+  <section aria-labelledby="lookDirectoryTitle">
+   <div class="look-directory-heading"><h2 id="lookDirectoryTitle">Comercios adheridos</h2><p>Conocé sus propuestas y abrí la tarjeta de cada negocio para ver sus beneficios.</p></div>
+   <p id="lookDirectoryStatus" class="look-directory-status" role="status"></p>
+   <div id="lookMerchants" class="look-merchant-grid" aria-busy="true"></div>
   </section>`;
  document.title='Adherí tu comercio · LOOK';
  view('lookInfo');window.scrollTo(0,0);
+ await loadLookMerchants();
 }
 
 async function loadLookInfo(){
