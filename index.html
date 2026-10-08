@@ -2640,8 +2640,8 @@ body.look-info-mode main{max-width:960px;padding:20px 20px max(32px,env(safe-are
 #lookInfo{font-size:16px;line-height:1.55}
 #lookInfo h1,#lookInfo h2,#lookInfo h3,#lookInfo p{overflow-wrap:anywhere}
 .look-info-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
-.look-info-brand{color:#101827;font-size:28px;font-weight:900;letter-spacing:.08em;text-decoration:none}
-.look-info-brand span{color:#147ce5}
+.look-info-brand{display:block;width:min(400px,66vw);overflow:hidden;border-radius:15px;background:#050505;text-decoration:none}
+.look-info-brand img{display:block;width:100%;height:auto}
 #lookInfo .look-back{display:inline-flex;align-items:center;min-height:44px;color:#145fac;font-size:14px;font-weight:650;text-decoration:none}
 .look-info-hero{padding:28px;border:1px solid #d7e6f7;border-radius:20px;background:#fff;box-shadow:0 10px 30px #15375408}
 .look-info-kicker{color:#145fac;font-size:13px;font-weight:750;letter-spacing:.08em}
@@ -2658,15 +2658,20 @@ body.look-info-mode main{max-width:960px;padding:20px 20px max(32px,env(safe-are
 .look-directory-status{color:#52617a;font-size:14px;margin:14px 0}
 .look-merchant-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .look-merchant{display:flex;flex-direction:column;min-width:0;padding:20px;background:#fff;border:1px solid #dce5ef;border-radius:18px;border-top:4px solid var(--listing-accent,#147ce5)}
-.look-merchant-head{display:flex;align-items:center;gap:12px}
-.look-merchant-mark{display:flex;align-items:center;justify-content:center;flex:0 0 56px;width:56px;height:56px;border:1px solid #dce5ef;border-radius:14px;background:#f6f9fc;color:#145fac;font-size:21px;font-weight:800}
-.look-merchant-mark img{width:100%;height:100%;object-fit:contain;border-radius:13px;padding:4px}
-#lookInfo .look-merchant h3{font-size:20px;line-height:1.3;margin:0}
-.look-merchant-benefit{flex:1;margin:16px 0;color:#42516a;font-size:15px;line-height:1.5}
-.look-merchant-benefit strong{display:block;color:#101827;font-size:16px}
-#lookInfo .look-merchant-open{display:flex;width:100%;min-height:46px;align-items:center;justify-content:center;padding:10px 12px;border-radius:11px;background:#147ce5;color:#fff;font-weight:700;font-size:15px;text-decoration:none;text-align:center}
-.look-merchant-social{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
-#lookInfo .look-merchant-social a{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:6px 12px;border-radius:9px;background:#f0f5fb;color:#145fac;font-size:14px;font-weight:650;text-decoration:none}
+.look-merchant-head{display:flex;align-items:center;justify-content:center;min-height:140px}
+.look-merchant-mark{display:flex;align-items:center;justify-content:center;width:100%;height:138px;border-radius:14px;background:transparent}
+.look-merchant-mark img{display:block;width:min(100%,320px);height:100%;object-fit:contain;border-radius:14px;padding:0}
+.look-merchant-mark-look{background:#050505}
+.look-merchant-mark-look img{padding:5px}
+.look-merchant-mark-ponte img{width:min(100%,205px);padding:5px}
+.look-merchant-actions{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;width:100%;margin-top:4px}
+#lookInfo .look-merchant-open,#lookInfo .look-merchant-social a{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:48px;padding:10px 12px;border:0;border-radius:11px;color:#fff;font-size:15px;font-weight:700;text-align:center;text-decoration:none;transition:filter .15s ease,transform .15s ease}
+#lookInfo .look-merchant-open{background:#147ce5}
+#lookInfo .look-merchant-social a.look-merchant-whatsapp{background:#25D366}
+#lookInfo .look-merchant-social a.look-merchant-instagram{background:linear-gradient(45deg,#feda75 0%,#fa7e1e 25%,#d62976 52%,#962fbf 76%,#4f5bd5 100%)}
+#lookInfo .look-merchant-open:hover,#lookInfo .look-merchant-social a:hover{filter:brightness(.94);transform:translateY(-1px)}
+.look-merchant-social{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+.look-merchant-social a svg,.look-merchant-open svg{width:20px;height:20px;flex:0 0 20px}
 .look-info-note{margin:24px 0 0;color:#52617a;font-size:14px;text-align:center}
 #lookInfo a:focus-visible,#customer .look-discover:focus-visible{outline:3px solid #147ce5;outline-offset:3px}
 @media(max-width:650px){
@@ -2679,6 +2684,7 @@ body.look-info-mode main{max-width:960px;padding:20px 20px max(32px,env(safe-are
  #lookInfo .look-how h2{margin:0 0 4px}
  #lookInfo .look-how p{grid-column:2}
  .look-directory-heading{margin-top:24px}
+ .look-info-brand{width:min(320px,72vw)}
 }
 </style>
 </head>
@@ -2901,16 +2907,18 @@ function lookDiscoverHtml(profile){
  return `<div class="look-discover-footer"><a class="button look-discover" href="${esc(lookInfoUrl(profile))}">Conocé más sobre LOOK</a></div>`;
 }
 function lookMerchantHtml(p){
- const initials=String(p.business||'Comercio').trim().split(/\s+/).map(x=>x[0]||'').join('').slice(0,2).toUpperCase();
- const logo=isPonteCoqueta(p)?'assets/ponte-coqueta-logo.svg':safeLogoUrl(p.logo_url);
- const accent=/^#[0-9a-f]{6}$/i.test(p.theme_primary||'')?p.theme_primary:isPonteCoqueta(p)?'#ad7134':'#147ce5';
+ const ponte=isPonteCoqueta(p),logo=ponte?'assets/ponte-coqueta-logo.svg':isLookPhone(p)?'assets/look-brand-logo.webp':safeLogoUrl(p.logo_url);
  const phone=digits(String(p.phone||''));
  let instagram='';try{instagram=instagramUrl(String(p.instagram||''));}catch{}
- return `<article class="look-merchant" style="--listing-accent:${accent}">
-  <div class="look-merchant-head"><div class="look-merchant-mark">${logo?`<img src="${esc(logo)}" alt="Logo de ${esc(p.business)}" loading="lazy">`:esc(initials)}</div><h3>${esc(p.business)}</h3></div>
-  <p class="look-merchant-benefit">Tu premio<strong>${esc(p.reward)}</strong>al llegar a ${Number(p.goal)||1} puntos</p>
-  <a class="look-merchant-open" href="${esc(publicUrl(p))}">Ver tarjeta y beneficios</a>
-  ${phone||instagram?`<div class="look-merchant-social">${phone?`<a href="https://wa.me/${phone}" target="_blank" rel="noopener noreferrer">WhatsApp</a>`:''}${instagram?`<a href="${esc(instagram)}" target="_blank" rel="noopener noreferrer">Instagram</a>`:''}</div>`:''}
+ const whatsappIcon='<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle cx="16" cy="15" r="11.4" fill="none" stroke="currentColor" stroke-width="2.1"/><path d="m7 26 2-5M11 10c.7-.8 1.7-.7 2.2.2l1.3 2.2c.3.6.2 1.1-.4 1.6l-.9.7c.9 1.8 2.4 3.2 4.2 4l.7-.9c.4-.5 1-.7 1.6-.4l2.2 1.3c.9.5 1 1.5.2 2.2-1 1-2.2 1.4-3.6 1.1-4.4-.9-8-4.5-8.9-8.9-.3-1.2.3-2.3 1.4-3.1Z" fill="currentColor"/></svg>';
+ const instagramIcon='<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect x="5" y="5" width="22" height="22" rx="6" fill="none" stroke="currentColor" stroke-width="2.3"/><circle cx="16" cy="16" r="5" fill="none" stroke="currentColor" stroke-width="2.3"/><circle cx="23.2" cy="8.9" r="1.5" fill="currentColor"/></svg>';
+ return `<article class="look-merchant">
+  <div class="look-merchant-head"><div class="look-merchant-mark ${isLookPhone(p)?'look-merchant-mark-look':ponte?'look-merchant-mark-ponte':'look-merchant-mark-standard'}">${logo?`<img src="${esc(logo)}" alt="Logo de ${esc(p.business)}" loading="lazy">`:''}</div></div>
+  <div class="look-merchant-actions">
+   <a class="look-merchant-open" href="${esc(publicUrl(p))}" aria-label="Ver tarjeta de beneficios de ${esc(p.business)}">Ver tarjeta de beneficios</a>
+   ${phone?`<a class="look-merchant-whatsapp" href="https://wa.me/${phone}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp de ${esc(p.business)}">${whatsappIcon}<span>WhatsApp</span></a>`:''}
+   ${instagram?`<a class="look-merchant-instagram" href="${esc(instagram)}" target="_blank" rel="noopener noreferrer" aria-label="Instagram de ${esc(p.business)}">${instagramIcon}<span>Instagram</span></a>`:''}
+  </div>
  </article>`;
 }
 async function loadLookMerchants(){
@@ -2935,7 +2943,7 @@ async function loadLookInfo(){
  const from=new URLSearchParams(location.search).get('from');
  const back=isUUID(from)?publicUrl({id:from}):'';
  $('lookInfo').innerHTML=`
-  <div class="look-info-top"><a class="look-info-brand" href="${esc(lookInfoUrl())}" aria-label="LOOK">L<span>OO</span>K</a>${back?`<a class="look-back" href="${esc(back)}">Volver a mi tarjeta</a>`:''}</div>
+  <div class="look-info-top"><a class="look-info-brand" href="${esc(lookInfoUrl())}" aria-label="LOOK"><img src="assets/look-brand-logo.webp" alt="Logo de LOOK"></a>${back?`<a class="look-back" href="${esc(back)}">Volver a mi tarjeta</a>`:''}</div>
   <section class="look-info-hero" aria-labelledby="lookInfoTitle">
    <span class="look-info-kicker">TUS COMPRAS TIENEN PREMIO</span>
    <h1 id="lookInfoTitle">Conocé LOOK</h1>
