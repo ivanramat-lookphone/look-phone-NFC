@@ -2664,12 +2664,14 @@ body.look-info-mode main{width:100%;max-width:none;margin:0;padding:0 0 max(32px
 .look-merchant-mark img{display:block;width:100%;height:100%;object-fit:contain;border-radius:0;padding:0}
 .look-merchant-mark-look{background:#050505}
 .look-merchant-mark-look img{padding:0}
+.look-merchant-mark-ponte{background:#faf3ed}
 .look-merchant-mark-ponte img{width:100%;padding:0}
 .look-merchant-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;width:100%;margin:8px 0 0;padding:0 8px}
 #lookInfo .look-merchant-actions>a{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;min-width:0;min-height:36px;padding:5px 4px;border:0;border-radius:8px;color:#fff;font-size:12px;font-weight:700;line-height:1.1;text-align:center;text-decoration:none;transition:filter .15s ease,transform .15s ease}
-#lookInfo .look-merchant-actions>a.look-merchant-open{background:#147ce5}
-#lookInfo .look-merchant-actions>a.look-merchant-whatsapp{background:#25D366}
-#lookInfo .look-merchant-actions>a.look-merchant-instagram{background:linear-gradient(45deg,#feda75 0%,#fa7e1e 25%,#d62976 52%,#962fbf 76%,#4f5bd5 100%)}
+#lookInfo .look-merchant-actions>a{background:var(--look-merchant-action,#147ce5)}
+.look-merchant-ponte{background:#faf3ed;border-color:#ead8c8}
+.look-merchant-ponte .look-merchant-actions>a{background:#7f5334}
+.look-merchant-look .look-merchant-actions>a{background:#147ce5}
 #lookInfo .look-merchant-actions>a:hover{filter:brightness(.94);transform:translateY(-1px)}
 .look-merchant-actions>a svg{display:block;width:22px;height:22px;flex:0 0 22px}
 .look-info-note{width:min(960px,calc(100% - 36px));margin:24px auto 0;color:#52617a;font-size:14px;text-align:center}
@@ -2691,9 +2693,10 @@ body.look-info-mode main{width:100%;max-width:none;margin:0;padding:0 0 max(32px
  .look-directory-heading{margin-top:24px}
  .look-merchant{padding-bottom:8px;border-radius:14px}
  .look-merchant-head,.look-merchant-mark{height:95px}
- .look-merchant-actions{gap:4px;margin-top:6px;padding:0 5px}
- #lookInfo .look-merchant-actions>a{flex-direction:column;gap:2px;min-height:48px;padding:4px 1px;border-radius:7px;font-size:9px;line-height:1.05;overflow-wrap:anywhere}
+ .look-merchant-actions{gap:2px;margin-top:6px;padding:0 3px}
+ #lookInfo .look-merchant-actions>a{flex-direction:column;gap:2px;min-height:48px;padding:4px 1px;border-radius:7px;font-size:8px;line-height:1.05;white-space:normal;overflow-wrap:normal}
  .look-merchant-actions>a svg{width:16px;height:16px;flex-basis:16px}
+ .look-merchant-actions>a span{white-space:nowrap}
 }
 </style>
 </head>
@@ -2916,13 +2919,14 @@ function lookDiscoverHtml(profile){
  return `<div class="look-discover-footer"><a class="button look-discover" href="${esc(lookInfoUrl(profile))}">Conocé más sobre LOOK</a></div>`;
 }
 function lookMerchantHtml(p){
- const ponte=isPonteCoqueta(p),logo=ponte?'assets/ponte-coqueta-logo.svg':isLookPhone(p)?'assets/look-brand-logo.webp':safeLogoUrl(p.logo_url);
+ const ponte=isPonteCoqueta(p),look=isLookPhone(p),logo=ponte?'assets/ponte-coqueta-logo.svg':look?'assets/look-brand-logo.webp':safeLogoUrl(p.logo_url);
+ const actionColor=/^#[0-9a-f]{6}$/i.test(String(p.theme_primary||''))?p.theme_primary:'#147ce5';
  const phone=digits(String(p.phone||''));
  let instagram='';try{instagram=instagramUrl(String(p.instagram||''));}catch{}
  const whatsappIcon='<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle cx="16" cy="15" r="11.4" fill="none" stroke="currentColor" stroke-width="2.1"/><path d="m7 26 2-5M11 10c.7-.8 1.7-.7 2.2.2l1.3 2.2c.3.6.2 1.1-.4 1.6l-.9.7c.9 1.8 2.4 3.2 4.2 4l.7-.9c.4-.5 1-.7 1.6-.4l2.2 1.3c.9.5 1 1.5.2 2.2-1 1-2.2 1.4-3.6 1.1-4.4-.9-8-4.5-8.9-8.9-.3-1.2.3-2.3 1.4-3.1Z" fill="currentColor"/></svg>';
  const instagramIcon='<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect x="5" y="5" width="22" height="22" rx="6" fill="none" stroke="currentColor" stroke-width="2.3"/><circle cx="16" cy="16" r="5" fill="none" stroke="currentColor" stroke-width="2.3"/><circle cx="23.2" cy="8.9" r="1.5" fill="currentColor"/></svg>';
- return `<article class="look-merchant">
-  <div class="look-merchant-head"><div class="look-merchant-mark ${isLookPhone(p)?'look-merchant-mark-look':ponte?'look-merchant-mark-ponte':'look-merchant-mark-standard'}">${logo?`<img src="${esc(logo)}" alt="Logo de ${esc(p.business)}" loading="lazy">`:''}</div></div>
+ return `<article class="look-merchant ${ponte?'look-merchant-ponte':look?'look-merchant-look':''}" style="--look-merchant-action:${esc(actionColor)}">
+  <div class="look-merchant-head"><div class="look-merchant-mark ${look?'look-merchant-mark-look':ponte?'look-merchant-mark-ponte':'look-merchant-mark-standard'}">${logo?`<img src="${esc(logo)}" alt="Logo de ${esc(p.business)}" loading="lazy">`:''}</div></div>
   <div class="look-merchant-actions">
    <a class="look-merchant-open" href="${esc(publicUrl(p))}" aria-label="Ver tarjeta de beneficios de ${esc(p.business)}">Ver tarjeta</a>
    ${phone?`<a class="look-merchant-whatsapp" href="https://wa.me/${phone}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp de ${esc(p.business)}">${whatsappIcon}<span>WhatsApp</span></a>`:''}
