@@ -2623,6 +2623,63 @@ body.auth-screen #auth .linkbtn{padding:6px 4px;font-size:12px;line-height:1.2}
   font-size:4.7cqw!important;
 }
 
+/* Public card actions share the row evenly on phones and computers. */
+#customer #cardActions.customer-actions{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+#customer #cardActions[hidden]{display:none!important}
+#customer #cardActions #refreshCard,#customer #cardActions .customer-premium-note{grid-column:1/-1!important}
+#customer #cardActions #editMyDetails{grid-column:1!important}
+#customer #cardActions #copyCard{grid-column:2!important}
+#customer #cardActions #editMyDetails,#customer #cardActions #copyCard{width:100%!important;min-width:0!important;min-height:52px!important;align-self:stretch!important;padding:10px 8px!important;white-space:normal!important;font-size:14px!important;line-height:1.3!important;text-align:center!important}
+.look-discover-footer{max-width:440px;margin:18px auto 0;padding:0 12px 20px}
+#customer .look-discover{display:flex;width:100%;min-height:48px;padding:12px 16px;border:1px solid #cddff3;border-radius:12px;background:#f0f6ff;color:#145fac;font-size:15px;font-weight:700;text-align:center;text-decoration:none}
+#customer .look-discover:hover{background:#e2eeff}
+body.look-info-mode{background:#f3f7fc;padding-bottom:0;color:#101827}
+body.look-info-mode>header{display:none!important}
+body.look-info-mode main{max-width:960px;padding:20px 20px max(32px,env(safe-area-inset-bottom))}
+#lookInfo[hidden]{display:none!important}
+#lookInfo{font-size:16px;line-height:1.55}
+#lookInfo h1,#lookInfo h2,#lookInfo h3,#lookInfo p{overflow-wrap:anywhere}
+.look-info-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.look-info-brand{color:#101827;font-size:28px;font-weight:900;letter-spacing:.08em;text-decoration:none}
+.look-info-brand span{color:#147ce5}
+#lookInfo .look-back{display:inline-flex;align-items:center;min-height:44px;color:#145fac;font-size:14px;font-weight:650;text-decoration:none}
+.look-info-hero{padding:28px;border:1px solid #d7e6f7;border-radius:20px;background:#fff;box-shadow:0 10px 30px #15375408}
+.look-info-kicker{color:#145fac;font-size:13px;font-weight:750;letter-spacing:.08em}
+#lookInfo h1{margin:8px 0 12px;font-size:36px;line-height:1.15}
+.look-info-hero p{max-width:650px;margin:0;color:#42516a}
+.look-how{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+.look-how article{padding:16px;border-radius:14px;background:#f3f7fc}
+.look-how-number{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:#147ce5;color:white;font-size:15px;font-weight:750}
+#lookInfo .look-how h2{margin:10px 0 6px;font-size:18px;line-height:1.3}
+#lookInfo .look-how p{font-size:15px;line-height:1.5}
+.look-directory-heading{margin-top:30px}
+#lookInfo .look-directory-heading h2{margin:0 0 8px;font-size:26px;line-height:1.2}
+.look-directory-heading p{margin:0;color:#42516a}
+.look-directory-status{color:#52617a;font-size:14px;margin:14px 0}
+.look-merchant-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.look-merchant{display:flex;flex-direction:column;min-width:0;padding:20px;background:#fff;border:1px solid #dce5ef;border-radius:18px;border-top:4px solid var(--listing-accent,#147ce5)}
+.look-merchant-head{display:flex;align-items:center;gap:12px}
+.look-merchant-mark{display:flex;align-items:center;justify-content:center;flex:0 0 56px;width:56px;height:56px;border:1px solid #dce5ef;border-radius:14px;background:#f6f9fc;color:#145fac;font-size:21px;font-weight:800}
+.look-merchant-mark img{width:100%;height:100%;object-fit:contain;border-radius:13px;padding:4px}
+#lookInfo .look-merchant h3{font-size:20px;line-height:1.3;margin:0}
+.look-merchant-benefit{flex:1;margin:16px 0;color:#42516a;font-size:15px;line-height:1.5}
+.look-merchant-benefit strong{display:block;color:#101827;font-size:16px}
+#lookInfo .look-merchant-open{display:flex;width:100%;min-height:46px;align-items:center;justify-content:center;padding:10px 12px;border-radius:11px;background:#147ce5;color:#fff;font-weight:700;font-size:15px;text-decoration:none;text-align:center}
+.look-merchant-social{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+#lookInfo .look-merchant-social a{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:6px 12px;border-radius:9px;background:#f0f5fb;color:#145fac;font-size:14px;font-weight:650;text-decoration:none}
+.look-info-note{margin:24px 0 0;color:#52617a;font-size:14px;text-align:center}
+#lookInfo a:focus-visible,#customer .look-discover:focus-visible{outline:3px solid #147ce5;outline-offset:3px}
+@media(max-width:650px){
+ body.look-info-mode main{padding:max(12px,env(safe-area-inset-top)) 14px 28px}
+ .look-info-hero{padding:22px 18px}
+ #lookInfo h1{font-size:30px}
+ .look-how,.look-merchant-grid{grid-template-columns:minmax(0,1fr)}
+ .look-how article{display:grid;grid-template-columns:30px minmax(0,1fr);column-gap:12px;padding:14px}
+ .look-how-number{grid-row:1/3}
+ #lookInfo .look-how h2{margin:0 0 4px}
+ #lookInfo .look-how p{grid-column:2}
+ .look-directory-heading{margin-top:24px}
+}
 </style>
 </head>
 <body>
@@ -2684,6 +2741,7 @@ body.auth-screen #auth .linkbtn{padding:6px 4px;font-size:12px;line-height:1.2}
 </section>
 <section id="suspended" class="card suspended-panel" hidden><h1>Tu período de acceso terminó</h1><p id="suspendedBillingStatus">Elegí cómo continuar con LOOK Phone.</p><p class="muted billing-fee-note">Mercado Pago descuenta su comisión de procesamiento de lo que recibe LOOK Phone. No se agrega como un cargo extra a tu mensualidad.</p><div class="billing-choices" data-billing-choices hidden><button type="button" data-billing-method="mercadopago">Pagar automáticamente con Mercado Pago</button><button type="button" class="secondary" data-billing-method="transfer">Pagar por transferencia</button><button type="button" class="secondary" data-billing-method="cash">Pagar en efectivo</button></div><p class="muted" data-manual-payment-note hidden></p><div class="billing-instructions" data-billing-instructions hidden></div><button id="suspendedLogout" type="button" class="secondary">Cerrar sesión</button></section>
 <section id="customer" class="public" hidden></section>
+<section id="lookInfo" aria-label="Conocé LOOK y sus comercios adheridos" hidden></section>
 </main><div id="toast" class="notice toast" role="status" hidden></div>
 <script src="assets/qrcode.min.js"></script>
 <script>
@@ -2703,7 +2761,7 @@ let session=null,profiles=[],clients=[],events=[],contactEvents=[],rewardTiers=[
 try{session=JSON.parse(localStorage.getItem(SESSION_KEY)||'null');}catch{}
 function saveSession(s){session=s;if(s)localStorage.setItem(SESSION_KEY,JSON.stringify(s));else localStorage.removeItem(SESSION_KEY);}
 function notify(message,error=false){$('toast').textContent=message;$('toast').className='notice toast'+(error?' error':'');$('toast').hidden=false;clearTimeout(notify.timer);notify.timer=setTimeout(()=>$('toast').hidden=true,6500);}
-function view(id){for(const x of ['loading','setup','auth','admin','customer','recovery','platform','suspended'])$(x).hidden=x!==id;document.body.classList.toggle('customer-mode',id==='customer');document.body.classList.toggle('auth-screen',id==='auth'||id==='recovery');const theme=document.querySelector('meta[name="theme-color"]');if(theme)theme.content=id==='customer'?'#ffffff':id==='auth'||id==='recovery'?'#f7f9fd':'#101827';$('logout').hidden=!session||id==='customer'||id==='suspended';$('email').textContent=id==='customer'?'':session?.user?.email||'';if($('activeBusinessWrap'))$('activeBusinessWrap').hidden=id!=='admin'||profiles.length<2;if($('platformLink'))$('platformLink').hidden=!session||!isPlatformAdmin||id==='customer'||id==='platform'||id==='suspended';}
+function view(id){for(const x of ['loading','setup','auth','admin','customer','lookInfo','recovery','platform','suspended'])$(x).hidden=x!==id;document.body.classList.toggle('customer-mode',id==='customer');document.body.classList.toggle('look-info-mode',id==='lookInfo');document.body.classList.toggle('auth-screen',id==='auth'||id==='recovery');const theme=document.querySelector('meta[name="theme-color"]');if(theme)theme.content=id==='lookInfo'?'#f3f7fc':id==='customer'?'#ffffff':id==='auth'||id==='recovery'?'#f7f9fd':'#101827';$('logout').hidden=!session||id==='customer'||id==='lookInfo'||id==='suspended';$('email').textContent=id==='customer'||id==='lookInfo'?'':session?.user?.email||'';if($('activeBusinessWrap'))$('activeBusinessWrap').hidden=id!=='admin'||profiles.length<2;if($('platformLink'))$('platformLink').hidden=!session||!isPlatformAdmin||id==='customer'||id==='lookInfo'||id==='platform'||id==='suspended';}
 function setAdminTab(tab,{focus,scroll=true}={}){if(!ADMIN_TABS.includes(tab))tab='home';document.querySelectorAll('[data-panel]').forEach(panel=>panel.hidden=panel.dataset.panel!==tab);document.querySelectorAll('[data-tab]').forEach(button=>{const active=button.dataset.tab===tab;button.classList.toggle('active',active);button.setAttribute('aria-current',active?'page':'false');});sessionStorage.setItem(ADMIN_TAB_KEY,tab);if(scroll)document.querySelector('[data-panel="'+tab+'"]')?.scrollIntoView({behavior:'smooth',block:'start'});if(focus)setTimeout(()=>$(focus)?.focus(),120);}
 async function raw(path,{method='GET',body,token}={}){const headers={apikey:API_KEY,'Content-Type':'application/json'};if(token)headers.Authorization='Bearer '+token;if(method==='POST'||method==='PATCH')headers.Prefer='return=representation';const r=await fetch(BASE+path,{method,headers,body:body===undefined?undefined:JSON.stringify(body)});const d=await r.json().catch(()=>null);if(!r.ok){const e=new Error(d?.msg||d?.message||d?.error_description||'No se pudo completar la operación.');e.status=r.status;e.code=d?.code;throw e;}return d;}
 async function refreshSession(){if(!session?.refresh_token)throw new Error('Volvé a entrar a tu cuenta.');try{const s=await raw('/auth/v1/token?grant_type=refresh_token',{method:'POST',body:{refresh_token:session.refresh_token}});saveSession({...s,expires_at:Math.floor(Date.now()/1000)+s.expires_in});}catch(e){saveSession(null);view('auth');throw e;}}
@@ -2832,6 +2890,73 @@ function customerPublicHtml(p,card){
  }
  return `<div class="card customer-hero ${p.business==='Ponte Coqueta'?'merchant-branded':''}">${merchantBrandHtml(p)}<span class="badge">${esc(p.name)}</span><h1 style="margin-top:16px">Tu tarjeta de beneficios</h1><p class="muted">Sumá puntos, desbloqueá beneficios y llevá tu tarjeta siempre con vos.</p><div class="links">${p.phone?`<a class="button green" href="https://wa.me/${p.phone}?text=${encodeURIComponent(p.wa_message)}" target="_blank" rel="noopener noreferrer">💬 Hablar por WhatsApp</a>`:''}${p.instagram?`<a class="button secondary" href="${esc(instagramUrl(p.instagram))}" target="_blank" rel="noopener noreferrer">📸 Ver Instagram</a>`:''}</div></div><div class="card customer-loyalty"><h2 style="margin-top:0">Tu progreso</h2><div class="reward-banner"><span class="reward-icon">🏆</span><div><small>Tu premio</small><br><strong>${esc(p.reward)}</strong><br><small>al llegar a ${p.goal} puntos</small></div></div><div id="cardState"></div>${form}${customerActions}</div><p class="muted" style="text-align:center;font-size:12px">Conectado con LOOK</p>`;
 }
+
+function lookInfoUrl(profile){
+ const u=new URL(location.pathname,location.origin);
+ u.searchParams.set('look','1');
+ if(isUUID(profile?.id))u.searchParams.set('from',profile.id);
+ return u.href;
+}
+function lookDiscoverHtml(profile){
+ return `<div class="look-discover-footer"><a class="button look-discover" href="${esc(lookInfoUrl(profile))}">Conocé más sobre LOOK</a></div>`;
+}
+function lookMerchantHtml(p){
+ const initials=String(p.business||'Comercio').trim().split(/\s+/).map(x=>x[0]||'').join('').slice(0,2).toUpperCase();
+ const logo=isPonteCoqueta(p)?'assets/ponte-coqueta-logo.svg':safeLogoUrl(p.logo_url);
+ const accent=/^#[0-9a-f]{6}$/i.test(p.theme_primary||'')?p.theme_primary:isPonteCoqueta(p)?'#ad7134':'#147ce5';
+ const phone=digits(String(p.phone||''));
+ let instagram='';try{instagram=instagramUrl(String(p.instagram||''));}catch{}
+ return `<article class="look-merchant" style="--listing-accent:${accent}">
+  <div class="look-merchant-head"><div class="look-merchant-mark">${logo?`<img src="${esc(logo)}" alt="Logo de ${esc(p.business)}" loading="lazy">`:esc(initials)}</div><h3>${esc(p.business)}</h3></div>
+  <p class="look-merchant-benefit">Tu premio<strong>${esc(p.reward)}</strong>al llegar a ${Number(p.goal)||1} puntos</p>
+  <a class="look-merchant-open" href="${esc(publicUrl(p))}">Ver tarjeta y beneficios</a>
+  ${phone||instagram?`<div class="look-merchant-social">${phone?`<a href="https://wa.me/${phone}" target="_blank" rel="noopener noreferrer">WhatsApp</a>`:''}${instagram?`<a href="${esc(instagram)}" target="_blank" rel="noopener noreferrer">Instagram</a>`:''}</div>`:''}
+ </article>`;
+}
+async function loadLookMerchants(){
+ const box=$('lookMerchants'),status=$('lookDirectoryStatus');
+ box.setAttribute('aria-busy','true');status.textContent='Cargando comercios adheridos…';
+ try{
+  const rows=[];
+  for(let offset=0;;offset+=1000){
+   const page=await request('/rest/v1/nfc_profiles?active=eq.true&select=id,business,reward,goal,logo_url,phone,instagram,theme_primary&order=business.asc,id.asc&limit=1000&offset='+offset);
+   rows.push(...page);if(page.length<1000)break;
+  }
+  const merchants=rows.filter(p=>isUUID(p.id));
+  status.textContent=merchants.length?`${merchants.length} comercio${merchants.length===1?'':'s'} para descubrir`:'Todavía no hay comercios adheridos para mostrar.';
+  box.innerHTML=merchants.map(lookMerchantHtml).join('');
+ }catch{
+  status.textContent='No pudimos cargar los comercios. Volvé a intentar en unos momentos.';
+  box.innerHTML='<button type="button" id="lookDirectoryRetry" class="secondary">Volver a intentar</button>';
+  $('lookDirectoryRetry').onclick=loadLookMerchants;
+ }finally{box.setAttribute('aria-busy','false');}
+}
+async function loadLookInfo(){
+ const from=new URLSearchParams(location.search).get('from');
+ const back=isUUID(from)?publicUrl({id:from}):'';
+ $('lookInfo').innerHTML=`
+  <div class="look-info-top"><a class="look-info-brand" href="${esc(lookInfoUrl())}" aria-label="LOOK">L<span>OO</span>K</a>${back?`<a class="look-back" href="${esc(back)}">Volver a mi tarjeta</a>`:''}</div>
+  <section class="look-info-hero" aria-labelledby="lookInfoTitle">
+   <span class="look-info-kicker">TUS COMPRAS TIENEN PREMIO</span>
+   <h1 id="lookInfoTitle">Conocé LOOK</h1>
+   <p>LOOK es una aplicación de tarjetas de beneficios que conecta a los comercios con sus clientes. Descubrí negocios adheridos, sumá puntos con tus compras y accedé a los premios que ofrece cada comercio.</p>
+   <div class="look-how">
+    <article><span class="look-how-number" aria-hidden="true">1</span><h2>Abrí tu tarjeta</h2><p>Escaneá el QR, acercá tu celular al NFC del comercio o abrí su enlace. Creá tu tarjeta con tu nombre y teléfono.</p></article>
+    <article><span class="look-how-number" aria-hidden="true">2</span><h2>Sumá puntos</h2><p>Después de cada compra, el comercio confirma tus visitas y los puntos aparecen en tu tarjeta.</p></article>
+    <article><span class="look-how-number" aria-hidden="true">3</span><h2>Disfrutá tu premio</h2><p>Al alcanzar la meta, solicitá tu premio en el comercio. Cada negocio define sus beneficios y condiciones.</p></article>
+   </div>
+  </section>
+  <section aria-labelledby="lookDirectoryTitle">
+   <div class="look-directory-heading"><h2 id="lookDirectoryTitle">Comercios adheridos</h2><p>Conocé sus propuestas y abrí la tarjeta de cada negocio para ver sus beneficios.</p></div>
+   <p id="lookDirectoryStatus" class="look-directory-status" role="status"></p>
+   <div id="lookMerchants" class="look-merchant-grid" aria-busy="true"></div>
+  </section>
+  <p class="look-info-note">Cada comercio tiene su propia tarjeta. Tus puntos y premios se usan en el negocio donde los acumulaste.</p>`;
+ document.title='Conocé LOOK · Comercios adheridos';
+ view('lookInfo');window.scrollTo(0,0);
+ await loadLookMerchants();
+}
+
 function instagramUrl(value){value=value.trim();if(!value)return '';if(!value.startsWith('http'))value='https://www.instagram.com/'+value.replace(/^@/,'').replace(/\/$/,'')+'/';const u=new URL(value);if(u.protocol!=='https:'||!['instagram.com','www.instagram.com'].includes(u.hostname))throw new Error('Usá un usuario o enlace de Instagram válido.');return u.href;}
 function profileData(){const phone=digits($('phone').value);if(phone&&(phone.length<8||phone.length>20))throw new Error('Revisá el WhatsApp y su código de país.');const goal=Number($('goal').value);if(!Number.isInteger(goal)||goal<1||goal>1000)throw new Error('Elegí entre 1 y 1000 puntos.');const data={business:$('business').value.trim(),name:$('profileName').value.trim(),phone,wa_message:$('waMsg').value.trim(),instagram:instagramUrl($('instagram').value),goal,reward:$('reward').value.trim(),logo_url:safeLogoUrl($('brandLogo').value),theme_primary:$('brandPrimary').value,theme_ink:$('brandInk').value,theme_soft:$('brandSoft').value,birthday_reward:$('birthdayReward').value.trim()};if(!data.business||!data.name||!data.reward||!data.birthday_reward)throw new Error('Completá el comercio, perfil y premio.');return data;}
 function cancelEdit(){editing=null;$('profileForm').reset();renderBrandPreview();$('profileTitle').textContent='Crear negocio';$('saveProfile').textContent='Crear negocio';$('cancelEdit').hidden=true;if($('profileCreateBlock'))$('profileCreateBlock').hidden=profiles.length>0;}
@@ -3323,7 +3448,7 @@ function setupLookControls(p,card){
  window.addEventListener('scroll',()=>{if(ticking)return;ticking=true;requestAnimationFrame(()=>{ticking=false;const wrap=document.querySelector('.lp-master-wrap'),extra=document.querySelector('.lp-master-extra');if(!wrap)return;const y=window.scrollY,top=wrap.offsetTop,h=wrap.offsetHeight,extraTop=extra?.offsetTop??Infinity;if(y>=extraTop-180)setLookNavActive('more');else if(y>=top+h*.45)setLookNavActive('card');else setLookNavActive('top');});},{passive:true});
  document.addEventListener('click',e=>{if(!sheet||sheet.hidden)return;if(e.target.closest('#lpNotifySheet')||e.target.closest('#lpNotifyBtn'))return;sheet.hidden=true;});
 }
-async function loadCustomer(id){if(!isUUID(id))return unavailable();const rows=await request('/rest/v1/nfc_profiles?id=eq.'+id+'&active=eq.true&select=id,business,name,phone,wa_message,instagram,reward,goal,logo_url,theme_primary,theme_ink,theme_soft');if(!rows.length)return unavailable();customerProfile=rows[0];const p=customerProfile,token=cardToken(p);const card=await rpc('nfc_card',{p_profile:p.id,p_token:token});customerCardState=card;customerExtrasState=null;const publicTheme=merchantTheme(p);for(const [key,value] of [['primary',publicTheme.primary],['ink',publicTheme.ink],['soft',publicTheme.soft]])document.documentElement.style.setProperty('--merchant-'+key,value);$('customer').className='public merchant-public'+(isLookPhone(p)?' lp-master-public':isPonteCoqueta(p)?' pc-public':'');$('customer').innerHTML=customerPublicHtml(p,card);view('customer');if('scrollRestoration' in history)history.scrollRestoration='manual';requestAnimationFrame(()=>window.scrollTo(0,0));renderCard(card);if($('lpCreateCard'))$('lpCreateCard').onclick=()=>{$('customerForm').hidden=false;$('customerForm').scrollIntoView({behavior:'smooth',block:'start'});};if(card){customerExtrasState=await rpc('nfc_customer_extras',{p_profile:p.id,p_token:token});renderCustomerExtras(customerExtrasState);}if(isLookPhone(p))setupLookControls(p,card);bindBusy('customerForm','submit',async()=>{const phone=digits($('customerPhone').value);if(phone.length<8||phone.length>20)throw new Error('Revisá el teléfono.');const result=await rpc('nfc_register_card_v3',{p_profile:p.id,p_token:token,p_name:$('customerName').value.trim(),p_phone:phone,...detailValues('customer'),p_referral:new URLSearchParams(location.search).get('ref')||''});if(!result)throw new Error('No se pudo crear la tarjeta.');$('customerForm').hidden=true;$('cardActions').hidden=false;customerCardState=result;renderCard(result);if($('lpCreateCard'))$('lpCreateCard').remove();customerExtrasState=await rpc('nfc_customer_extras',{p_profile:p.id,p_token:token});renderCustomerExtras(customerExtrasState);refreshLookNotifications();notify('¡Tu tarjeta está lista!');});bindBusy('refreshCard','click',async()=>{customerCardState=await rpc('nfc_card',{p_profile:p.id,p_token:token});renderCard(customerCardState);customerExtrasState=await rpc('nfc_customer_extras',{p_profile:p.id,p_token:token});renderCustomerExtras(customerExtrasState);refreshLookNotifications();});$('copyCard').onclick=()=>copy(cardUrl(p,token));bindBusy('editMyDetails','click',async()=>{const details=await rpc('nfc_customer_details',{p_profile:p.id,p_token:token});if(!details)throw new Error('Tarjeta no encontrada.');fillDetails('myDetails',details);$('myDetailsForm').hidden=false;});$('cancelMyDetails').onclick=()=>$('myDetailsForm').hidden=true;bindBusy('myDetailsForm','submit',async()=>{await rpc('nfc_update_details',{p_profile:p.id,p_token:token,...detailValues('myDetails')});$('myDetailsForm').hidden=true;notify('Datos guardados.');});}
+async function loadCustomer(id){if(!isUUID(id))return unavailable();const rows=await request('/rest/v1/nfc_profiles?id=eq.'+id+'&active=eq.true&select=id,business,name,phone,wa_message,instagram,reward,goal,logo_url,theme_primary,theme_ink,theme_soft');if(!rows.length)return unavailable();customerProfile=rows[0];const p=customerProfile,token=cardToken(p);const card=await rpc('nfc_card',{p_profile:p.id,p_token:token});customerCardState=card;customerExtrasState=null;const publicTheme=merchantTheme(p);for(const [key,value] of [['primary',publicTheme.primary],['ink',publicTheme.ink],['soft',publicTheme.soft]])document.documentElement.style.setProperty('--merchant-'+key,value);$('customer').className='public merchant-public'+(isLookPhone(p)?' lp-master-public':isPonteCoqueta(p)?' pc-public':'');$('customer').innerHTML=customerPublicHtml(p,card)+lookDiscoverHtml(p);view('customer');if('scrollRestoration' in history)history.scrollRestoration='manual';requestAnimationFrame(()=>window.scrollTo(0,0));renderCard(card);if($('lpCreateCard'))$('lpCreateCard').onclick=()=>{$('customerForm').hidden=false;$('customerForm').scrollIntoView({behavior:'smooth',block:'start'});};if(card){customerExtrasState=await rpc('nfc_customer_extras',{p_profile:p.id,p_token:token});renderCustomerExtras(customerExtrasState);}if(isLookPhone(p))setupLookControls(p,card);bindBusy('customerForm','submit',async()=>{const phone=digits($('customerPhone').value);if(phone.length<8||phone.length>20)throw new Error('Revisá el teléfono.');const result=await rpc('nfc_register_card_v3',{p_profile:p.id,p_token:token,p_name:$('customerName').value.trim(),p_phone:phone,...detailValues('customer'),p_referral:new URLSearchParams(location.search).get('ref')||''});if(!result)throw new Error('No se pudo crear la tarjeta.');$('customerForm').hidden=true;$('cardActions').hidden=false;customerCardState=result;renderCard(result);if($('lpCreateCard'))$('lpCreateCard').remove();customerExtrasState=await rpc('nfc_customer_extras',{p_profile:p.id,p_token:token});renderCustomerExtras(customerExtrasState);refreshLookNotifications();notify('¡Tu tarjeta está lista!');});bindBusy('refreshCard','click',async()=>{customerCardState=await rpc('nfc_card',{p_profile:p.id,p_token:token});renderCard(customerCardState);customerExtrasState=await rpc('nfc_customer_extras',{p_profile:p.id,p_token:token});renderCustomerExtras(customerExtrasState);refreshLookNotifications();});$('copyCard').onclick=()=>copy(cardUrl(p,token));bindBusy('editMyDetails','click',async()=>{const details=await rpc('nfc_customer_details',{p_profile:p.id,p_token:token});if(!details)throw new Error('Tarjeta no encontrada.');fillDetails('myDetails',details);$('myDetailsForm').hidden=false;});$('cancelMyDetails').onclick=()=>$('myDetailsForm').hidden=true;bindBusy('myDetailsForm','submit',async()=>{await rpc('nfc_update_details',{p_profile:p.id,p_token:token,...detailValues('myDetails')});$('myDetailsForm').hidden=true;notify('Datos guardados.');});}
 function renderCustomerExtras(x){const box=$('customerExtras');if(!box||!x)return;const tiers=Array.isArray(x.tiers)?x.tiers:[],qs=Array.isArray(x.coupons)?x.coupons:[],p=customerProfile,token=cardToken(p),invite=new URL(publicUrl(p));invite.searchParams.set('ref',x.referral_code||'');box.innerHTML=`<div class="customer-growth"><section><h3>🤝 Invitá y ganá</h3><p>Compartí tu invitación. Cuando tu amigo haga su primera visita, sumás <strong>${Number(x.referral_bonus_points||0)} punto${Number(x.referral_bonus_points||0)===1?'':'s'}</strong>.</p><div class="lp-referral-actions"><div class="referral-code">${esc(x.referral_code||'')}</div><button type="button" id="shareReferral" class="secondary">Compartir invitación</button></div><small class="lp-referral-count">${Number(x.rewarded_referrals||0)>0?(Number(x.rewarded_referrals||0)+' referido'+(Number(x.rewarded_referrals||0)===1?'':'s')+' premiado'+(Number(x.rewarded_referrals||0)===1?'':'s')):'Todavía no tenés referidos premiados'}</small></section>${tiers.length?`<section><h3>🏆 Más premios</h3><div class="public-tier-list">${tiers.map(t=>`<div><strong>${t.points_required} pts</strong><span>${esc(t.reward)}</span></div>`).join('')}</div></section>`:''}${qs.length?`<section><h3>🎟️ Beneficios exclusivos</h3><div class="public-coupon-list">${qs.map(q=>`<div><strong>${esc(q.title)}</strong><p>${esc(q.description||'')}</p><span class="coupon-code">${esc(q.code)}</span>${q.expires_at?'<small>Válido hasta '+esc(q.expires_at)+'</small>':''}</div>`).join('')}</div></section>`:''}</div>`;const share=$('shareReferral');if(share)share.onclick=async()=>{const business=customerProfile?.business||'este comercio',text='¡Sumate a los beneficios de '+business+'! '+invite.href;if(navigator.share){try{return await navigator.share({title:business,text,url:invite.href});}catch{}}copy(text);};}
 function renderCard(c){
  customerCardState=c;
@@ -3404,7 +3529,7 @@ function renderLaunchChecklist(){const box=$('launchChecklist'),p=profiles.find(
 document.querySelector('.launch-actions').onclick=e=>{const b=e.target.closest('[data-launch]');if(!b)return;if(b.dataset.launch==='purchase'){$('quickVisitSearch').scrollIntoView({behavior:'smooth',block:'center'});$('quickVisitSearch').focus();}else if(b.dataset.launch==='search')setAdminTab('clients',{focus:'clientSearch'});else goToSegment('clients','eligible');};
 $('profileForm').addEventListener('input',renderBrandPreview);renderBrandPreview();
 
-async function boot(){view('loading');try{const hash=new URLSearchParams(location.hash.slice(1));if(hash.get('access_token')){const s={access_token:hash.get('access_token'),refresh_token:hash.get('refresh_token'),expires_at:Math.floor(Date.now()/1000)+Number(hash.get('expires_in')||3600)};s.user=await raw('/auth/v1/user',{token:s.access_token});saveSession(s);history.replaceState(null,'',location.pathname+location.search);if(hash.get('type')==='recovery'){view('recovery');return;}}const nfc=new URLSearchParams(location.search).get('nfc');if(nfc!==null){await loadCustomer(nfc);return;}if(session){const access=await rpc('nfc_platform_access_status',{},true);isPlatformAdmin=!!access?.is_admin;if(new URLSearchParams(location.search).get('platform')==='1'){if(!isPlatformAdmin)throw new Error('No tenés permiso para administrar las cuentas.');await loadPlatform();view('platform');return;}if(!access?.enabled){view('suspended');await loadBilling();return;}await loadAdmin();await loadBilling();}else view('auth');}catch(e){if(new URLSearchParams(location.search).has('nfc')){$('customer').innerHTML='<div class="card"><h1>No pudimos conectar</h1><p>Volvé a intentar en unos momentos o consultá con el comercio.</p><button id="customerRetry">Volver a intentar</button></div>';view('customer');$('customerRetry').onclick=boot;}else if(e.code==='PGRST205'||e.code==='PGRST202'){view('setup');}else{view('auth');notify(friendly(e),true);}}}
+async function boot(){view('loading');try{const hash=new URLSearchParams(location.hash.slice(1));if(hash.get('access_token')){const s={access_token:hash.get('access_token'),refresh_token:hash.get('refresh_token'),expires_at:Math.floor(Date.now()/1000)+Number(hash.get('expires_in')||3600)};s.user=await raw('/auth/v1/user',{token:s.access_token});saveSession(s);history.replaceState(null,'',location.pathname+location.search);if(hash.get('type')==='recovery'){view('recovery');return;}}if(new URLSearchParams(location.search).get('look')==='1'){await loadLookInfo();return;}const nfc=new URLSearchParams(location.search).get('nfc');if(nfc!==null){await loadCustomer(nfc);return;}if(session){const access=await rpc('nfc_platform_access_status',{},true);isPlatformAdmin=!!access?.is_admin;if(new URLSearchParams(location.search).get('platform')==='1'){if(!isPlatformAdmin)throw new Error('No tenés permiso para administrar las cuentas.');await loadPlatform();view('platform');return;}if(!access?.enabled){view('suspended');await loadBilling();return;}await loadAdmin();await loadBilling();}else view('auth');}catch(e){if(new URLSearchParams(location.search).has('nfc')){$('customer').innerHTML='<div class="card"><h1>No pudimos conectar</h1><p>Volvé a intentar en unos momentos o consultá con el comercio.</p><button id="customerRetry">Volver a intentar</button></div>';view('customer');$('customerRetry').onclick=boot;}else if(e.code==='PGRST205'||e.code==='PGRST202'){view('setup');}else{view('auth');notify(friendly(e),true);}}}
 bindBusy('authForm','submit',async()=>{const email=$('authEmail').value.trim(),password=$('authPassword').value;const d=await raw(signup?'/auth/v1/signup?redirect_to='+encodeURIComponent(location.origin+location.pathname):'/auth/v1/token?grant_type=password',{method:'POST',body:{email,password}});if(!d.access_token){$('authMessage').textContent='Te enviamos un correo. Confirmalo y después entrá a tu cuenta.';return;}saveSession({...d,expires_at:Math.floor(Date.now()/1000)+d.expires_in});$('authPassword').value='';await boot();});
 $('toggleAuth').onclick=()=>{signup=!signup;$('authTitle').textContent=signup?'CREÁ TU CUENTA':'INGRESAR';$('authSubmit').textContent=signup?'Crear cuenta':'Entrar';$('toggleAuth').textContent=signup?'Ya tengo una cuenta':'Crear mi cuenta';$('authPassword').autocomplete=signup?'new-password':'current-password';$('authMessage').textContent='';};
 $('togglePasswordVisibility').onclick=()=>{const input=$('authPassword'),button=$('togglePasswordVisibility'),show=input.type==='password';input.type=show?'text':'password';$('togglePasswordLabel').textContent=show?'Ocultar':'Mostrar';button.setAttribute('aria-label',show?'Ocultar contraseña':'Mostrar contraseña');button.setAttribute('aria-pressed',String(show));};bindBusy('forgot','click',async()=>{const email=$('authEmail').value.trim();if(!$('authEmail').checkValidity()||!email)throw new Error('Escribí tu correo para recuperar la contraseña.');await raw('/auth/v1/recover?redirect_to='+encodeURIComponent(location.origin+location.pathname),{method:'POST',body:{email}});$('authMessage').textContent='Si existe una cuenta, recibirás un enlace para cambiar tu contraseña.';});
@@ -3435,3 +3560,4 @@ boot();
 </script>
 <!-- deploy-refresh: 2026-10-08-platform-admin-client-groups -->
 </body></html>
+
