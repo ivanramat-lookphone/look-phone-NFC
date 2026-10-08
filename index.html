@@ -2461,6 +2461,13 @@ body.owner-themed #admin .quick-visit-actions input{width:110px!important;min-wi
 body.owner-themed #admin .launch-actions button{background:var(--merchant-soft);color:var(--merchant-ink)}
 body.owner-themed #admin .home-fold summary{gap:12px}body.owner-themed #admin .home-fold summary small{white-space:normal;text-align:right;flex:0 1 45%}
 @media(max-width:650px){body.owner-themed #admin .quick-visit-actions{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important}body.owner-themed #admin .quick-visit-actions input,body.owner-themed #admin .quick-visit-actions button{width:100%!important;min-width:0!important;max-width:none!important;white-space:normal!important}body.owner-themed #admin .quick-visit-actions [data-quick-visit]{grid-column:1/-1!important}}
+
+/* Ponte Coqueta quick action buttons: keep labels and helper text high contrast. */
+body.owner-pontecoqueta #admin .launch-actions{width:100%;min-width:0;grid-template-columns:repeat(3,minmax(0,1fr))}
+body.owner-pontecoqueta #admin .launch-actions button{min-width:0;overflow-wrap:anywhere;background:#75421f!important;color:#fff!important}
+body.owner-pontecoqueta #admin .launch-actions button strong,
+body.owner-pontecoqueta #admin .launch-actions button small{color:#fff!important;opacity:1!important}
+body.owner-pontecoqueta #admin .launch-actions button small{font-size:13px;line-height:1.35;font-weight:600}
 </style>
 </head>
 <body>
