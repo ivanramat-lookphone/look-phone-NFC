@@ -62,6 +62,16 @@ Deno.serve(async (req: Request) => {
   };
 
   try {
+    // Reserve a per-merchant reconciliation slot atomically. Page reloads and parallel
+    // tabs then reuse the last known billing status without hitting Mercado Pago again.
+    const ticketResponse = await fetch(url + "/rest/v1/rpc/nfc_billing_begin_reconciliation", {
+      method: "POST",
+      headers: { "apikey": serviceKey, "Authorization": "Bearer " + serviceKey, "Content-Type": "application/json" },
+      body: JSON.stringify({ p_owner: user.id }),
+    });
+    if (!ticketResponse.ok) throw new Error("Reconciliation limiter unavailable (" + ticketResponse.status + ")");
+    const mayReconcile = await ticketResponse.json();
+    if (mayReconcile !== true) return json({ synced: true, subscription: true, skipped: true, reason: "recently_checked" });
     const subscription = await api("/preapproval/" + encodeURIComponent(preapprovalId));
     if (String(subscription?.id || "") !== preapprovalId || String(subscription?.external_reference || "") !== user.id) {
       return json({ error: "Subscription/account mismatch" }, 409);
