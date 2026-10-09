@@ -2911,7 +2911,8 @@ async function loadStaffList(){
 async function loadPrivacyRequests(){
  const box=$('privacyRequestList');if(!box)return;
  const requests=await rpc('nfc_merchant_privacy_requests',{},true),labels={data_copy:'Acceso a datos',data_correction:'Corrección',data_deletion:'Eliminación',marketing_opt_out:'Baja de promociones'};
- box.innerHTML=(requests||[]).length?requests.map(r=>'<div class="look-staff-member"><div><strong>'+esc(r.client_name||'Cliente')+'</strong><p class="muted">'+esc(labels[r.kind]||r.kind)+' · '+esc(r.client_phone||'')+'</p></div><button type="button" class="secondary" data-privacy-handled="'+esc(r.id)+'">Marcar gestionada</button></div>').join(''):'<p class="muted">No hay solicitudes pendientes.</p>';
+ box.innerHTML=(requests||[]).length?requests.map(r=>'<div class="look-staff-member"><div><strong>'+esc(r.client_name||'Cliente')+'</strong><p class="muted">'+esc(labels[r.kind]||r.kind)+' · '+esc(r.client_phone||'')+'</p></div>'
+ +(r.kind==='data_deletion'?'<button type="button" class="secondary" data-privacy-delete="'+esc(r.id)+'">Eliminar datos del cliente</button>':'<button type="button" class="secondary" data-privacy-handled="'+esc(r.id)+'">Marcar gestionada</button>')+'</div>').join(''):'<p class="muted">No hay solicitudes pendientes.</p>';
 }
 async function openStaffPanel(ctx){
  lookStaffContext=ctx;view('staff');$('staffBusinessTitle').textContent=ctx.business+' · Personal';
@@ -3849,7 +3850,13 @@ $('staffMemberList').onclick=async e=>{const b=e.target.closest('[data-staff-rev
  catch(err){notify(friendly(err),true);}finally{b.disabled=false;}
 };
 $('refreshPrivacyRequests').onclick=()=>loadPrivacyRequests().catch(e=>notify(friendly(e),true));
-$('privacyRequestList').onclick=async e=>{const b=e.target.closest('[data-privacy-handled]');if(!b)return;
+$('privacyRequestList').onclick=async e=>{
+ const del=e.target.closest('[data-privacy-delete]');
+ if(del){if(!confirm('La eliminación borrará permanentemente la tarjeta del cliente, los puntos y sus movimientos. ¿Confirmás?'))return;
+ del.disabled=true;try{await rpc('nfc_merchant_privacy_delete_client',{p_request:del.dataset.privacyDelete},true);
+ await loadAdmin();await loadPrivacyRequests();notify('Datos eliminados conforme a la solicitud.');}
+ catch(err){notify(friendly(err),true);}finally{del.disabled=false;}return;}
+ const b=e.target.closest('[data-privacy-handled]');if(!b)return;
  if(!confirm('Marcá como gestionada solo si ya atendiste la solicitud del cliente. ¿Confirmás?'))return;
  b.disabled=true;try{await rpc('nfc_merchant_privacy_mark_handled',{p_request:b.dataset.privacyHandled},true);await loadPrivacyRequests();notify('Solicitud actualizada.');}
  catch(err){notify(friendly(err),true);}finally{b.disabled=false;}
