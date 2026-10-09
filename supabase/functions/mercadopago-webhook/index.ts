@@ -27,7 +27,7 @@ Deno.serve(async (req: Request) => {
   const url = new URL(req.url);
   const payload = await req.json().catch(() => ({}));
   const dataId = String(url.searchParams.get("data.id") || payload?.data?.id || "").toLowerCase();
-  const type = String(url.searchParams.get("type") || payload?.type || payload?.topic || "");
+  const type = String(payload?.type || payload?.topic || url.searchParams.get("type") || "");
   if (!dataId || !/^[a-z0-9_-]{1,200}$/.test(dataId)) return json({ error: "Missing notification id" }, 400);
 
   const signature = req.headers.get("x-signature") || "";
@@ -50,6 +50,38 @@ Deno.serve(async (req: Request) => {
     });
     if (!response.ok) throw new Error(`Subscription update failed (${response.status}): ${await response.text()}`);
   };
+
+  const recordApprovedInvoice = async (invoice: any, subscription: any) => {
+    if (String(subscription?.status || "") !== "authorized") return false;
+    if (String(invoice?.preapproval_id || "") !== String(subscription?.id || "")) return false;
+    if (invoice?.currency_id !== "ARS" || Number(invoice?.transaction_amount) !== 30000) return false;
+    if (String(invoice?.payment?.status || "") !== "approved") return false;
+    const paymentId = String(invoice?.payment?.id || "");
+    if (!/^[0-9]+$/.test(paymentId)) return false;
+    const payment = await api("/v1/payments/" + encodeURIComponent(paymentId));
+    if (payment?.status !== "approved" || payment?.currency_id !== "ARS"
+      || Number(payment?.transaction_amount) !== 30000 || !payment?.date_approved) return false;
+    await rpc("nfc_billing_apply_payment", {
+      p_preapproval_id: String(subscription.id),
+      p_payment_status: "approved",
+      p_paid_at: payment.date_approved,
+      p_period_ends_at: isoDate(subscription?.next_payment_date),
+    });
+    return true;
+  };
+  const recoverLatestPayment = async (subscription: any) => {
+    if (String(subscription?.status || "") !== "authorized") return false;
+    const search = await api("/authorized_payments/search?preapproval_id=" + encodeURIComponent(String(subscription.id)));
+    const invoices = (Array.isArray(search?.results) ? search.results : [])
+      .filter((item: any) => String(item?.preapproval_id || "") === String(subscription.id)
+        && item?.payment?.status === "approved")
+      .sort((a: any, b: any) => Date.parse(b?.debit_date || b?.date_created || "") - Date.parse(a?.debit_date || a?.date_created || ""));
+    for (const invoice of invoices.slice(0, 5)) {
+      if (await recordApprovedInvoice(invoice, subscription)) return true;
+    }
+    return false;
+  };
+
   try {
     if (type === "subscription_preapproval") {
       const subscription = await api(`/preapproval/${encodeURIComponent(dataId)}`);
@@ -61,23 +93,22 @@ Deno.serve(async (req: Request) => {
         p_owner: ownerId,
         p_preapproval_id: String(subscription.id),
         p_mp_status: safeStatus,
-        p_period_ends_at: isoDate(subscription?.auto_recurring?.next_payment_date),
+        p_period_ends_at: isoDate(subscription?.next_payment_date),
       });
+      if (safeStatus === "authorized") {
+        try { await recoverLatestPayment(subscription); }
+        catch (error) { console.error("Mercado Pago invoice recovery failed", error instanceof Error ? error.message : "unknown"); }
+      }
       return json({ received: true });
     }
 
     if (type === "subscription_authorized_payment") {
-      const payment = await api(`/authorized_payments/${encodeURIComponent(dataId)}`);
-      const preapprovalId = String(payment?.preapproval_id || "");
+      const invoice = await api("/authorized_payments/" + encodeURIComponent(dataId));
+      const preapprovalId = String(invoice?.preapproval_id || "");
       if (!preapprovalId) return json({ received: true, ignored: true });
-      const subscription = await api(`/preapproval/${encodeURIComponent(preapprovalId)}`);
-      await rpc("nfc_billing_apply_payment", {
-        p_preapproval_id: preapprovalId,
-        p_payment_status: String(payment?.status || ""),
-        p_paid_at: payment?.date_approved || payment?.date_created || null,
-        p_period_ends_at: isoDate(subscription?.auto_recurring?.next_payment_date),
-      });
-      return json({ received: true });
+      const subscription = await api("/preapproval/" + encodeURIComponent(preapprovalId));
+      const recorded = await recordApprovedInvoice(invoice, subscription);
+      return json({ received: true, recorded });
     }
     return json({ received: true, ignored: true });
   } catch (error) {
