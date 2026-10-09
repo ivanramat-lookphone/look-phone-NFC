@@ -69,6 +69,29 @@ Deno.serve(async (req: Request) => {
     });
     return true;
   };
+
+  const recordFailedInvoice = async (invoice: any, subscription: any) => {
+    if (String(subscription?.status || "") !== "authorized") return false;
+    if (String(invoice?.preapproval_id || "") !== String(subscription?.id || "")) return false;
+    if (invoice?.currency_id !== "ARS" || Number(invoice?.transaction_amount) !== 30000) return false;
+    const paymentId = String(invoice?.payment?.id || "");
+    if (!/^[0-9]+$/.test(paymentId)) return false;
+    const rejected = new Set(["rejected", "cancelled", "refunded", "charged_back"]);
+    if (!rejected.has(String(invoice?.payment?.status || ""))) return false;
+    const payment = await api("/v1/payments/" + encodeURIComponent(paymentId));
+    const paymentStatus = String(payment?.status || "");
+    if (!rejected.has(paymentStatus) || payment?.currency_id !== "ARS"
+      || Number(payment?.transaction_amount) !== 30000) return false;
+    const eventDate = payment?.date_last_updated || payment?.date_created;
+    if (!eventDate) return false;
+    await rpc("nfc_billing_apply_failed_payment", {
+      p_preapproval_id: String(subscription.id),
+      p_payment_status: paymentStatus,
+      p_failed_at: eventDate,
+    });
+    return true;
+  };
+
   const recoverLatestPayment = async (subscription: any) => {
     if (String(subscription?.status || "") !== "authorized") return false;
     const search = await api("/authorized_payments/search?preapproval_id=" + encodeURIComponent(String(subscription.id)));
@@ -108,7 +131,8 @@ Deno.serve(async (req: Request) => {
       if (!preapprovalId) return json({ received: true, ignored: true });
       const subscription = await api("/preapproval/" + encodeURIComponent(preapprovalId));
       const recorded = await recordApprovedInvoice(invoice, subscription);
-      return json({ received: true, recorded });
+      const declined = !recorded && await recordFailedInvoice(invoice, subscription);
+      return json({ received: true, recorded, declined });
     }
     return json({ received: true, ignored: true });
   } catch (error) {
