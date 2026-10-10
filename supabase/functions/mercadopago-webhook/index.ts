@@ -67,6 +67,14 @@ Deno.serve(async (req: Request) => {
       p_paid_at: payment.date_approved,
       p_period_ends_at: isoDate(subscription?.next_payment_date),
     });
+    await rpc("nfc_billing_record_verified_event", {
+      p_preapproval_id: String(subscription.id),
+      p_payment_id: paymentId,
+      p_status: "approved",
+      p_amount_ars: 30000,
+      p_event_at: payment.date_approved,
+      p_period_ends_at: isoDate(subscription?.next_payment_date),
+    });
     return true;
   };
 
@@ -88,6 +96,14 @@ Deno.serve(async (req: Request) => {
       p_preapproval_id: String(subscription.id),
       p_payment_status: paymentStatus,
       p_failed_at: eventDate,
+    });
+    await rpc("nfc_billing_record_verified_event", {
+      p_preapproval_id: String(subscription.id),
+      p_payment_id: paymentId,
+      p_status: paymentStatus,
+      p_amount_ars: 30000,
+      p_event_at: eventDate,
+      p_period_ends_at: isoDate(subscription?.next_payment_date),
     });
     return true;
   };
