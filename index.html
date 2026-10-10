@@ -2795,6 +2795,19 @@ body.look-info-mode main{width:100%;max-width:none;margin:0;padding:0 0 max(32px
 .platform-preview-banner{background:#ecf5ff;border:1px solid #9ec6ee;border-radius:12px;padding:12px;margin:8px auto 12px;max-width:700px;text-align:center;color:#143a64;display:grid;gap:3px}
 .platform-preview-banner span{font-size:12px}.platform-preview-back{text-align:center;padding:18px 8px 34px}
 @media(max-width:520px){.platform-nfc-url{flex-wrap:wrap}.platform-nfc-url input{flex-basis:100%}.platform-nfc-url button{width:100%}}
+
+/* LOOK PHONE logo: attached transparent artwork */
+body.owner-lookphone .owner-brand-mark{display:flex!important;width:186px!important;height:77px!important;flex:0 0 auto;border:0!important;border-radius:9px!important;background:#050505!important;box-shadow:none!important;overflow:hidden!important}
+body.owner-lookphone .owner-brand-mark img{display:block;width:100%;height:100%;object-fit:contain}
+body.owner-lookphone .owner-brand>div:nth-child(2){display:none!important}
+.lp-crisp-logo-mask{left:0!important;top:0!important;width:52%!important;height:12%!important;background:#050505!important;border-radius:0 0 14px 0}
+.lp-crisp-logo{left:3.5%!important;top:1%!important;width:45%!important;height:10%!important;display:flex!important;align-items:center!important;justify-content:center!important}
+.lp-crisp-logo img{display:block;width:100%;height:100%;object-fit:contain}
+.lp-crisp-title{display:none!important}
+.lp-crisp-tag{margin-top:5cqw!important}
+@media(max-width:650px){
+ body.owner-lookphone .owner-brand-mark{width:146px!important;height:60px!important}
+}
 </style>
 </head>
 <body>
@@ -3159,9 +3172,9 @@ function customerPublicHtml(p,card){
    return `<div class="lp-master-wrap">
       <img src="assets/lookphone-card-master.webp?v=1" alt="Tarjeta de beneficios Look Phone">
       <div class="lp-crisp-mask lp-crisp-logo-mask" aria-hidden="true"></div>
-      <div class="lp-crisp-logo" aria-hidden="true"><div class="lp-crisp-mark">L<i>P</i></div><div class="lp-crisp-brand"><b>LOOK <i>PHONE</i></b><small>TECNOLOGÍA QUE TE ACOMPAÑA</small></div></div>
+      <div class="lp-crisp-logo" aria-hidden="true"><img src="assets/look-phone-logo.svg" alt="LOOK PHONE"></div>
       <div class="lp-crisp-mask lp-crisp-hero-mask" aria-hidden="true"></div>
-      <div class="lp-crisp-hero" aria-hidden="true"><div class="lp-crisp-kicker">TARJETA DE BENEFICIOS</div><div class="lp-crisp-title">LOOK <i>PHONE</i></div><div class="lp-crisp-tag">TU MUNDO TECH,<br>MÁS CERCA</div></div>
+      <div class="lp-crisp-hero" aria-hidden="true"><div class="lp-crisp-kicker">TARJETA DE BENEFICIOS</div><div class="lp-crisp-title" aria-hidden="true">TU MUNDO TECH, MÁS CERCA</div><div class="lp-crisp-tag">TU MUNDO TECH,<br>MÁS CERCA</div></div>
       <div class="lp-crisp-special" aria-hidden="true"><span>♛</span> CLIENTE ESPECIAL</div>
       <div class="lp-master-social-bg" aria-hidden="true"></div>
       ${p.phone?`<a class="lp-master-hit wa" aria-label="Hablar por WhatsApp" href="https://wa.me/${p.phone}?text=${encodeURIComponent(p.wa_message)}" target="_blank" rel="noopener noreferrer"><span class="lp-live-action"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M10.5 9.8c1.1-1 2.2-.7 2.8.6l1.2 2.6c.3.7.1 1.3-.5 1.8l-1 .8c1.1 2.3 2.8 4 5 5l.9-1c.5-.6 1.2-.8 1.9-.4l2.5 1.2c1.2.6 1.5 1.8.5 2.8-1.2 1.2-2.8 1.8-4.5 1.5-5.7-.9-10.3-5.5-11.2-11.2-.3-1.4.2-2.7 1.4-3.7z" fill="currentColor"/></svg><strong>Hablar por WhatsApp</strong></span><span class="lp-live-chevron">›</span></a>`:''}
@@ -3273,7 +3286,7 @@ function lookDiscoverHtml(profile){
  return `<div class="look-discover-footer"><a class="button look-discover" href="${esc(lookInfoUrl(profile))}">Conocé más sobre LOOK</a><a class="button look-discover look-merchant-signup-link" href="${esc(merchantInfoUrl(profile))}">Adherí tu comercio</a></div>`;
 }
 function lookMerchantHtml(p){
- const ponte=isPonteCoqueta(p),look=isLookPhone(p),logo=ponte?'assets/ponte-coqueta-logo.svg':look?'assets/look-brand-logo.webp':safeLogoUrl(p.logo_url);
+ const ponte=isPonteCoqueta(p),look=isLookPhone(p),logo=ponte?'assets/ponte-coqueta-logo.svg':look?'assets/look-phone-logo.svg':safeLogoUrl(p.logo_url);
  const actionColor=/^#[0-9a-f]{6}$/i.test(String(p.theme_primary||''))?p.theme_primary:'#147ce5';
  const phone=digits(String(p.phone||''));
  let instagram='';try{instagram=instagramUrl(String(p.instagram||''));}catch{}
@@ -3311,7 +3324,7 @@ async function loadMerchantInfo(){
  const from=new URLSearchParams(location.search).get('from');
  const back=isUUID(from)?publicUrl({id:from}):'';
  $('lookInfo').innerHTML=`
-  <div class="look-info-top"><a class="look-info-brand" href="${esc(lookInfoUrl())}" aria-label="LOOK"><img src="assets/look-brand-logo.webp" alt="Logo de LOOK"><span class="look-info-tagline">Hacé que tus clientes vuelvan</span></a></div>${back?`<div class="look-info-return"><a class="look-back" href="${esc(back)}">Volver a mi tarjeta</a></div>`:''}
+  <div class="look-info-top"><a class="look-info-brand" href="${esc(lookInfoUrl())}" aria-label="LOOK"><img src="assets/look-phone-logo.svg" alt="Logo de LOOK"><span class="look-info-tagline">Hacé que tus clientes vuelvan</span></a></div>${back?`<div class="look-info-return"><a class="look-back" href="${esc(back)}">Volver a mi tarjeta</a></div>`:''}
   <section class="look-info-hero" aria-labelledby="merchantInfoTitle">
    <span class="look-info-eyebrow">Para dueños de comercios</span>
    <h1 id="merchantInfoTitle">Más que una tarjeta de puntos</h1>
@@ -3350,7 +3363,7 @@ async function loadLookInfo(){
  const from=new URLSearchParams(location.search).get('from');
  const back=isUUID(from)?publicUrl({id:from}):'';
  $('lookInfo').innerHTML=`
-  <div class="look-info-top"><a class="look-info-brand" href="${esc(lookInfoUrl())}" aria-label="LOOK"><img src="assets/look-brand-logo.webp" alt="Logo de LOOK"><span class="look-info-tagline">Tus compras tienen premio</span></a></div>${back?`<div class="look-info-return"><a class="look-back" href="${esc(back)}">Volver a mi tarjeta</a></div>`:''}
+  <div class="look-info-top"><a class="look-info-brand" href="${esc(lookInfoUrl())}" aria-label="LOOK"><img src="assets/look-phone-logo.svg" alt="Logo de LOOK"><span class="look-info-tagline">Tus compras tienen premio</span></a></div>${back?`<div class="look-info-return"><a class="look-back" href="${esc(back)}">Volver a mi tarjeta</a></div>`:''}
   <section class="look-info-hero" aria-labelledby="lookInfoTitle">
    <h1 id="lookInfoTitle">Conocé LOOK</h1>
    <p>LOOK es una aplicación de tarjetas de beneficios que conecta a los comercios con sus clientes. Descubrí negocios adheridos, sumá puntos con tus compras y accedé a los premios que ofrece cada comercio.</p>
@@ -3398,7 +3411,7 @@ function applyMerchantTheme(profile){
   root.style.setProperty('--merchant-primary',theme.primary);
   root.style.setProperty('--merchant-ink',theme.ink);
   root.style.setProperty('--merchant-soft',theme.soft);
-  if($('ownerBrandMark')){$('ownerBrandMark').innerHTML=safeLogoUrl(profile?.logo_url)?'<img src="'+esc(safeLogoUrl(profile.logo_url))+'" alt="Logo del comercio">':theme.key==='pontecoqueta'?'<img src="assets/ponte-coqueta-logo.svg" alt="Ponte Coqueta, almacén de joyas">':esc(theme.mark);}
+  if($('ownerBrandMark')){$('ownerBrandMark').innerHTML=theme.key==='lookphone'?'<img src="assets/look-phone-logo.svg" alt="Logo de Look Phone">':safeLogoUrl(profile?.logo_url)?'<img src="'+esc(safeLogoUrl(profile.logo_url))+'" alt="Logo del comercio">':theme.key==='pontecoqueta'?'<img src="assets/ponte-coqueta-logo.svg" alt="Ponte Coqueta, almacén de joyas">':esc(theme.mark);}
   if($('ownerBrandName'))$('ownerBrandName').innerHTML=theme.key==='lookphone'?'LOOK <span class="brand-blue">PHONE</span>':theme.key==='pontecoqueta'?'PONTE <span class="pc-brand-gold">COQUETA</span>':esc(theme.name);
   if($('ownerBrandTagline'))$('ownerBrandTagline').textContent=theme.tagline;
   if($('ownerPanelTitle'))$('ownerPanelTitle').textContent=theme.key==='lookphone'?'Panel de Look Phone':theme.key==='pontecoqueta'?'Panel privado':'Panel de '+theme.name;
