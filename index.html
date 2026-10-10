@@ -3829,7 +3829,7 @@ function setSignupMode(value){signup=!!value;$('authTitle').textContent=signup?'
  $('authLoginLabel').textContent=signup?'Correo electrónico':'Correo electrónico o usuario';
  $('authEmail').placeholder=signup?'tu@correo.com':'Correo o usuario de empleado';
  const employeeInvite=new URLSearchParams(location.search).has('staff_invite');$('signupWhatsappField').hidden=!signup||employeeInvite;$('signupWhatsapp').required=signup&&!employeeInvite;$('authMessage').textContent='';}$('toggleAuth').onclick=()=>setSignupMode(!signup);
-$('togglePasswordVisibility').onclick=()=>{const input=$('authPassword'),button=$('togglePasswordVisibility'),show=input.type==='password';input.type=show?'text':'password';$('togglePasswordLabel').textContent=show?'Ocultar':'Mostrar';button.setAttribute('aria-label',show?'Ocultar contraseña':'Mostrar contraseña');button.setAttribute('aria-pressed',String(show));};bindBusy('forgot','click',async()=>{const email=$('authEmail').value.trim();if(!/^[^ @]+@[^ @]+\\.[^ @]+$/.test(email))throw new Error('Para recuperar contraseñas de empleados, pedile al dueño que use Restablecer clave en Configuración. Para cuentas de comercio, ingresá tu correo.');await raw('/auth/v1/recover?redirect_to='+encodeURIComponent(location.origin+location.pathname),{method:'POST',body:{email}});$('authMessage').textContent='Si existe una cuenta, recibirás un enlace para cambiar tu contraseña.';});
+$('togglePasswordVisibility').onclick=()=>{const input=$('authPassword'),button=$('togglePasswordVisibility'),show=input.type==='password';input.type=show?'text':'password';$('togglePasswordLabel').textContent=show?'Ocultar':'Mostrar';button.setAttribute('aria-label',show?'Ocultar contraseña':'Mostrar contraseña');button.setAttribute('aria-pressed',String(show));};bindBusy('forgot','click',async()=>{const email=$('authEmail').value.trim();if(!/^[^ @]+@[^ @]+\.[^ @]+$/.test(email))throw new Error('Para recuperar contraseñas de empleados, pedile al dueño que use Restablecer clave en Configuración. Para cuentas de comercio, ingresá tu correo.');await raw('/auth/v1/recover?redirect_to='+encodeURIComponent(location.origin+location.pathname),{method:'POST',body:{email}});$('authMessage').textContent='Si existe una cuenta, recibirás un enlace para cambiar tu contraseña.';});
 bindBusy('recoveryForm','submit',async()=>{await request('/auth/v1/user',{method:'PUT',body:{password:$('newPassword').value}},true);$('newPassword').value='';notify('Contraseña actualizada.');await boot();});
 bindBusy('logout','click',async()=>{try{await raw('/auth/v1/logout',{method:'POST',token:session?.access_token});}finally{saveSession(null);profiles=[];clients=[];isPlatformAdmin=false;cancelEdit();clearMerchantTheme();view('auth');}});
 bindBusy('profileForm','submit',async()=>{const data=profileData();const wasEditing=!!editing;if(editing)await request('/rest/v1/nfc_profiles?id=eq.'+editing,{method:'PATCH',body:data},true);else{if(profiles.length)throw new Error('Tu cuenta ya tiene un negocio. Cada cuenta comercial admite un solo perfil.');await request('/rest/v1/nfc_profiles',{method:'POST',body:data},true);}cancelEdit();await loadAdmin();notify(wasEditing?'Cambios guardados.':'Negocio guardado online.');});
@@ -3860,13 +3860,13 @@ let staffDisplayedCredentials=null;
 function showStaffCredentials(user,password,name){
  staffDisplayedCredentials={username:user,password};
  const box=$('staffInviteLink');box.hidden=false;
- box.innerHTML='<strong>¡Empleado '+esc(name)+' creado!</strong>'
+ box.innerHTML='<strong>Datos de acceso de '+esc(name)+'</strong>'
  +'<p>Pasale estos datos para ingresar a LOOK. La contraseña se muestra acá para que la copies; después no podrás recuperarla, solo generar otra.</p>'
  +'<p><strong>Usuario:</strong> <code>'+esc(user)+'</code></p>'
  +'<p><strong>Contraseña:</strong> <code>'+esc(password)+'</code></p>'
  +'<div class="row"><button type="button" id="staffCopyCredentials">Copiar usuario y clave</button>'
  +'<button type="button" class="secondary" id="staffHideCredentials">Ocultar datos</button></div>';
- $('staffCopyCredentials').onclick=()=>copy('Acceso LOOK\\nUsuario: '+user+'\\nContraseña: '+password+'\\n'+location.origin+location.pathname);
+ $('staffCopyCredentials').onclick=()=>copy('Acceso LOOK\nUsuario: '+user+'\nContraseña: '+password+'\n'+location.origin+location.pathname);
  $('staffHideCredentials').onclick=()=>{staffDisplayedCredentials=null;box.textContent='Datos ocultos. Si el empleado pierde la contraseña, usá Restablecer clave.';};
 }
 $('staffInviteForm').onsubmit=async e=>{e.preventDefault();const btn=e.target.querySelector('button');
