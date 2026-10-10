@@ -6,7 +6,7 @@ const allowedAppOrigins = new Set([
 ]);
 const corsHeaders = (origin: string | null) => ({
   ...(origin && allowedAppOrigins.has(origin) ? { "Access-Control-Allow-Origin": origin } : {}),
-  "Access-Control-Allow-Headers": "authorization, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, prefer",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Vary": "Origin",
 });
@@ -25,7 +25,10 @@ Deno.serve(async (req: Request) => {
   const anonKey = Deno.env.get("SUPABASE_ANON_KEY");
   const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
   const accessToken = Deno.env.get("MERCADOPAGO_ACCESS_TOKEN");
+  const testPayerEmail = Deno.env.get("MERCADOPAGO_TEST_PAYER_EMAIL");
+  const isTestMode = Deno.env.get("MERCADOPAGO_TEST_MODE") === "true";
   if (!url || !anonKey || !serviceKey || !accessToken) return json({ error: "La facturación aún no está configurada en el servidor." }, 503);
+  if (isTestMode && !testPayerEmail) return json({ error: "Falta configurar el correo del comprador de prueba de Mercado Pago en el servidor." }, 503);
 
   const authorization = req.headers.get("Authorization") || "";
   if (!authorization.startsWith("Bearer ")) return json({ error: "Iniciá sesión para continuar." }, 401);
@@ -51,22 +54,36 @@ Deno.serve(async (req: Request) => {
     return json({ init_point: billing.checkout_url, billing_status: "pending" });
   }
 
+  if (isTestMode) {
+    const profileResponse = await fetch("https://api.mercadopago.com/users/me", {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    const profile = await profileResponse.json().catch(() => ({}));
+    console.log("Mercado Pago test credential check", JSON.stringify({
+      profileStatus: profileResponse.status,
+      profileId: profile?.id,
+      siteId: profile?.site_id,
+      tokenType: accessToken.startsWith("TEST-") ? "TEST" : accessToken.startsWith("APP_USR-") ? "APP_USR" : "other",
+      payerEmailMatchesBuyer: (testPayerEmail || "").trim().toLowerCase() === "test_user_5539609640704451681@testuser.com",
+    }));
+  }
+
   const appUrl = `${trustedOrigin || "https://ivanramat-lookphone.github.io"}/look-phone-NFC/`;
   const createResponse = await fetch("https://api.mercadopago.com/preapproval", {
     method: "POST",
     headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json", "X-Idempotency-Key": crypto.randomUUID() },
     body: JSON.stringify({
-      reason: "LOOK Phone · Suscripción mensual",
+      reason: "LOOK - Suscripción mensual",
       external_reference: user.id,
-      payer_email: user.email,
+      payer_email: isTestMode ? testPayerEmail : user.email,
       back_url: `${appUrl}?billing=return`,
-      notification_url: `${url}/functions/v1/mercadopago-webhook`,
-      auto_recurring: { frequency: 1, frequency_type: "months", transaction_amount: 30000, currency_id: "ARS" },
+      auto_recurring: { frequency: 1, frequency_type: "months", transaction_amount: 30000, currency_id: "ARS", ...(isTestMode ? { end_date: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString() } : {}) },
+      status: "pending",
     }),
   });
   const created = await createResponse.json().catch(() => ({}));
   if (!createResponse.ok || !created?.id || !created?.init_point) {
-    console.error("Mercado Pago subscription creation failed", createResponse.status, created?.message || created?.error || "unknown");
+    console.error("Mercado Pago subscription creation failed", JSON.stringify({ status: createResponse.status, error: created?.error, message: created?.message, cause: created?.cause, details: created?.details, errors: created?.errors, responseKeys: Object.keys(created || {}), requestId: createResponse.headers.get("x-request-id"), testMode: isTestMode, testPayerEmailConfigured: Boolean(testPayerEmail) }));
     return json({ error: "Mercado Pago no pudo crear el enlace de suscripción. Revisá la cuenta e intentá de nuevo." }, 502);
   }
 
