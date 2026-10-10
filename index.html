@@ -3089,7 +3089,7 @@ async function handleStaffRecord(event){
 function saveSession(s){session=s;if(s)localStorage.setItem(SESSION_KEY,JSON.stringify(s));else localStorage.removeItem(SESSION_KEY);}
 function notify(message,error=false){$('toast').textContent=message;$('toast').className='notice toast'+(error?' error':'');$('toast').hidden=false;clearTimeout(notify.timer);notify.timer=setTimeout(()=>$('toast').hidden=true,6500);}
 function view(id){for(const x of ['loading','setup','auth','admin','staff','customer','lookInfo','recovery','platform','suspended'])$(x).hidden=x!==id;document.body.classList.toggle('customer-mode',id==='customer');document.body.classList.toggle('look-info-mode',id==='lookInfo');document.body.classList.toggle('auth-screen',id==='auth'||id==='recovery');const theme=document.querySelector('meta[name="theme-color"]');if(theme)theme.content=id==='lookInfo'?'#f3f7fc':id==='customer'?'#ffffff':id==='auth'||id==='recovery'?'#f7f9fd':'#101827';$('logout').hidden=!session||id==='customer'||id==='lookInfo'||id==='suspended'||id==='staff';$('email').textContent=id==='customer'||id==='lookInfo'?'':session?.user?.email||'';if($('activeBusinessWrap'))$('activeBusinessWrap').hidden=id!=='admin'||profiles.length<2;if($('platformLink'))$('platformLink').hidden=!session||!isPlatformAdmin||id==='customer'||id==='lookInfo'||id==='platform'||id==='suspended';}
-function setAdminTab(tab,{focus,scroll=true}={}){if(!ADMIN_TABS.includes(tab))tab='home';document.querySelectorAll('[data-panel]').forEach(panel=>panel.hidden=panel.dataset.panel!==tab);document.querySelectorAll('[data-tab]').forEach(button=>{const active=button.dataset.tab===tab;button.classList.toggle('active',active);button.setAttribute('aria-current',active?'page':'false');});sessionStorage.setItem(ADMIN_TAB_KEY,tab);if(scroll)document.querySelector('[data-panel="'+tab+'"]')?.scrollIntoView({behavior:'smooth',block:'start'});if(focus)setTimeout(()=>$(focus)?.focus(),120);}
+function setAdminTab(tab,{focus,scroll=true}={}){if(!ADMIN_TABS.includes(tab))tab='home';document.querySelectorAll('[data-panel]').forEach(panel=>panel.hidden=panel.dataset.panel!==tab);document.querySelectorAll('[data-tab]').forEach(button=>{const active=button.dataset.tab===tab;button.classList.toggle('active',active);button.setAttribute('aria-current',active?'page':'false');});sessionStorage.setItem(ADMIN_TAB_KEY,tab);if(tab==='help'&&session)lookLoadSupport().catch(e=>console.warn('Soporte:',e.message));if(tab==='reports')lookRenderReports();if(scroll)document.querySelector('[data-panel="'+tab+'"]')?.scrollIntoView({behavior:'smooth',block:'start'});if(focus)setTimeout(()=>$(focus)?.focus(),120);}
 async function raw(path,{method='GET',body,token}={}){const headers={apikey:API_KEY,'Content-Type':'application/json'};if(token)headers.Authorization='Bearer '+token;if(method==='POST'||method==='PATCH')headers.Prefer='return=representation';const r=await fetch(BASE+path,{method,headers,body:body===undefined?undefined:JSON.stringify(body)});const d=await r.json().catch(()=>null);if(!r.ok){const e=new Error(d?.msg||d?.message||d?.error_description||'No se pudo completar la operación.');e.status=r.status;e.code=d?.code;throw e;}return d;}
 async function refreshSession(){if(!session?.refresh_token)throw new Error('Volvé a entrar a tu cuenta.');try{const s=await raw('/auth/v1/token?grant_type=refresh_token',{method:'POST',body:{refresh_token:session.refresh_token}});saveSession({...s,expires_at:Math.floor(Date.now()/1000)+s.expires_in});}catch(e){saveSession(null);view('auth');throw e;}}
 async function request(path,options={},privateRequest=false){if(privateRequest){if(!session)throw new Error('Entrá a tu cuenta.');if(!session.expires_at||session.expires_at<Date.now()/1000+60)await refreshSession();}try{return await raw(path,{...options,token:privateRequest?session.access_token:undefined});}catch(e){if(privateRequest&&e.status===401){await refreshSession();return raw(path,{...options,token:session.access_token});}throw e;}}
@@ -3410,6 +3410,7 @@ async function loadPlatform(){
  platformClientDetails.clear();
  renderPlatformAccounts();
  renderPlatformClientGroups();
+ lookLoadAdminTickets().catch(e=>console.warn('Admin soporte:',e.message));
 }
 async function loadPlatformClientGroups(){
  const groups=await rpc('nfc_platform_client_groups',{
@@ -3556,6 +3557,85 @@ function setBillingPaymentInstructions(method,amount){
   el.hidden=false;
  }
 }
+
+function lookLocalDate(value){
+ if(!value)return '—';
+ const d=new Date(value.length===10?value+'T12:00:00':value);
+ return Number.isFinite(d.getTime())?new Intl.DateTimeFormat('es-AR',{dateStyle:'medium',timeZone:'America/Argentina/Cordoba'}).format(d):'—';
+}
+function lookNumberChange(current,previous){
+ if(previous===0)return current===0?'Sin cambios':'Nuevo';
+ const n=Math.round((current-previous)/previous*100);
+ return (n>=0?'+':'')+n+'%';
+}
+function lookRenderReports(){
+ const metricBox=$('lookReportMetrics');if(!metricBox)return;
+ const days=Number($('lookReportPeriod')?.value||30),ms=Date.now(),span=days*86400000;
+ const start=ms-span,previousStart=start-span;
+ const inWindow=(date,begin,end)=>{const time=new Date(date).getTime();return Number.isFinite(time)&&time>=begin&&time<end;};
+ const current=events.filter(e=>inWindow(e.created_at,start,ms+1)),before=events.filter(e=>inWindow(e.created_at,previousStart,start));
+ const currentClients=clients.filter(c=>inWindow(c.created_at,start,ms+1)),beforeClients=clients.filter(c=>inWindow(c.created_at,previousStart,start));
+ const visits=current.filter(e=>e.kind==='visit'),oldVisits=before.filter(e=>e.kind==='visit');
+ const knownClientMap=new Map(clients.map(c=>[c.id,c]));
+ const returning=(items,begin)=>new Set(items.filter(v=>events.some(e=>e.kind==='visit'&&e.client_id===v.client_id&&new Date(e.created_at).getTime()<begin)).map(v=>v.client_id)).size;
+ const returnNow=returning(visits,start),returnBefore=returning(oldVisits,previousStart);
+ const redeems=current.filter(e=>e.kind==='redeem').length,previousRedeems=before.filter(e=>e.kind==='redeem').length;
+ const withAmounts=visits.filter(v=>v.sale_amount!==null&&Number.isFinite(Number(v.sale_amount)));
+ const sales=withAmounts.reduce((a,e)=>a+Number(e.sale_amount),0);
+ const metrics=[['Clientes nuevos',currentClients.length],['Compras registradas',visits.length],['Clientes que regresaron',returnNow],['Premios canjeados',redeems],['Ventas con importe',withAmounts.length],['Facturación cargada',money(sales)]];
+ metricBox.innerHTML=metrics.map(([title,value])=>'<div class="metric"><small>'+esc(title)+'</small><strong>'+esc(value)+'</strong></div>').join('');
+ $('lookReportFootnote').textContent='Datos del último período de '+days+' días. La facturación incluye únicamente compras con importe cargado; no representa toda la facturación del negocio.';
+ const changes=[['Clientes nuevos',currentClients.length,beforeClients.length],['Compras',visits.length,oldVisits.length],['Clientes que regresaron',returnNow,returnBefore],['Premios canjeados',redeems,previousRedeems]];
+ $('lookReportComparison').innerHTML=changes.map(([title,v,prev])=>'<div><small>'+esc(title)+'</small><strong>'+esc(lookNumberChange(v,prev))+'</strong><p class="muted">'+v+' ahora · '+prev+' antes</p></div>').join('');
+ const buckets=Math.min(8,Math.max(4,Math.ceil(days/7))),unit=span/buckets;
+ const points=Array.from({length:buckets},(_,i)=>{
+ const b=start+unit*i,e=start+unit*(i+1);
+ return {count:visits.filter(v=>inWindow(v.created_at,b,e)).length,label:'Sem. '+(i+1)};
+ });
+ const max=Math.max(1,...points.map(p=>p.count));
+ $('lookReportBars').innerHTML=points.map(p=>'<div class="look-report-bar"><strong>'+p.count+'</strong><div style="height:'+Math.max(3,Math.round(p.count/max*125))+'px"></div><small>'+p.label+'</small></div>').join('');
+}
+async function lookLoadBillingHistory(){
+ const summary=$('lookBillingSummary'),moves=$('lookBillingMovements');
+ if(!summary||!moves)return;
+ try{
+ const result=await rpc('nfc_billing_history',{},true),p=result?.current||{},items=Array.isArray(result?.events)?result.events:[];
+ const state=p.comped_access?'Regalo sin vencimiento':({authorized:'Suscripción activa',past_due:'Pago pendiente',pending:'Esperando confirmación',manual_paid:'Pago manual confirmado',manual_pending:'Esperando pago manual',cancelled:'Cancelada',paused:'Pausada'}[p.billing_status]||'Sin configurar');
+ const method={mercadopago:'Mercado Pago',transfer:'Transferencia',cash:'Efectivo',comped:'Acceso gratuito'}[p.billing_payment_method||p.billing_provider]||'Por definir';
+ const fields=[['Estado',state],['Plan mensual',p.comped_access?'Sin cargo':money(Number(p.amount_ars||30000))],['Método',method],['Próxima fecha / vencimiento',p.comped_access?'Sin vencimiento':lookLocalDate(p.period_ends_at)],['Último pago confirmado',lookLocalDate(p.last_paid_at)]];
+ summary.innerHTML=fields.map(([title,val])=>'<div><small>'+esc(title)+'</small><strong>'+esc(val)+'</strong></div>').join('');
+ const label={approved:'Pago aprobado',manual_approved:'Pago manual confirmado',rejected:'Pago rechazado',cancelled:'Pago cancelado',refunded:'Pago devuelto',charged_back:'Contracargo'};
+ moves.innerHTML=items.length?items.map(x=>'<div class="look-billing-movement"><div><strong>'+esc(label[x.status]||x.status)+'</strong><small> · '+esc(lookLocalDate(x.occurred_at))+'</small></div><strong>'+esc(money(Number(x.amount_ars||0)))+'</strong></div>').join(''):
+ '<p class="muted">Todavía no hay movimientos individuales en el nuevo historial. El último pago confirmado, si existe, aparece arriba.</p>';
+ }catch(error){summary.innerHTML='<p class="muted">No pudimos cargar la información de pagos.</p>';moves.textContent='';console.warn('Historial de pagos:',error?.message);}
+}
+async function lookLoadSupport(){
+ const inbox=$('lookSupportTickets');if(!inbox)return;
+ try{
+ const tickets=await rpc('nfc_support_mine',{},true),list=Array.isArray(tickets)?tickets:[];
+ inbox.innerHTML=list.length?list.map(t=>'<article class="look-ticket"><h4>'+esc(t.subject)+'</h4><small>'+esc(lookLocalDate(t.created_at))+' · '+esc(t.status)+'</small><p>'+esc(t.message)+'</p>'+(t.reply?'<div class="look-support-reply"><strong>Respuesta de LOOK</strong><p>'+esc(t.reply)+'</p></div>':'')+'</article>').join('')
+ :'<p class="muted">No enviaste consultas todavía.</p>';
+ const w=$('lookSupportWhatsApp');if(w){
+ try{const phone=await rpc('nfc_support_whatsapp',{},true);
+ const clean=String(phone||'').replace(/\D/g,'');
+ w.innerHTML=/^[0-9]{8,20}$/.test(clean)?'<a class="button secondary" target="_blank" rel="noopener noreferrer" href="https://wa.me/'+clean+'?text='+encodeURIComponent('Hola, necesito ayuda con mi comercio en LOOK.')+'">Hablar con soporte por WhatsApp</a>':'';
+ }catch{w.textContent='';}
+ }
+ }catch(error){inbox.innerHTML='<p class="muted">No pudimos cargar las consultas. Intentá actualizar.</p>';console.warn('Soporte:',error?.message);}
+}
+async function lookLoadAdminTickets(){
+ const target=$('lookSupportAdminTickets');if(!target||!isPlatformAdmin)return;
+ try{
+ const result=await rpc('nfc_support_admin_list',{},true),tickets=Array.isArray(result)?result:[];
+ target.innerHTML=tickets.length?tickets.map(t=>'<article class="look-ticket"><h4>'+esc(t.business)+' · '+esc(t.subject)+'</h4>'
+ +'<small>'+esc(lookLocalDate(t.created_at))+' · '+esc(t.category)+' · '+esc(t.status)+'</small><p>'+esc(t.message)+'</p>'
+ +(t.reply?'<p class="muted">Última respuesta: '+esc(t.reply)+'</p>':'')
+ +'<form class="form" data-look-admin-ticket="'+esc(t.id)+'"><label>Respuesta al comercio</label><textarea name="reply" rows="3" minlength="3" maxlength="1800" required>'+esc(t.reply||'')+'</textarea>'
+ +'<label>Estado</label><select name="status"><option value="respondido" '+(t.status==='respondido'?'selected':'')+'>Respondido</option><option value="resuelto" '+(t.status==='resuelto'?'selected':'')+'>Resuelto</option><option value="abierto" '+(t.status==='abierto'?'selected':'')+'>Abierto</option></select>'
+ +'<button type="submit">Guardar respuesta</button></form></article>').join(''):'<p class="muted">No hay consultas de comercios.</p>';
+ }catch(error){target.innerHTML='<p class="muted">No se pudieron cargar las consultas.</p>';console.warn('Administración soporte:',error?.message);}
+}
+
 async function loadBilling(){
  const b=await rpc('nfc_billing_status',{},true),state=b?.billing_status||'not_configured',merchant=b?.merchant_status||'active';
  const amount=Number(b?.amount_ars||30000).toLocaleString('es-AR'),rawEnd=b?.period_ends_at||'';
@@ -3574,6 +3654,7 @@ async function loadBilling(){
  setBillingControls({showChoices:!comped&&!trial&&!paid,statusText,detailText,manualNote:state==='manual_pending'?'Pago solicitado. La cuenta se habilitará cuando LOOK Phone confirme la recepción.':''});
  setBillingPaymentInstructions(state==='manual_pending'?b?.billing_payment_method:null,amount);
  if($('manageMercadoPago'))$('manageMercadoPago').hidden=state!=='authorized';
+  lookLoadBillingHistory().catch(e=>console.warn('Pagos:',e.message));
 }
 async function requestManualPayment(button,method){button.disabled=true;try{await rpc('nfc_billing_request_manual',{p_method:method},true);notify(method==='transfer'?'Solicitud de pago por transferencia registrada.':'Solicitud de pago en efectivo registrada.');await loadBilling();}catch(e){notify(friendly(e),true);}finally{button.disabled=false;}}
 async function startMerchantSubscription(button){button.disabled=true;try{const result=await request('/functions/v1/create-merchant-subscription',{method:'POST',body:{}},true);if(result?.already_active){await loadBilling();return notify('La suscripción ya está activa.');}const checkout=result?.init_point;const target=checkout?new URL(checkout):null;if(!target||target.protocol!=='https:'||!/^www\.mercadopago\.com(\.ar)?$/.test(target.hostname))throw new Error('Mercado Pago devolvió un enlace inválido.');location.href=target.href;}catch(e){notify(friendly(e),true);}finally{button.disabled=false;}}
@@ -3645,6 +3726,7 @@ function clientRevenue(id,list=events){return list.filter(e=>e.client_id===id&&e
 function countRecent(kind,days){const now=new Date(),since=days===1?new Date(now.getFullYear(),now.getMonth(),now.getDate()).getTime():Date.now()-days*86400000;return events.filter(e=>e.kind===kind&&new Date(e.created_at).getTime()>=since).length;}
 function goToSegment(tab,segment){setAdminTab(tab,{scroll:tab!=='clients'});if(tab==='clients'){$('clientCategory').value=segment;renderClients();const result=$('clients').querySelector('[data-id]')||$('clients');result.scrollIntoView({behavior:'smooth',block:'center'});}else if(tab==='marketing'){selectCampaign(segment);}else if(tab==='loyalty')$('loyaltyNear').scrollIntoView({behavior:'smooth'});}
 function renderInsights(){
+  lookRenderReports();
   const now=new Date(),nowMs=Date.now(),near=clients.filter(c=>matchesSegment(c,'near')),eligible=clients.filter(c=>matchesSegment(c,'eligible')),inactive=clients.filter(c=>matchesSegment(c,'inactive')),vip=clients.filter(c=>matchesSegment(c,'vip')),birthdays=clients.filter(c=>upcomingBirthday(c)),newClients=clients.filter(c=>new Date(c.created_at).getTime()>=nowMs-30*86400000);
   const sales30=events.filter(e=>e.kind==='visit'&&new Date(e.created_at).getTime()>=nowMs-30*86400000&&e.sale_amount!==null),revenue30=sales30.reduce((s,e)=>s+Number(e.sale_amount||0),0),avgTicket=sales30.length?revenue30/sales30.length:0;
   const metrics=[['Facturación NFC · 30 días',money(revenue30)],['Ticket promedio',money(avgTicket)],['Ventas con monto · 30 días',sales30.length],['Visitas de hoy',countRecent('visit',1)],['Visitas últimos 7 días',countRecent('visit',7)],['Visitas últimos 30 días',countRecent('visit',30)],['Canjes últimos 30 días',countRecent('redeem',30)],['Clientes nuevos últimos 30 días',newClients.length],['Sin visitar hace más de 30 días',inactive.length],['Clientes VIP',vip.length],['Cerca del premio',near.length]];
@@ -4067,6 +4149,27 @@ $('privacyRequestList').onclick=async e=>{
 };
 $('staffSearch').oninput=()=>{clearTimeout(employeeTimer);employeeTimer=setTimeout(()=>employeeSearchClients().catch(err=>notify(friendly(err),true)),250);};
 $('staffResults').onclick=employeeRecordClick;
+
+
+$('lookReportPeriod').onchange=lookRenderReports;
+$('lookBillingReload').onclick=()=>lookLoadBillingHistory().catch(err=>notify(friendly(err),true));
+$('lookSupportReload').onclick=()=>lookLoadSupport().catch(err=>notify(friendly(err),true));
+$('lookSupportAdminReload').onclick=()=>lookLoadAdminTickets().catch(err=>notify(friendly(err),true));
+$('lookSupportForm').onsubmit=async e=>{
+ e.preventDefault();const b=e.target.querySelector('button[type="submit"]');b.disabled=true;
+ try{await rpc('nfc_support_create',{p_category:$('lookSupportCategory').value,
+  p_subject:$('lookSupportSubject').value.trim(),p_message:$('lookSupportMessage').value.trim()},true);
+  e.target.reset();notify('Consulta enviada. Podés ver el estado acá mismo.');await lookLoadSupport();
+ }catch(error){notify(friendly(error),true);}finally{b.disabled=false;}
+};
+$('lookSupportAdminTickets').onsubmit=async e=>{
+ const form=e.target.closest('form[data-look-admin-ticket]');if(!form)return;e.preventDefault();
+ const b=form.querySelector('button[type="submit"]');b.disabled=true;
+ try{await rpc('nfc_support_admin_reply',{p_ticket:form.dataset.lookAdminTicket,
+  p_reply:form.elements.reply.value.trim(),p_status:form.elements.status.value},true);
+  notify('Respuesta guardada y visible para el comercio.');await lookLoadAdminTickets();
+ }catch(error){notify(friendly(error),true);}finally{b.disabled=false;}
+};
 
 boot();
 
