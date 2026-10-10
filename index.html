@@ -2782,7 +2782,16 @@ body.look-info-mode main{width:100%;max-width:none;margin:0;padding:0 0 max(32px
 @media(max-width:580px){.look-billing-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.look-report-bars{gap:5px}.look-report-bar small{font-size:9px}}
 .platform-nfc-tools{padding:13px;margin:11px 0;border:1px solid #dbe5f2;border-radius:13px;background:#f7faff;display:grid;gap:9px}
 .platform-nfc-url{display:flex;gap:8px;align-items:stretch}.platform-nfc-url input{min-width:0;flex:1;font-size:12px}.platform-nfc-url button{flex:none}
-.platform-nfc-buttons{display:flex;gap:8px;flex-wrap:wrap}.platform-nfc-buttons a{flex:1;text-align:center;min-width:148px}
+.platform-nfc-buttons{display:flex;gap:8px;flex-wrap:wrap}.platform-nfc-buttons a,.platform-nfc-buttons button{flex:1;text-align:center;min-width:148px}
+.platform-qr-3d{padding:14px;margin-top:10px;border:1px solid #ccddee;border-radius:12px;background:white;display:grid;gap:10px}
+.platform-qr-3d strong{display:block}
+.platform-qr-3d .platform-qr-preview{width:min(260px,100%);padding:8px;margin:auto;background:#fff;border:1px solid #dee4ec}
+.platform-qr-3d .platform-qr-preview svg{display:block;width:100%;height:auto;aspect-ratio:1}
+.platform-qr-3d .platform-qr-link{font-size:12px;overflow-wrap:anywhere;color:var(--muted);text-align:center}
+.platform-qr-3d .platform-qr-hint{line-height:1.45;font-size:12px}
+.platform-qr-3d .platform-qr-actions{display:flex;gap:8px;flex-wrap:wrap}
+.platform-qr-3d .platform-qr-actions button{flex:1 1 160px}
+@media(max-width:520px){.platform-qr-3d .platform-qr-actions{display:grid;grid-template-columns:1fr}}
 .platform-preview-banner{background:#ecf5ff;border:1px solid #9ec6ee;border-radius:12px;padding:12px;margin:8px auto 12px;max-width:700px;text-align:center;color:#143a64;display:grid;gap:3px}
 .platform-preview-banner span{font-size:12px}.platform-preview-back{text-align:center;padding:18px 8px 34px}
 @media(max-width:520px){.platform-nfc-url{flex-wrap:wrap}.platform-nfc-url input{flex-basis:100%}.platform-nfc-url button{width:100%}}
@@ -3523,9 +3532,61 @@ function renderPlatformAccounts(){
   if(!isUUID(a.profile_id))return '<div class="platform-nfc-tools"><p class="muted">Todavía no hay tarjeta pública. El comercio debe configurar su negocio.</p></div>';
   const u=new URL(location.pathname,location.origin);u.searchParams.set('nfc',a.profile_id);
   const preview=new URL(location.pathname,location.origin);preview.searchParams.set('preview',a.profile_id);
-  return '<section class="platform-nfc-tools"><strong>URL de tarjeta / NFC</strong><div class="platform-nfc-url"><input type="text" aria-label="URL pública para programar NFC" readonly value="'+esc(u.href)+'"><button type="button" class="secondary" data-platform-copy-nfc="'+esc(a.profile_id)+'">Copiar URL</button></div><div class="platform-nfc-buttons"><a class="button secondary" href="'+esc(preview.href)+'" target="_blank" rel="noopener noreferrer">Ver tarjeta de puntos</a><a class="button secondary" href="'+esc(u.href)+'" target="_blank" rel="noopener noreferrer">Abrir enlace NFC</a></div><small>El enlace NFC abre el registro público de ese comercio. La vista previa muestra el diseño con puntos de ejemplo, sin crear un cliente.</small></section>';
+  return '<section class="platform-nfc-tools"><strong>URL de tarjeta / NFC</strong><div class="platform-nfc-url"><input type="text" aria-label="URL pública para programar NFC" readonly value="'+esc(u.href)+'"><button type="button" class="secondary" data-platform-copy-nfc="'+esc(a.profile_id)+'">Copiar URL</button></div><div class="platform-nfc-buttons"><a class="button secondary" href="'+esc(preview.href)+'" target="_blank" rel="noopener noreferrer">Ver tarjeta de puntos</a><a class="button secondary" href="'+esc(u.href)+'" target="_blank" rel="noopener noreferrer">Abrir enlace NFC</a><button type="button" class="secondary" data-platform-qr-open="'+esc(a.profile_id)+'">Ver / descargar QR 3D</button></div><small>El enlace NFC abre el registro público de ese comercio. La vista previa muestra el diseño con puntos de ejemplo, sin crear un cliente.</small><div class="platform-qr-3d" data-platform-qr-3d hidden><strong>QR de '+esc(a.business||'este comercio')+' para impresión 3D</strong><div class="platform-qr-preview" data-platform-qr-preview></div><div class="platform-qr-link" data-platform-qr-link></div><small class="platform-qr-hint" data-platform-qr-hint></small><div class="platform-qr-actions"><button type="button" data-platform-qr-download-svg>Descargar SVG (3D)</button><button type="button" class="secondary" data-platform-qr-close>Cerrar</button></div></div></section>';
  };
  $('platformAccounts').innerHTML=rows.length?rows.map(a=>'<form class="card platform-account" data-platform-owner="'+esc(a.owner_id)+'"><div class="platform-account-head"><div><strong>'+esc(a.business||'Comercio sin configurar')+'</strong><small>'+esc(a.email||'Sin correo')+' · Alta '+(a.created_at?new Date(a.created_at).toLocaleDateString('es-AR'):'—')+'</small><small>'+esc(billingLabels[a.billing_status]||'Sin método elegido')+(a.billing_payment_method?' · '+esc(methods[a.billing_payment_method]||a.billing_payment_method):'')+(a.comped_access?' · Sin vencimiento · Sin cobros':' · $'+Number(a.amount_ars||30000).toLocaleString('es-AR')+' ARS')+(a.last_paid_at?' · Último pago '+new Date(a.last_paid_at).toLocaleDateString('es-AR'):'')+'</small></div><span class="badge '+(a.comped_access?'':(a.status==='active'||a.status==='trial'?'':'badge-paused'))+'">'+(a.comped_access?'REGALO ILIMITADO':esc(labels[a.status]||a.status))+'</span></div><div class=\"platform-account-contact\"><div><small>WhatsApp para avisos de LOOK</small><strong>'+esc(a.whatsapp||'Sin teléfono cargado')+'</strong></div>'+(platformWhatsAppDigits(a.whatsapp)?'<a class=\"button whatsapp\" href=\"'+platformWhatsAppHref(a)+'\" target=\"_blank\" rel=\"noopener noreferrer\">Abrir WhatsApp</a>':'<span class=\"muted\">Sin teléfono</span>')+'</div>'+nfcActions(a)+'<div class="platform-fields"><label>Plan<input name="plan" maxlength="80" value="'+esc(a.plan||'Sin asignar')+'" required></label><label>Estado<select name="status"><option value="trial" '+(a.status==='trial'?'selected':'')+'>Prueba</option><option value="active" '+(a.status==='active'?'selected':'')+'>Activo</option><option value="suspended" '+(a.status==='suspended'?'selected':'')+'>Suspendido</option><option value="cancelled" '+(a.status==='cancelled'?'selected':'')+'>Cancelado</option></select></label><label>Fin del período<input name="period_ends_at" type="date" value="'+esc(a.period_ends_at||'')+'"></label></div>'+(a.billing_status==='manual_pending'?'<button type="button" class="confirm-manual-payment" data-owner="'+esc(a.owner_id)+'">Confirmar pago recibido · sumar 1 mes</button>':'')+'<button type="button" class="gift-access-button '+(a.comped_access?'secondary is-gifted':'')+'" data-gift-owner="'+esc(a.owner_id)+'" data-enable="'+(!a.comped_access)+'">'+(a.comped_access?'Quitar regalo gratuito ilimitado':'Regalar acceso gratuito ilimitado')+'</button>'+'<button type="submit" class="secondary">Guardar cambios</button></form>').join(''):'<div class="card empty">No hay cuentas que coincidan con la búsqueda.</div>';
+}
+// Generate high-contrast vector QR art, including the four-module quiet zone.
+// The SVG uses one combined black path and a separate white background for 3D editing.
+function platformQrVector(url){
+ if(typeof QRCode!=='function')throw new Error('No se pudo cargar el generador de QR.');
+ const temp=document.createElement('div');
+ const qr=new QRCode(temp,{text:url,width:256,height:256,colorDark:'#000000',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
+ const matrix=qr._oQRCode;
+ if(!matrix||typeof matrix.getModuleCount!=='function')throw new Error('No se pudo crear el QR vectorial.');
+ const count=matrix.getModuleCount(),size=count+8;
+ let path='';
+ for(let y=0;y<count;y++){
+  for(let x=0;x<count;){
+   if(!matrix.isDark(y,x)){x++;continue;}
+   const start=x;while(x<count&&matrix.isDark(y,x))x++;
+   const width=x-start;
+   path+='M'+(start+4)+' '+(y+4)+'h'+width+'v1h-'+width+'z';
+  }
+ }
+ return '<svg xmlns="http://www.w3.org/2000/svg" width="70mm" height="70mm" viewBox="0 0 '+size+' '+size+'" shape-rendering="crispEdges" aria-label="Código QR del comercio"><rect width="'+size+'" height="'+size+'" fill="#ffffff"/><path fill="#000000" d="'+path+'"/></svg>';
+}
+function openPlatformQr(button){
+ const profileId=button.dataset.platformQrOpen;
+ const account=platformAccounts.find(a=>a.profile_id===profileId);
+ if(!account||!isUUID(profileId))throw new Error('No se encontró la tarjeta pública de este comercio.');
+ const cardUrl=new URL(location.pathname,location.origin);cardUrl.searchParams.set('nfc',profileId);
+ const section=button.closest('.platform-nfc-tools');
+ const panel=section?.querySelector('[data-platform-qr-3d]');
+ if(!panel)throw new Error('No se encontró el panel QR.');
+ if(!panel.hidden){panel.hidden=true;return;}
+ const vector=platformQrVector(cardUrl.href);
+ document.querySelectorAll('#platformAccounts [data-platform-qr-3d]').forEach(p=>{p.hidden=true;});
+ panel._lookQrVector=vector;
+ panel._lookQrBusiness=String(account.business||'Comercio');
+ panel.querySelector('[data-platform-qr-preview]').innerHTML=vector;
+ panel.querySelector('[data-platform-qr-link]').textContent=cardUrl.href;
+ panel.querySelector('[data-platform-qr-hint]').textContent=
+  'SVG vectorial de 70 × 70 mm con margen de seguridad, listo para adaptar en Bambu Studio. Imprimí los módulos en un color oscuro sobre fondo claro.'+
+  (/github\.io$/i.test(location.hostname)?' Atención: este enlace usa la dirección actual de GitHub. Para un QR con looknfc.com.ar, abrí la administración desde el nuevo dominio una vez activado y descargalo allí.':'');
+ panel.hidden=false;
+ panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function downloadPlatformQrSvg(button){
+ const panel=button.closest('[data-platform-qr-3d]');
+ if(!panel?._lookQrVector)throw new Error('Primero generá el QR del comercio.');
+ const safeName=(panel._lookQrBusiness||'comercio').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9-]+/g,'-').replace(/^-+|-+$/g,'').slice(0,60)||'comercio';
+ const blob=new Blob([panel._lookQrVector],{type:'image/svg+xml;charset=utf-8'});
+ const href=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=href;a.download='LOOK-QR-3D-'+safeName+'.svg';
+ document.body.appendChild(a);a.click();a.remove();
+ setTimeout(()=>URL.revokeObjectURL(href),1500);
+ notify('SVG del QR preparado para imprimir en 3D.');
 }
 async function savePlatformAccount(form){const data=new FormData(form);await rpc('nfc_platform_update_account',{p_owner:form.dataset.platformOwner,p_status:data.get('status'),p_plan:data.get('plan'),p_period_ends_at:data.get('period_ends_at')||null},true);notify('Cuenta actualizada.');await loadPlatform();}
 async function toggleGiftAccess(button){
@@ -4099,7 +4160,7 @@ let platformClientSearchTimer;
 $('platformClientSearch').oninput=()=>{clearTimeout(platformClientSearchTimer);platformClientSearchTimer=setTimeout(()=>loadPlatformClientGroups().catch(err=>notify(friendly(err),true)),220);};
 $('platformClientGroups').onclick=e=>{const toggle=e.target.closest('[data-platform-toggle-profile]');if(toggle){togglePlatformBusiness(toggle.dataset.platformToggleProfile);return;}const page=e.target.closest('[data-platform-business-page]');if(page)loadPlatformBusinessClientPage(page.dataset.platformBusinessPage,Number(page.dataset.offset||0)).catch(err=>notify(friendly(err),true));};
 $('downloadPlatformAccounts').onclick=downloadPlatformAccountsCsv;
-$('downloadPlatformClients').onclick=e=>downloadPlatformClientsCsv(e.currentTarget).catch(err=>notify(friendly(err),true));$('platformAccounts').onsubmit=async e=>{const form=e.target.closest('[data-platform-owner]');if(!form)return;e.preventDefault();const button=form.querySelector('button[type="submit"]');button.disabled=true;try{await savePlatformAccount(form);}catch(err){notify(friendly(err),true);}finally{button.disabled=false;}};$('startPlatformWhatsApp').onclick=startPlatformWhatsAppSequence;$('nextPlatformWhatsApp').onclick=openNextPlatformWhatsApp;$('platformNoticeType').onchange=renderPlatformAccounts;$('platformNoticeMessage').oninput=renderPlatformAccounts;$('platformAccounts').onclick=e=>{const copyButton=e.target.closest('[data-platform-copy-nfc]');if(copyButton){const u=new URL(location.pathname,location.origin);u.searchParams.set('nfc',copyButton.dataset.platformCopyNfc);copy(u.href);return;}const gift=e.target.closest('.gift-access-button');if(gift){toggleGiftAccess(gift);return;}const button=e.target.closest('.confirm-manual-payment');if(button)confirmManualPayment(button);};document.addEventListener('click',e=>{const button=e.target.closest('[data-billing-method]');if(!button)return;const method=button.dataset.billingMethod;if(method==='mercadopago')startMerchantSubscription(button);else requestManualPayment(button,method);});$('suspendedLogout').onclick=()=>$('logout').click();
+$('downloadPlatformClients').onclick=e=>downloadPlatformClientsCsv(e.currentTarget).catch(err=>notify(friendly(err),true));$('platformAccounts').onsubmit=async e=>{const form=e.target.closest('[data-platform-owner]');if(!form)return;e.preventDefault();const button=form.querySelector('button[type="submit"]');button.disabled=true;try{await savePlatformAccount(form);}catch(err){notify(friendly(err),true);}finally{button.disabled=false;}};$('startPlatformWhatsApp').onclick=startPlatformWhatsAppSequence;$('nextPlatformWhatsApp').onclick=openNextPlatformWhatsApp;$('platformNoticeType').onchange=renderPlatformAccounts;$('platformNoticeMessage').oninput=renderPlatformAccounts;$('platformAccounts').onclick=e=>{const qrOpen=e.target.closest('[data-platform-qr-open]');if(qrOpen){try{openPlatformQr(qrOpen);}catch(err){notify(friendly(err),true);}return;}const qrDownload=e.target.closest('[data-platform-qr-download-svg]');if(qrDownload){try{downloadPlatformQrSvg(qrDownload);}catch(err){notify(friendly(err),true);}return;}const qrClose=e.target.closest('[data-platform-qr-close]');if(qrClose){qrClose.closest('[data-platform-qr-3d]').hidden=true;return;}const copyButton=e.target.closest('[data-platform-copy-nfc]');if(copyButton){const u=new URL(location.pathname,location.origin);u.searchParams.set('nfc',copyButton.dataset.platformCopyNfc);copy(u.href);return;}const gift=e.target.closest('.gift-access-button');if(gift){toggleGiftAccess(gift);return;}const button=e.target.closest('.confirm-manual-payment');if(button)confirmManualPayment(button);};document.addEventListener('click',e=>{const button=e.target.closest('[data-billing-method]');if(!button)return;const method=button.dataset.billingMethod;if(method==='mercadopago')startMerchantSubscription(button);else requestManualPayment(button,method);});$('suspendedLogout').onclick=()=>$('logout').click();
 document.querySelector('.admin-nav').onclick=e=>{const button=e.target.closest('[data-tab]');if(button)setAdminTab(button.dataset.tab);};document.querySelector('.quick-grid').onclick=e=>{const button=e.target.closest('[data-go-tab]');if(button)setAdminTab(button.dataset.goTab,{focus:button.dataset.focus});};
 $('clientDetailsFields').innerHTML=detailFields('client');$('editClientFields').innerHTML=detailFields('editClient');$('cancelClientDetails').onclick=()=>{$('editClientForm').hidden=true;editingClient=null;};bindBusy('editClientForm','submit',async()=>{if(!editingClient)return;await rpc('nfc_update_details',{p_profile:editingClient.profile_id,p_token:editingClient.card_token,...detailValues('editClient')},true);await request('/rest/v1/nfc_clients?id=eq.'+editingClient.id,{method:'PATCH',body:{notes:$('editClientNotes').value.trim()||null}},true);$('editClientForm').hidden=true;editingClient=null;await loadAdmin();notify('Datos del cliente guardados.');});
 
