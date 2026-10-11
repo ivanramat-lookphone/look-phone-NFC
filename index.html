@@ -3807,15 +3807,17 @@ async function loadAdmin(){
   const allClients=await readAll('/rest/v1/nfc_clients?select=*&order=created_at.desc,id');
   clients=allClients.filter(c=>c.profile_id===activeId);
   const ids=new Set(clients.map(c=>c.id));
-  const allEvents=await readAll('/rest/v1/nfc_events?select=id,client_id,kind,sale_amount,attributed_contact_id,created_at&order=created_at.desc,id.desc');
+  const [allEvents,allContacts,allTiers,allCoupons,allRedemptions]=await Promise.all([
+    readAll('/rest/v1/nfc_events?select=id,client_id,kind,sale_amount,attributed_contact_id,created_at&order=created_at.desc,id.desc'),
+    readAll('/rest/v1/nfc_contact_events?select=id,client_id,campaign,message,channel,action,created_at&order=created_at.desc,id.desc'),
+    readAll('/rest/v1/nfc_reward_tiers?select=*&order=points_required.asc,created_at.asc'),
+    readAll('/rest/v1/nfc_coupons?select=*&order=created_at.desc,id.desc'),
+    readAll('/rest/v1/nfc_coupon_redemptions?select=*&order=redeemed_at.desc,id.desc')
+  ]);
   events=allEvents.filter(e=>ids.has(e.client_id));
-  const allContacts=await readAll('/rest/v1/nfc_contact_events?select=id,client_id,campaign,message,channel,action,created_at&order=created_at.desc,id.desc');
   contactEvents=allContacts.filter(e=>ids.has(e.client_id));
-  const allTiers=await readAll('/rest/v1/nfc_reward_tiers?select=*&order=points_required.asc,created_at.asc');
   rewardTiers=allTiers.filter(t=>t.profile_id===activeId);
-  const allCoupons=await readAll('/rest/v1/nfc_coupons?select=*&order=created_at.desc,id.desc');
   coupons=allCoupons.filter(q=>q.profile_id===activeId);
-  const allRedemptions=await readAll('/rest/v1/nfc_coupon_redemptions?select=*&order=redeemed_at.desc,id.desc');
   couponRedemptions=allRedemptions.filter(r=>ids.has(r.client_id));
   $('statClients').textContent=clients.length;
   $('statVisits').textContent=events.filter(event=>event.kind==='visit').length;
@@ -4201,7 +4203,7 @@ async function boot(){const startRoute=new URLSearchParams(location.search),star
  if(invitation){try{await rpc('nfc_staff_accept_invite',{p_token:invitation},true);const nextUrl=new URL(location.href);nextUrl.searchParams.delete('staff_invite');history.replaceState(null,'',nextUrl.href);notify('Invitación aceptada.');}catch(e){$('authMessage').textContent='No pudimos aceptar la invitación: '+friendly(e);view('auth');return;}}
  const staff=await rpc('nfc_staff_context',{},true);
  if(staff?.staff){if(staff.active){await openStaffPanel(staff);return;}view('suspended');$('suspendedBillingStatus').textContent='Tu acceso como empleado está suspendido. Consultá al dueño del comercio.';document.querySelectorAll('#suspended [data-billing-choices]').forEach(el=>el.hidden=true);return;}
- try{await request('/functions/v1/sync-merchant-subscription',{method:'POST',body:{}},true);}catch(error){console.warn('No se pudo sincronizar Mercado Pago:',error?.message||'Error temporal');}const access=await rpc('nfc_platform_access_status',{},true);isPlatformAdmin=!!access?.is_admin;if(new URLSearchParams(location.search).get('platform')==='1'){if(!isPlatformAdmin)throw new Error('No tenés permiso para administrar las cuentas.');await loadPlatform();view('platform');return;}if(!access?.enabled){view('suspended');await loadBilling();return;}await loadAdmin();await loadBilling();}else view('auth');}catch(e){if(new URLSearchParams(location.search).has('nfc')){$('customer').innerHTML='<div class="card"><h1>No pudimos conectar</h1><p>Volvé a intentar en unos momentos o consultá con el comercio.</p><button id="customerRetry">Volver a intentar</button></div>';view('customer');$('customerRetry').onclick=boot;}else if(e.code==='PGRST205'||e.code==='PGRST202'){view('setup');}else{view('auth');notify(friendly(e),true);}}}
+ request('/functions/v1/sync-merchant-subscription',{method:'POST',body:{}},true).catch(error=>console.warn('No se pudo sincronizar Mercado Pago:',error?.message||'Error temporal'));const access=await rpc('nfc_platform_access_status',{},true);isPlatformAdmin=!!access?.is_admin;if(new URLSearchParams(location.search).get('platform')==='1'){if(!isPlatformAdmin)throw new Error('No tenés permiso para administrar las cuentas.');await loadPlatform();view('platform');return;}if(!access?.enabled){view('suspended');await loadBilling();return;}await Promise.all([loadAdmin(),loadBilling()]);}else view('auth');}catch(e){if(new URLSearchParams(location.search).has('nfc')){$('customer').innerHTML='<div class="card"><h1>No pudimos conectar</h1><p>Volvé a intentar en unos momentos o consultá con el comercio.</p><button id="customerRetry">Volver a intentar</button></div>';view('customer');$('customerRetry').onclick=boot;}else if(e.code==='PGRST205'||e.code==='PGRST202'){view('setup');}else{view('auth');notify(friendly(e),true);}}}
 bindBusy('authForm','submit',async()=>{const email=$('authEmail').value.trim(),password=$('authPassword').value;let body={email,password};if(signup&&!new URLSearchParams(location.search).has('staff_invite')){const whatsapp=String($('signupWhatsapp').value||'').replace(/\D/g,'');if(!/^[0-9]{8,20}$/.test(whatsapp))throw new Error('Ingresá un WhatsApp con código de país, entre 8 y 20 dígitos.');body.data={merchant_whatsapp:whatsapp};}const d=await raw(signup?'/auth/v1/signup?redirect_to='+encodeURIComponent(location.origin+location.pathname):'/auth/v1/token?grant_type=password',{method:'POST',body});if(!d.access_token){$('authMessage').textContent='Te enviamos un correo. Confirmalo y después entrá a tu cuenta.';return;}saveSession({...d,expires_at:Math.floor(Date.now()/1000)+d.expires_in});$('authPassword').value='';await boot();});
 function setSignupMode(value){signup=!!value;$('authTitle').textContent=signup?'CREÁ TU CUENTA':'INGRESAR';$('authSubmit').textContent=signup?'Crear cuenta':'Entrar';$('toggleAuth').textContent=signup?'Ya tengo una cuenta':'Crear mi cuenta';$('authPassword').autocomplete=signup?'new-password':'current-password';
  $('authEmail').type='email';$('authEmail').autocomplete='email';
