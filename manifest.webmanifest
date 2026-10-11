@@ -1,12 +1,17 @@
 {
-  "name":"LOOK",
-  "short_name":"LOOK",
-  "start_url":"./?nfc=b6dc14e4-8019-471e-bdbf-e6919558adb8",
-  "scope":"./",
-  "display":"standalone",
-  "background_color":"#f7f9fc",
-  "theme_color":"#ffffff",
-  "icons":[
-    {"src":"assets/look-app-icon.svg?v=2","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  "name": "LOOK",
+  "short_name": "LOOK",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f9fc",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "assets/look-app-icon.svg?v=2",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
   ]
 }
