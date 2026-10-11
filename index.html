@@ -3822,7 +3822,7 @@ async function loadAdmin(){
   $('statPoints').textContent=clients.reduce((sum,client)=>sum+Number(client.points||0),0);
   $('statRedeems').textContent=events.filter(event=>event.kind==='redeem').length;
   const activeProfile=profiles.find(p=>p.id===activeId);
-  applyMerchantTheme(activeProfile);
+  clearMerchantTheme();
   $('statEligible').textContent=clients.filter(client=>Number(client.points)>=Number(activeProfile?.goal||Infinity)).length;
   if($('profileCreateBlock'))$('profileCreateBlock').hidden=profiles.length>0&&!editing;if($('onboardingWizard'))$('onboardingWizard').hidden=profiles.length>0;
   if($('profilesTitle'))$('profilesTitle').textContent=profiles.length>1?'Negocios existentes':'Tu negocio';
